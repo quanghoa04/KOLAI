@@ -42,6 +42,7 @@ Chi tiết: `cong-ty/so-do-to-chuc.md`.
 - `cong-viec/viec-can-lam.md` — danh sách việc; AI Tổng cập nhật sau mỗi buổi
 - `noi-dung/YYYY-tuan-WW/` — gói nội dung từng tuần (kịch bản, caption, prompt)
 - `bao-cao/` — báo cáo số liệu và nhật ký làm việc
+- `skill-observations/`, `skill-updates/` — nhật ký tự cải tiến của skill `task-observer` (thư mục làm việc của skill = thư mục gốc dự án). Bản cập nhật skill chỉ được đề xuất, anh duyệt mới cài.
 
 ## Lệnh nhanh cho anh
 - `/bat-dau` — bắt đầu ngày làm việc
