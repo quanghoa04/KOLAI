@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Chạy tự động mỗi khi anh mở phiên Claude Code trong dự án KOLAI.
 cd "${CLAUDE_PROJECT_DIR:-$(dirname "$0")/../..}" || exit 0
+bash .claude/hooks/dong-bo.sh keo
 echo "=== KOLAI — AI Tổng MINH AN (minhan@kolai.vn) đã sẵn sàng ==="
 echo "Hôm nay: $(date +%d/%m/%Y)"
 echo "--- Việc cần làm ---"

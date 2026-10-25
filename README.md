@@ -19,7 +19,7 @@ claude
 ```
 Lần sau chỉ cần `cd KOLAI && git pull && claude`.
 
-> Điều khiển máy tính ở nhà bằng điện thoại (chạy đủ mọi skill): xem `HUONG-DAN-REMOTE-CONTROL.md`.
+> Điều khiển máy tính ở nhà bằng điện thoại: `HUONG-DAN-REMOTE-CONTROL.md` · Đồng bộ Desktop + Laptop + Điện thoại: `HUONG-DAN-DONG-BO.md`.
 
 ## Lệnh nhanh
 | Lệnh | Việc |

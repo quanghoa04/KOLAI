@@ -3,15 +3,40 @@
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/chao-mung.sh\"" }
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/chao-mung.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/dong-bo.sh\" luu"
+          }
         ]
       }
     ]
   },
   "permissions": {
     "allow": [
-      "Read", "Write", "Edit", "Glob", "Grep", "WebSearch", "WebFetch",
-      "Bash(git status:*)", "Bash(git add:*)", "Bash(git commit:*)", "Bash(git push:*)", "Bash(date:*)", "Bash(mkdir:*)"
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(date:*)",
+      "Bash(mkdir:*)",
+      "Bash(git pull:*)"
     ]
   }
 }

@@ -1,0 +1,12 @@
+# Video/ảnh nặng không đưa lên GitHub — để trong thư mục Google Drive (xem HUONG-DAN-DONG-BO.md)
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.mp3
+*.psd
+media/
+*.local.json
+.DS_Store
+Thumbs.db
