@@ -25,13 +25,15 @@ Kiến thức nền nằm ở `references/cam-nang.md`. **Đọc cẩm nang trư
 ## Thang điểm (100)
 | Tiêu chí | Điểm | Cách chấm |
 |---|---|---|
-| Nhu cầu & đà tăng | 25 | Đã có lượt bán thật; lượt bán 7 ngày tăng mạnh so với tuần trước |
+| Nhu cầu & đà tăng | 30 | **Quan trọng nhất (anh Hòa chốt 25/10/2026): phải có người mua thật.** Đã có lượt bán và đánh giá thật; lượt bán 7 ngày tăng mạnh so với tuần trước |
 | Mức cạnh tranh | 20 | Tổng lượt bán trong vùng 10.000–20.000 được điểm cao nhất; ít kênh affiliate đang bán |
 | Bằng chứng video | 15 | Có kênh nhỏ (< 20.000 follow) mà video gắn giỏ có view gấp nhiều lần follow |
 | Dễ demo, giải quyết vấn đề rõ | 15 | Nhìn hình là hiểu, có khoảnh khắc "wow" trong 3 giây |
-| Hoa hồng & giá | 10 | Mức "Kiếm" mỗi đơn đáng công; giá dễ chốt (ngưỡng cụ thể: anh Hòa quyết, hiện **cần kiểm chứng**) |
+| Giá | 5 | Trong khung **100.000–300.000đ** được đủ điểm. Hoa hồng chỉ ghi lại để tham khảo, **không chấm điểm** (anh Hòa chốt 25/10/2026) |
 | Đánh giá & bình luận | 5 | ≥ 4,5 sao; bình luận hỏi mua, ít chê chất lượng |
 | An toàn pháp lý | 10 | Không phải TPCN, thuốc, mỹ phẩm chưa công bố; không cần nói công dụng y tế |
+
+**Bộ lọc bắt buộc trước khi chấm**: giá bán 100.000–300.000đ và đã có lượt bán thật. Sản phẩm ngoài khung giá hoặc chưa ai mua thì loại, trừ khi anh Hòa yêu cầu riêng.
 
 **≥ 70 điểm**: vào Top. **Sản phẩm > 20.000 lượt bán** chỉ vào Top khi có lợi thế riêng (voucher độc quyền, góc nội dung khác).
 

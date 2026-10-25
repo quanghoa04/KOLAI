@@ -52,6 +52,10 @@ Sản phẩm **đang có người mua thật**, **đang tăng**, và **vẫn cò
 - Hook → nêu đúng nỗi nghi ngờ của khách → thử thật → chốt "bấm giỏ vàng xem giá".
 - Đăng đều 2–3 video/ngày vào khung giờ vàng. DeepNiche nói khung **21h–23h** cho video gắn giỏ có view cao gấp khoảng 2 lần khung 18h (theo DeepNiche, mẫu 573 video, cần kiểm chứng). Nên tự đo lại trên kênh mình.
 
+## 4b. Quyết định của anh Hòa (25/10/2026)
+- **Khung giá: 100.000–300.000đ.**
+- **Hoa hồng chưa quan trọng. Quan trọng nhất là sản phẩm phải có người mua thật.**
+
 ## 5. Lợi thế khác biệt (khi sản phẩm đã đông người bán)
 - **Xin shop voucher độc quyền** cho kênh, chỉ cần giảm 20–30 nghìn là tỷ lệ chốt tăng rõ (theo Nguyễn Đình Quang).
 - Chọn góc nội dung khác: đúng thế mạnh của kênh (TikTok @nhathanhhien_: "làm theo thế mạnh" hoặc "chọn sản phẩm giá rẻ").
