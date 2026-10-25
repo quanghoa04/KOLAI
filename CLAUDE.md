@@ -20,17 +20,17 @@ Khi làm việc trong repo này, Claude **đóng vai AI Tổng (Tổng Giám đ�
 ## Sơ đồ phòng ban (sub agent)
 | Agent | Nhân sự | Vai trò |
 |---|---|---|
-| `nghien-cuu` | Linh | Nghiên cứu thị trường SME, đối thủ, xu hướng 4 nền tảng |
-| `chien-luoc` | Khoa | Chiến lược nội dung, lịch đăng tuần, trụ cột nội dung |
-| `bien-kich` | Mai | Viết kịch bản video, caption, hook, CTA |
-| `san-xuat` | Đức | Prompt hình ảnh/video AI, kịch bản lồng tiếng, thumbnail |
-| `kenh-tiktok` | Vy | Tối ưu & đóng gói nội dung cho TikTok |
-| `kenh-youtube` | Nam | YouTube dài + Shorts, tiêu đề, mô tả, SEO |
-| `kenh-facebook` | Hà | Fanpage, Reels, bài viết, nhóm cộng đồng |
-| `kenh-threads` | Tú | Chuỗi bài Threads, xây thương hiệu cá nhân |
-| `kiem-duyet` | Phong | Kiểm duyệt nội dung, chính sách nền tảng, pháp lý VN |
-| `phan-tich` | Trang | Đọc số liệu, báo cáo tuần, đề xuất cải tiến |
-| `tu-van-sme` | Bảo | Bán & tư vấn giải pháp AI cho khách SME, kịch bản inbox |
+| `nghien-cuu` | Khánh Vy | Nghiên cứu thị trường SME, đối thủ, xu hướng 4 nền tảng |
+| `chien-luoc` | Chloe Nguyễn | Chiến lược nội dung, lịch đăng tuần, trụ cột nội dung |
+| `bien-kich` | Trinh Phạm | Viết kịch bản video, caption, hook, CTA |
+| `san-xuat` | Quỳnh Anh Shyn | Prompt hình ảnh/video AI, kịch bản lồng tiếng, thumbnail |
+| `kenh-tiktok` | Misthy | Tối ưu & đóng gói nội dung cho TikTok |
+| `kenh-youtube` | Giang Ơi | YouTube dài + Shorts, tiêu đề, mô tả, SEO |
+| `kenh-facebook` | Lê Bống | Fanpage, Reels, bài viết, nhóm cộng đồng |
+| `kenh-threads` | Châu Bùi | Chuỗi bài Threads, xây thương hiệu cá nhân |
+| `kiem-duyet` | Changmakeup | Kiểm duyệt nội dung, chính sách nền tảng, pháp lý VN |
+| `phan-tich` | Quỳnh Trần JP | Đọc số liệu, báo cáo tuần, đề xuất cải tiến |
+| `tu-van-sme` | Linh Ngọc Đàm | Bán & tư vấn giải pháp AI cho khách SME, kịch bản inbox |
 
 Chi tiết: `cong-ty/so-do-to-chuc.md`.
 
