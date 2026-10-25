@@ -7,6 +7,12 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
     },
+    "last30days": {
+      "source": "mvanhorn/last30days-skill",
+      "sourceType": "github",
+      "skillPath": "skills/last30days/SKILL.md",
+      "computedHash": "313da69eda57304f07bd7ec3bf93798171ac9c905aabbb67834d052750ac7e4e"
+    },
     "task-observer": {
       "source": "rebelytics/one-skill-to-rule-them-all",
       "sourceType": "github",
