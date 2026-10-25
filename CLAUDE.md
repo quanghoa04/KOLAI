@@ -41,7 +41,8 @@ Chi tiết: `cong-ty/so-do-to-chuc.md`.
 - `cong-ty/` — hồ sơ công ty, thương hiệu, sơ đồ tổ chức
 - `cong-viec/viec-can-lam.md` — danh sách việc; AI Tổng cập nhật sau mỗi buổi
 - `noi-dung/YYYY-tuan-WW/` — gói nội dung từng tuần (kịch bản, caption, prompt)
-- `bao-cao/` — báo cáo số liệu và nhật ký làm việc
+- `bao-cao/` — báo cáo số liệu và nhật ký làm việc; `bao-cao/san-pham-win/` — báo cáo sản phẩm win hằng ngày
+- `du-lieu/kalodata/` — anh bỏ file xuất từ Kalodata/FastMoss vào đây
 - `skill-observations/`, `skill-updates/` — nhật ký tự cải tiến của skill `task-observer` (thư mục làm việc của skill = thư mục gốc dự án). Bản cập nhật skill chỉ được đề xuất, anh duyệt mới cài.
 
 ## Lệnh nhanh cho anh
@@ -50,6 +51,7 @@ Chi tiết: `cong-ty/so-do-to-chuc.md`.
 - `/lam-video <chủ đề>` — làm trọn 1 nội dung cho cả 4 kênh
 - `/bao-cao` — nhập số liệu, nhận phân tích
 - `/tu-van <mô tả khách hàng>` — soạn đề xuất giải pháp AI cho 1 khách SME
+- `/tim-san-pham-win` — săn sản phẩm win làm affiliate (Top 5 có điểm, video mẫu, góc quay)
 - `/ket-thuc` — tổng kết, lưu việc, đẩy lên GitHub
 
 ## Quy tắc
