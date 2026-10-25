@@ -24,6 +24,12 @@
       "sourceType": "github",
       "skillPath": "skills/watch/SKILL.md",
       "computedHash": "cbdb39fea0f90a361e72307a189dab8b1c0bbd7cc2225bb33784ac882b32953c"
+    },
+    "watch-video": {
+      "source": "Newuxtreme/watch-video-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5c8973563808b6cadfba93792f74e5617f2c55f524eb681c7f0e53887b7d75b0"
     }
   }
 }
