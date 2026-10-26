@@ -1,7 +1,9 @@
 #!/bin/bash
 # KOLAI - cài đủ công cụ cho các skill (watch, watch-video, last30days, claude-mem) trên Mac.
 # Bấm đúp để chạy. Chạy lại nhiều lần cũng không sao.
-cd "$HOME/Documents/KOLAI" || exit 1
+# Tự tìm thư mục dự án (thư mục cha của may-tinh/), để ở đâu cũng chạy được.
+cd "$(dirname "$0")/.." || { echo "Không tìm thấy thư mục KOLAI."; read -r -p "Bấm Enter để đóng."; exit 1; }
+echo "Thư mục dự án: $(pwd)"
 
 echo "=== 1/5 Cài Python, FFmpeg, Node.js, yt-dlp, Deno ==="
 if ! command -v brew >/dev/null 2>&1; then

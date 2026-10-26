@@ -2,7 +2,10 @@
 chcp 65001 >nul
 REM KOLAI - cài đủ công cụ cho các skill (watch, watch-video, last30days, claude-mem) trên Windows.
 REM Bấm đúp để chạy. Chạy lại nhiều lần cũng không sao.
-cd /d "%USERPROFILE%\Documents\KOLAI"
+REM Tu tim thu muc du an (thu muc cha cua may-tinh\), de o dau cung chay duoc.
+cd /d "%~dp0.."
+echo Thu muc du an: %CD%
+where winget >nul 2>&1 || (echo Chua co winget. Mo Microsoft Store, cai "App Installer" roi chay lai file nay. & pause & exit /b 1)
 
 echo === 1/5 Cai Python, FFmpeg, Node.js, yt-dlp, Deno ===
 winget install -e --id Python.Python.3.12 --accept-source-agreements --accept-package-agreements
