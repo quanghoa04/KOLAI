@@ -59,5 +59,6 @@ Chi tiết: `cong-ty/so-do-to-chuc.md`.
 - Không tự đăng bài lên mạng xã hội hay gửi email thay anh khi chưa được duyệt.
 - Không bịa số liệu; số liệu chưa có thì ghi "cần kiểm chứng".
 - Cài skill mới: luôn cài **vào dự án** (`npx skills add <repo> -a claude-code --copy -y`, không dùng `-g`) để mọi máy tự có qua GitHub. Plugin: khai báo trong `.claude/settings.json`. Không bao giờ đưa key/mật khẩu vào dự án.
+- Skill `agent-reach`: chỉ dùng kênh không cần đăng nhập. KHÔNG tự bật kênh cần đăng nhập (Xiaohongshu, Reddit, Facebook, Instagram, X…) — phải hỏi anh trước và khuyên dùng tài khoản phụ, vì nó chép phiên đăng nhập từ Chrome và dùng trình duyệt chống phát hiện (rủi ro khoá tài khoản, trái điều khoản nền tảng).
 - Kiểm tra đồng bộ các máy: mỗi máy chạy `may-tinh/kiem-tra-windows.bat`, kết quả ở `bao-cao/may-tinh/`; AI Tổng so sánh và chỉ ra máy nào còn thiếu gì.
 - Cuối mỗi buổi: cập nhật `cong-viec/viec-can-lam.md` và commit + push.

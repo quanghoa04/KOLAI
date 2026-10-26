@@ -20,6 +20,12 @@ echo "=== 3/5 Cài bộ nhớ claude-mem ==="
 claude plugin marketplace add thedotmack/claude-mem
 claude plugin install claude-mem@thedotmack
 
+echo "=== 3b Cài Agent Reach (đọc YouTube, Xiaohongshu, Reddit, web) — chỉ bật kênh mặc định, không đăng nhập ==="
+command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
+uv tool install https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip
+agent-reach setup
+
 echo "=== 4/5 Key Gemini cho skill watch (miễn phí: https://aistudio.google.com/apikey) ==="
 read -r -p "Dán key Gemini rồi bấm Enter (bỏ trống để bỏ qua): " GEMINI
 if [ -n "$GEMINI" ]; then

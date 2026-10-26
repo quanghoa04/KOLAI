@@ -21,6 +21,12 @@ echo === 3/5 Cai bo nho claude-mem ===
 claude plugin marketplace add thedotmack/claude-mem
 claude plugin install claude-mem@thedotmack
 
+echo === 3b Cai Agent Reach (doc YouTube, Xiaohongshu, Reddit, web) - chi bat kenh mac dinh, khong dang nhap ===
+where uv >nul 2>&1 || powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+set "PATH=%USERPROFILE%\.local\bin;%PATH%"
+uv tool install https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip
+agent-reach setup
+
 echo === 4/5 Key Gemini cho skill watch (mien phi: https://aistudio.google.com/apikey) ===
 set "GEMINI="
 set /p GEMINI="Dan key Gemini roi bam Enter (bo trong de bo qua): "
