@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!--NOIDUNG-->
+<title>Trung tâm KOLAI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Bố cục: bàn điều khiển một cột, thanh thẻ dính trên cùng; tóm tắt trước, chi tiết sau; trạng thái luôn có nhãn chữ đi kèm màu. */
+:root{--nen:#f3f5f8;--mat:#ffffff;--muc:#141a24;--nhat:#5a6474;--ke:#dde2ea;--nhan:#1f4fd8;--nhan-nen:#e8eefc;--cot:#2a5bd7;
+  --tot:#12784a;--tot-nen:#e2f4ea;--canh:#9a5b00;--canh-nen:#fdf0d5;--xau:#b3261e;--xau-nen:#fbe6e4;
+  --hien:'Space Grotesk','Segoe UI',system-ui,sans-serif;--than:'Inter','Segoe UI',system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--nen:#0e1218;--mat:#171c25;--muc:#e8ecf2;--nhat:#9aa5b5;--ke:#2a3240;--nhan:#8fb0ff;--nhan-nen:#1c2740;--cot:#6f9bff;
+  --tot:#6fd9a2;--tot-nen:#12301f;--canh:#f2c26b;--canh-nen:#3a2c0d;--xau:#ff9b93;--xau-nen:#3d1815;color-scheme:dark}}
+:root[data-theme="dark"]{--nen:#0e1218;--mat:#171c25;--muc:#e8ecf2;--nhat:#9aa5b5;--ke:#2a3240;--nhan:#8fb0ff;--nhan-nen:#1c2740;--cot:#6f9bff;
+  --tot:#6fd9a2;--tot-nen:#12301f;--canh:#f2c26b;--canh-nen:#3a2c0d;--xau:#ff9b93;--xau-nen:#3d1815;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--nen);color:var(--muc);font:400 15px/1.5 var(--than)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--mat)}
+.w{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--nhan)}button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--nhan);outline-offset:2px}
+h1,h2,h3{font-family:var(--hien);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.dau{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--mat);border-bottom:1px solid var(--ke)}
+.dau .w{display:flex;align-items:center;gap:8px 24px;flex-wrap:wrap;padding-block:12px 0}
+.hieu{font:700 18px/1 var(--hien);padding-bottom:12px}.hieu span{color:var(--nhat);font-weight:500}
+.the{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto;max-width:100%}
+.the a{white-space:nowrap;text-decoration:none;color:var(--nhat);font-weight:500;padding:8px 12px 12px;border-bottom:3px solid transparent}
+.the a[aria-current=page]{color:var(--muc);border-color:var(--nhan)}
+main{padding-block:22px 80px;display:flex;flex-direction:column;gap:20px}
+.bao{background:var(--canh-nen);color:var(--canh);border-radius:10px;padding:12px 14px;display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:14px}
+.bao b{font-weight:600}
+.nut{all:unset;cursor:pointer;box-sizing:border-box;background:var(--nhan);color:var(--mat);font-weight:600;padding:9px 14px;border-radius:8px;font-size:14px;text-align:center}
+.nut.phu{background:transparent;color:var(--muc);box-shadow:inset 0 0 0 1px var(--ke)}.nut.phu:hover{box-shadow:inset 0 0 0 1px var(--nhat)}.nut.do{background:var(--xau-nen);color:var(--xau)}
+.so{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:860px){.so{grid-template-columns:1fr 1fr}}
+.o{background:var(--mat);border:1px solid var(--ke);border-radius:12px;padding:16px;min-width:0}
+.so .o span{color:var(--nhat);font-size:13px;display:block}.so .o b{font:700 clamp(22px,3.2vw,30px)/1.2 var(--hien);display:block;font-variant-numeric:tabular-nums;margin:2px 0}.so .o small{color:var(--nhat)}
+.hai{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px}
+@media(max-width:860px){.hai{grid-template-columns:minmax(0,1fr)}}
+.o h2{font-size:16px;margin-bottom:2px}.o .chu{color:var(--nhat);font-size:13px;margin:0 0 12px}
+.vien{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.vien.tot{background:var(--tot-nen);color:var(--tot)}.vien.canh{background:var(--canh-nen);color:var(--canh)}.vien.xau{background:var(--xau-nen);color:var(--xau)}.vien.tb{background:var(--nhan-nen);color:var(--nhan)}
+.bd{position:relative}.bd svg{display:block;width:100%;height:auto}.bd text{font-family:var(--than);fill:var(--nhat);font-size:11px}
+.bd .cot{fill:var(--cot)}.bd .cot:hover,.bd .cot.dang{opacity:.7}.bd .luoi{stroke:var(--ke)}
+.meo{position:absolute;pointer-events:none;background:var(--muc);color:var(--nen);font-size:12px;padding:6px 9px;border-radius:6px;transform:translate(-50%,-110%);white-space:nowrap;z-index:2}
+.thanh{display:grid;grid-template-columns:minmax(70px,auto) minmax(0,1fr) auto;gap:8px 10px;align-items:center;font-size:13px}
+.thanh i{display:block;height:10px;border-radius:0 4px 4px 0;background:var(--cot);min-width:2px}.thanh b{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.nk{list-style:none;margin:0;padding:0;font-size:14px}.nk li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;padding:9px 0;border-top:1px solid var(--ke);align-items:baseline}.nk li:first-child{border:0}
+.nk time{color:var(--nhat);font-size:12px;white-space:nowrap}.nk span{overflow-wrap:anywhere}
+.webs{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+@media(max-width:420px){.webs{grid-template-columns:minmax(0,1fr)}}
+.web{display:flex;flex-direction:column;gap:12px}
+.web .tren{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.web h3{font-size:19px;display:flex;align-items:center;gap:8px}.web h3 i{width:12px;height:12px;border-radius:3px;flex:none;border:1px solid var(--ke)}
+.web p{margin:0;color:var(--nhat);font-size:13px}
+.ba{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px;color:var(--nhat)}.ba b{display:block;color:var(--muc);font:600 16px/1.3 var(--hien);font-variant-numeric:tabular-nums}
+.web .duoi{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cong{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+.cong i{width:38px;height:22px;border-radius:999px;background:var(--ke);position:relative;transition:background .15s;flex:none}.cong i::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--mat);transition:transform .15s}
+.cong[aria-checked=true] i{background:var(--tot)}.cong[aria-checked=true] i::after{transform:translateX(16px)}
+details.cd{border-top:1px solid var(--ke);padding-top:10px}details.cd summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--nhat)}
+.truong{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--nhat);margin-top:10px}
+.truong input,.truong select,.loc select,.loc input{background:var(--mat);border:1px solid var(--ke);border-radius:8px;padding:9px 10px;color:var(--muc);min-width:0;width:100%}
+.dong2{display:grid;grid-template-columns:2fr 1fr;gap:8px}
+.loc{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.loc select{width:auto}
+.bangw{overflow-x:auto;margin:0 -16px;padding:0 16px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th{text-align:left;color:var(--nhat);font-weight:500;font-size:12px;padding:8px 12px 8px 0;border-bottom:1px solid var(--ke);white-space:nowrap}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--ke);vertical-align:top}td.sor,th.sor{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td small{color:var(--nhat);display:block}td select{background:var(--mat);border:1px solid var(--ke);border-radius:6px;padding:5px 6px;font-size:13px}
+.trong{color:var(--nhat);padding:26px 0;text-align:center}
+.cs{list-style:none;margin:0;padding:0}.cs li{border-top:1px solid var(--ke)}.cs li:first-child{border:0}.cs label{display:flex;gap:10px;padding:10px 0;cursor:pointer;align-items:flex-start}.cs input{margin-top:3px;accent-color:var(--nhan);width:16px;height:16px;flex:none}.cs small{display:block;color:var(--nhat)}
+.qr{background:#fff;padding:8px;border-radius:8px;line-height:0;width:150px;border:1px solid var(--ke)}.qr svg{width:100%;height:auto}
+textarea.csv{width:100%;height:120px;font:12px/1.4 ui-monospace,monospace;background:var(--mat);color:var(--muc);border:1px solid var(--ke);border-radius:8px;margin-top:10px}
+footer{color:var(--nhat);font-size:12px;padding-bottom:40px}
+</style>
+<!--/NOIDUNG-->
+</head>
+<body>
+<!--NOIDUNG-->
+<header class="dau"><div class="w"><div class="hieu">KOLAI <span>· Trung tâm điều hành</span></div>
+  <nav class="the" id="the" aria-label="Các mục"><a href="#tong-quan">Tổng quan</a><a href="#cac-web">Các web</a><a href="#don-hang">Đơn hàng</a><a href="#khach">Khách đăng ký</a><a href="#cai-dat">Cài đặt</a></nav></div></header>
+<main class="w" id="man"></main>
+<footer class="w">KOLAI — 10 web bán hàng dùng chung một lõi và một bảng điều khiển. Bản xem thử, chờ anh Hòa duyệt.</footer>
+<div class="meo" id="meo" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="chung/cau-hinh.js"></script><script src="chung/kolai.js"></script>
+<script>
+(function(){
+var K=KOLAI.KHO,W=KOLAI.CFG.webs,E=KOLAI.esc,vnd=KOLAI.vnd,NGAY=864e5;
+function web(id){return W.filter(function(w){return w.id===id;})[0]||{ten:id,mau:'#888'};}
+function don(){return K.doc('orders',[]);}function khach(){return K.doc('leads',[]);}
+function luot(){var a=K.doc('visits',{}),b=K.doc('visitsMau',{}),o={};W.forEach(function(w){o[w.id]={};[a[w.id]||{},b[w.id]||{}].forEach(function(s){Object.keys(s).forEach(function(d){o[w.id][d]=(o[w.id][d]||0)+s[d];});});});return o;}
+function luot7(id){var l=luot()[id]||{},t=0,i;for(i=0;i<7;i++)t+=l[KOLAI.ngay(new Date(Date.now()-i*NGAY))]||0;return t;}
+function gio(ts){var d=new Date(ts),p=function(n){return ('0'+n).slice(-2);};return p(d.getDate())+'/'+p(d.getMonth()+1)+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function cfg(){var c=K.doc('cfg',{});c.webs=c.webs||{};c.nganHang=c.nganHang||{};return c;}
+function datWeb(id,o){var c=cfg();c.webs[id]=Object.assign({},c.webs[id],o);K.ghi('cfg',c);}
+/* ---------- dữ liệu mẫu (đánh dấu mau:true, xoá được) ---------- */
+var SP={vuot:[['Cọc giữ chỗ — AI tự động hoá doanh nghiệp',2000000],['Cọc giữ chỗ — Dựng kênh KOL AI bán hàng',2000000]],taynghe:[['Skill: Cắt video dài thành short',249000],['Trọn bộ 12 skill Tay Nghề',1290000],['Skill: Soạn báo giá từ tin nhắn khách',199000]],
+ soi:[],minhoi:[['Cốc sứ thiết kế riêng',249000],['Tranh canvas thiết kế riêng',459000],['Áo thun thiết kế riêng',329000]],not:[['Tuyển tập 30 bản dễ cho người mới (PDF)',99000],['Ủng hộ người chép nhạc',50000]],
+ tramai:[['Gói 550.000 credit',500000],['Bot trả lời bình luận Fanpage — 1 tháng',199000]],keso:[['Bot Telegram báo đơn mới',229000],['Bộ 40 template story bán hàng',129000],['Notion quản lý đơn hàng cho shop nhỏ',179000]],
+ coi:[['Robot trợ lý',259000],['Phòng trưng bày sản phẩm',890000]],doi:[['Nạp ví 300.000đ',300000],['Nạp ví 100.000đ',100000]],chenh:[['Chênh Pro — 1 tháng',399000]]};
+var NGUON={vuot:'Đơn ghi danh',taynghe:'Đăng ký bán skill',soi:'Thư thứ Bảy',not:'Nhận sheet: Bài ca niềm vui',tramai:'Muốn bán công cụ trên trạm',keso:'Muốn bán tệp trên Kệ Số',coi:'Muốn mở quầy bán mô hình 3D',doi:'Muốn cho thuê agent',chenh:'Cảnh báo biên ≥ 25%',minhoi:'Theo dõi mẫu mới'};
+function gieo(){var s=7,r=function(){s=(s*16807)%2147483647;return s/2147483647;},now=Date.now(),ds=[],kh=[],vm={},i,p=function(n){return ('0'+n).slice(-2);};
+ var coSp=W.filter(function(w){return SP[w.id].length;});
+ for(i=0;i<34;i++){var w=coSp[Math.floor(r()*coSp.length)],sp=SP[w.id][Math.floor(r()*SP[w.id].length)],tt=r()<.22?'cho':(r()<.55?'da-giao':'da-tt');
+  ds.push({id:'DH'+Math.floor(100000+r()*899999),site:w.id,items:[{id:'mau',ten:sp[0],gia:sp[1],sl:1}],tamTinh:sp[1],giam:0,tong:sp[1],khach:{ten:'Khách mẫu '+p(i+1),sdt:'09000000'+p(i+1),email:'khach'+p(i+1)+'@vi-du.vn'},ts:now-Math.floor(r()*r()*14*NGAY),trangThai:tt,mau:true});}
+ for(i=0;i<22;i++){var w2=W[Math.floor(r()*W.length)];kh.push({site:w2.id,email:'docgia'+p(i+1)+'@vi-du.vn',ten:'',sdt:'',nguon:NGUON[w2.id],ts:now-Math.floor(r()*14*NGAY),mau:true});}
+ W.forEach(function(w3){vm[w3.id]={};for(var d=0;d<14;d++)vm[w3.id][KOLAI.ngay(new Date(now-d*NGAY))]=20+Math.floor(r()*150);});
+ K.ghi('orders',don().concat(ds).sort(function(a,b){return b.ts-a.ts;}));K.ghi('leads',khach().concat(kh).sort(function(a,b){return b.ts-a.ts;}));K.ghi('visitsMau',vm);K.ghi('seeded','co');}
+function xoaMau(){K.ghi('orders',don().filter(function(d){return !d.mau;}));K.ghi('leads',khach().filter(function(d){return !d.mau;}));K.ghi('visitsMau',{});K.ghi('seeded','da-xoa');}
+if(!K.doc('seeded',''))gieo();
+/* ---------- TỔNG QUAN ---------- */
+function nhatKy(){var a=[];don().forEach(function(d){a.push({ts:d.ts,site:d.site,t:'Đơn '+d.id+' · '+d.items.map(function(i){return i.ten;}).join(', '),v:d.tong,mau:d.mau});});
+ khach().forEach(function(l){a.push({ts:l.ts,site:l.site,t:'Đăng ký: '+l.email+(l.nguon?' · '+l.nguon:''),mau:l.mau});});
+ K.doc('events',[]).forEach(function(e){if(e.loai!=='don'&&e.loai!=='lead')a.push({ts:e.ts,site:e.site,t:e.noiDung,v:e.giaTri});});
+ return a.sort(function(x,y){return y.ts-x.ts;}).slice(0,12);}
+function bieuDo(ngay){var Wd=640,H=220,tr=44,ph=8,tren=12,duoi=26,mx=Math.max.apply(null,ngay.map(function(n){return n.v;}).concat([1])),buoc=mx>4e6?2e6:mx>2e6?1e6:mx>8e5?5e5:2e5,dinh=Math.ceil(mx/buoc)*buoc,cw=(Wd-tr-ph)/ngay.length,s='',y,i;
+ for(y=0;y<=dinh;y+=buoc){var py=tren+(H-tren-duoi)*(1-y/dinh);s+='<line class="luoi" x1="'+tr+'" x2="'+(Wd-ph)+'" y1="'+py+'" y2="'+py+'"/><text x="'+(tr-6)+'" y="'+(py+4)+'" text-anchor="end">'+(y?(y/1e6).toLocaleString('vi-VN')+' tr':'0')+'</text>';}
+ ngay.forEach(function(n,i){var h=(H-tren-duoi)*n.v/dinh,x=tr+i*cw+cw*.2,bw=cw*.6,yy=H-duoi-h;
+  if(n.v)s+='<path class="cot" data-i="'+i+'" d="M'+x+' '+(H-duoi)+'V'+(yy+Math.min(4,h))+'q0 -'+Math.min(4,h)+' '+Math.min(4,h)+' -'+Math.min(4,h)+'h'+(bw-2*Math.min(4,h))+'q'+Math.min(4,h)+' 0 '+Math.min(4,h)+' '+Math.min(4,h)+'V'+(H-duoi)+'Z"/>';
+  s+='<rect data-i="'+i+'" x="'+(tr+i*cw)+'" y="'+tren+'" width="'+cw+'" height="'+(H-tren-duoi)+'" fill="transparent"/>';
+  if(i%2===ngay.length%2?false:true)s+='<text x="'+(x+bw/2)+'" y="'+(H-8)+'" text-anchor="middle">'+n.nhan+'</text>';});
+ return '<svg viewBox="0 0 '+Wd+' '+H+'" role="img" aria-label="Giá trị đơn đặt theo ngày, 14 ngày gần nhất">'+s+'</svg>';}
+function tongQuan(){var d=don(),daTt=d.filter(function(x){return x.trangThai!=='cho';}),cho=d.filter(function(x){return x.trangThai==='cho';}),sum=function(a){return a.reduce(function(s,x){return s+x.tong;},0);},l7=0;
+ W.forEach(function(w){l7+=luot7(w.id);});
+ var ngay=[],i;for(i=13;i>=0;i--){var dt=new Date(Date.now()-i*NGAY),k=KOLAI.ngay(dt);ngay.push({k:k,nhan:('0'+dt.getDate()).slice(-2)+'/'+('0'+(dt.getMonth()+1)).slice(-2),v:0,n:0});}
+ d.forEach(function(x){var k=KOLAI.ngay(new Date(x.ts)),o=ngay.filter(function(n){return n.k===k;})[0];if(o){o.v+=x.tong;o.n++;}});
+ var theoWeb=W.map(function(w){return {w:w,v:sum(d.filter(function(x){return x.site===w.id;}))};}).sort(function(a,b){return b.v-a.v;}),mxw=Math.max(theoWeb[0].v,1),coMau=K.doc('seeded','')==='co';
+ var h='<div class="bao"><span><b>Bản xem thử.</b> Số liệu lưu trên trình duyệt này'+(coMau?', đang trộn <b>dữ liệu mẫu</b> để anh thấy bảng khi có khách.':'.')+' Đơn anh đặt thử trên các web sẽ hiện ngay ở đây.</span>'+
+  (coMau?'<button class="nut phu" data-vc="xoa-mau">Xoá dữ liệu mẫu</button>':'<button class="nut phu" data-vc="nap-mau">Nạp dữ liệu mẫu</button>')+'</div>';
+ h+='<section class="so"><div class="o"><span>Doanh thu đã thu</span><b>'+vnd(sum(daTt))+'</b><small>'+daTt.length+' đơn đã thanh toán</small></div>'+
+  '<div class="o"><span>Đơn chờ xác nhận</span><b>'+cho.length+'</b>'+(cho.length?'<a href="#don-hang" class="vien canh" style="text-decoration:none">Cần xử lý · '+vnd(sum(cho))+'</a>':'<span class="vien tot">Không còn đơn chờ</span>')+'</div>'+
+  '<div class="o"><span>Khách đăng ký</span><b>'+khach().length+'</b><small>email thu từ 10 web</small></div><div class="o"><span>Lượt xem 7 ngày</span><b>'+l7.toLocaleString('vi-VN')+'</b><small>cộng tất cả các web</small></div></section>';
+ h+='<section class="hai"><div class="o"><h2>Giá trị đơn đặt theo ngày</h2><p class="chu">14 ngày gần nhất, tính cả đơn chờ xác nhận. Rê chuột hoặc chạm vào cột để xem số.</p><div class="bd" id="bd">'+bieuDo(ngay)+'</div>'+
+  '<details class="cd" style="margin-top:10px"><summary>Xem dạng bảng</summary><div class="bangw"><table style="min-width:0"><thead><tr><th>Ngày</th><th class="sor">Số đơn</th><th class="sor">Giá trị</th></tr></thead><tbody>'+ngay.slice().reverse().map(function(n){return '<tr><td>'+n.nhan+'</td><td class="sor">'+n.n+'</td><td class="sor">'+vnd(n.v)+'</td></tr>';}).join('')+'</tbody></table></div></details></div>'+
+  '<div class="o"><h2>Theo từng web</h2><p class="chu">Tổng giá trị đơn, xếp từ cao xuống.</p><div class="thanh">'+theoWeb.map(function(t){return '<span>'+t.w.ten+'</span><i style="width:'+(t.v/mxw*100).toFixed(1)+'%"></i><b>'+(t.v?vnd(t.v):'—')+'</b>';}).join('')+'</div></div></section>';
+ var nk=nhatKy();h+='<section class="o"><h2>Vừa diễn ra</h2><p class="chu">Đơn mới, khách đăng ký và hoạt động trên các web.</p><ul class="nk">'+(nk.length?nk.map(function(n){return '<li><time>'+gio(n.ts)+'</time><span><b>'+web(n.site).ten+'</b> · '+E(n.t)+(n.mau?' <span class="vien tb">mẫu</span>':'')+'</span><span>'+(n.v?vnd(n.v):'')+'</span></li>';}).join(''):'<li><span></span><span class="trong">Chưa có hoạt động nào. Mở một web và đặt thử một đơn.</span><span></span></li>')+'</ul></section>';
+ man.innerHTML=h;
+ var bd=document.getElementById('bd'),meo=document.getElementById('meo');
+ function hien(e){var r=e.target.closest('[data-i]');if(!r){meo.hidden=true;return;}var n=ngay[+r.dataset.i],q=bd.getBoundingClientRect();meo.textContent=n.nhan+' · '+n.n+' đơn · '+vnd(n.v);meo.hidden=false;meo.style.left=(e.clientX)+'px';meo.style.top=(Math.max(q.top+10,e.clientY-8))+'px';meo.style.position='fixed';}
+ bd.addEventListener('pointermove',hien);bd.addEventListener('pointerdown',hien);bd.addEventListener('pointerleave',function(){meo.hidden=true;});}
+/* ---------- CÁC WEB ---------- */
+function cacWeb(){var d=don(),c=cfg();
+ man.innerHTML='<div><h1 style="font-size:22px">10 web đang quản lý</h1><p class="chu" style="color:var(--nhat);margin:4px 0 0">Gạt công tắc để tạm nghỉ một web. Băng thông báo và mã giảm giá có hiệu lực ngay khi anh mở lại web đó.</p></div><section class="webs">'+W.map(function(w){var wc=c.webs[w.id]||{},dw=d.filter(function(x){return x.site===w.id;}),mo=!wc.tat;
+  return '<article class="o web"><div class="tren"><div><h3><i style="background:'+w.mau+'"></i>'+w.ten+'</h3><p>'+w.moHinh+'</p></div><span class="vien '+(mo?'tot':'xau')+'">'+(mo?'Đang mở':'Tạm nghỉ')+'</span></div><p>'+w.moTa+'</p>'+
+  '<div class="ba"><div><b>'+luot7(w.id).toLocaleString('vi-VN')+'</b>lượt xem 7 ngày</div><div><b>'+dw.length+'</b>đơn</div><div><b>'+(dw.length?vnd(dw.reduce(function(s,x){return s+x.tong;},0)):'—')+'</b>giá trị đơn</div></div>'+
+  '<div class="duoi"><a class="nut" href="'+w.id+'/index.html">Mở web →</a><button class="cong" role="switch" aria-checked="'+mo+'" data-cong="'+w.id+'"><i></i>'+(mo?'Đang mở cho khách':'Đang tạm nghỉ')+'</button></div>'+
+  '<details class="cd"'+(wc.banner||wc.ma?' open':'')+'><summary>Băng thông báo và mã giảm giá</summary><label class="truong">Dòng thông báo trên đầu web<input id="bn-'+w.id+'" value="'+E(wc.banner||'')+'" placeholder="Ví dụ: Miễn phí giao hàng đến hết Chủ nhật"></label>'+
+  '<div class="dong2"><label class="truong">Mã giảm giá<input id="ma-'+w.id+'" value="'+E(wc.ma||'')+'" placeholder="KOLAI10"></label><label class="truong">Giảm (%)<input id="pt-'+w.id+'" type="number" min="0" max="90" value="'+(wc.pt||'')+'" placeholder="10"></label></div>'+
+  '<div style="margin-top:10px"><button class="nut phu" data-luu="'+w.id+'">Lưu cho '+w.ten+'</button></div></details></article>';}).join('')+'</section>';}
+/* ---------- ĐƠN HÀNG ---------- */
+var locWeb='',locTt='',TT={cho:'Chờ xác nhận','da-tt':'Đã thanh toán','da-giao':'Đã giao'};
+function csv(rows){return rows.map(function(r){return r.map(function(c){return '"'+String(c==null?'':c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');}
+function chep(txt,cho){var xong=function(){KOLAI.toast('Đã sao chép. Dán vào Excel hoặc Google Sheet.');},that=function(){var t=document.getElementById(cho);t.hidden=false;t.value=txt;t.focus();t.select();KOLAI.toast('Bôi đen sẵn rồi, anh bấm Ctrl+C để chép');};
+ try{navigator.clipboard.writeText(txt).then(xong,that);}catch(e){that();}}
+function donHang(){var d=don().filter(function(x){return (!locWeb||x.site===locWeb)&&(!locTt||x.trangThai===locTt);});
+ man.innerHTML='<div class="loc"><h1 style="font-size:22px;margin-right:auto">Đơn hàng</h1><select id="lw" aria-label="Lọc theo web"><option value="">Tất cả web</option>'+W.map(function(w){return '<option value="'+w.id+'"'+(locWeb===w.id?' selected':'')+'>'+w.ten+'</option>';}).join('')+'</select>'+
+  '<select id="lt" aria-label="Lọc theo trạng thái"><option value="">Mọi trạng thái</option>'+Object.keys(TT).map(function(k){return '<option value="'+k+'"'+(locTt===k?' selected':'')+'>'+TT[k]+'</option>';}).join('')+'</select><button class="nut phu" data-vc="csv-don">Sao chép ra Excel</button></div>'+
+  '<section class="o">'+(d.length?'<div class="bangw"><table><thead><tr><th>Mã đơn</th><th>Web</th><th>Khách</th><th>Món</th><th class="sor">Tổng</th><th>Lúc</th><th>Trạng thái</th></tr></thead><tbody>'+d.map(function(x){
+   return '<tr><td><b>'+x.id+'</b>'+(x.mau?' <span class="vien tb">mẫu</span>':'')+(x.khachBaoCk?'<small>Khách báo đã chuyển khoản</small>':'')+'</td><td>'+web(x.site).ten+'</td><td>'+E(x.khach.ten)+'<small>'+E(x.khach.sdt)+' · '+E(x.khach.email)+'</small></td><td>'+x.items.map(function(i){return E(i.ten)+(i.sl>1?' × '+i.sl:'')+(i.ghiChu?'<small>'+E(i.ghiChu)+'</small>':'');}).join('<br>')+'</td>'+
+   '<td class="sor"><b>'+vnd(x.tong)+'</b>'+(x.giam?'<small>đã giảm '+vnd(x.giam)+'</small>':'')+'</td><td style="white-space:nowrap">'+gio(x.ts)+'</td><td><select data-tt="'+x.id+'" aria-label="Trạng thái đơn '+x.id+'">'+Object.keys(TT).map(function(k){return '<option value="'+k+'"'+(x.trangThai===k?' selected':'')+'>'+TT[k]+'</option>';}).join('')+'</select></td></tr>';}).join('')+'</tbody></table></div>'
+  :'<p class="trong">Chưa có đơn nào khớp bộ lọc. Mở một web, đặt thử một đơn, rồi quay lại đây.</p>')+'<textarea class="csv" id="csv-don" hidden readonly aria-label="Dữ liệu đơn hàng"></textarea></section>';}
+/* ---------- KHÁCH ĐĂNG KÝ ---------- */
+function khachDk(){var l=khach();
+ man.innerHTML='<div class="loc"><h1 style="font-size:22px;margin-right:auto">Khách đăng ký</h1><button class="nut phu" data-vc="csv-khach">Sao chép danh sách email</button></div><section class="o">'+
+ (l.length?'<div class="bangw"><table><thead><tr><th>Email</th><th>Tên / điện thoại</th><th>Web</th><th>Đăng ký từ</th><th>Lúc</th></tr></thead><tbody>'+l.map(function(x){return '<tr><td>'+E(x.email)+(x.mau?' <span class="vien tb">mẫu</span>':'')+'</td><td>'+E(x.ten||'—')+(x.sdt?'<small>'+E(x.sdt)+'</small>':'')+'</td><td>'+web(x.site).ten+'</td><td>'+E(x.nguon||'—')+'</td><td style="white-space:nowrap">'+gio(x.ts)+'</td></tr>';}).join('')+'</tbody></table></div>'
+ :'<p class="trong">Chưa có ai đăng ký. Email khách để lại ở bất kỳ web nào sẽ về đây.</p>')+'<textarea class="csv" id="csv-khach" hidden readonly aria-label="Danh sách email"></textarea></section>';}
+/* ---------- CÀI ĐẶT ---------- */
+var NH=[['970436','Vietcombank'],['970415','VietinBank'],['970418','BIDV'],['970405','Agribank'],['970407','Techcombank'],['970422','MB Bank'],['970416','ACB'],['970432','VPBank'],['970423','TPBank'],['970403','Sacombank'],['970441','VIB'],['970437','HDBank'],['970443','SHB'],['970426','MSB'],['970448','OCB']];
+var VIEC=[['Duyệt nội dung và giá từng web','Tên, giá, chính sách hoàn tiền hiện đều là bản mẫu em soạn.'],['Nhập tài khoản ngân hàng nhận tiền','Điền ở khung bên trên. Mã QR chuyển khoản sẽ tự hiện ở bước thanh toán.'],['Mua tên miền','Một tên miền cho cả hệ thống hoặc mỗi web một tên miền riêng.'],
+ ['Nối máy chủ lưu đơn','Để đơn của khách từ mọi thiết bị đổ về Trung tâm này. Em đề xuất Supabase hoặc Google Sheet.'],['Nối dò tiền về tự động','Tuỳ chọn. Dịch vụ như SePay hoặc PayOS tự đánh dấu đơn đã thanh toán.'],
+ ['Nối dịch vụ thật cho 4 web cần dữ liệu ngoài','Chênh (nguồn giá các sàn), Cõi (tạo 3D), Trạm AI và Đội (API và agent thật).'],['Trang chính sách và thủ tục pháp lý','Điều khoản, bảo mật, đổi trả; thông báo website bán hàng với Bộ Công Thương (thủ tục cần kiểm chứng trước khi làm).']];
+function veQr(){var c=cfg().nganHang,box=document.getElementById('qrthu');if(!box)return;
+ if(c.bin&&c.soTk&&window.qrcode){var q=window.qrcode(0,'M');q.addData(KOLAI.vietqr(c.bin,c.soTk,10000,'KIEMTRA'));q.make();box.innerHTML='<div class="qr">'+q.createSvgTag({cellSize:4,margin:0,scalable:true})+'</div><p class="chu" style="margin:8px 0 0">Mã thử 10.000đ, nội dung KIEMTRA. Anh quét bằng app ngân hàng xem có ra đúng tên mình không (chưa cần chuyển).</p>';}
+ else box.innerHTML='<p class="chu" style="margin:0">Điền ngân hàng và số tài khoản rồi bấm Lưu, mã QR thử sẽ hiện ở đây.</p>';}
+function caiDat(){var c=cfg(),n=c.nganHang,xong=K.doc('viec',{});
+ man.innerHTML='<h1 style="font-size:22px">Cài đặt</h1><section class="hai"><div class="o"><h2>Tài khoản nhận tiền</h2><p class="chu">Dùng chung cho cả 10 web. Mỗi đơn sinh một mã QR có sẵn số tiền và mã đơn.</p>'+
+  '<label class="truong">Ngân hàng<select id="nh-bin"><option value="">Chọn ngân hàng</option>'+NH.map(function(b){return '<option value="'+b[0]+'"'+(n.bin===b[0]?' selected':'')+'>'+b[1]+'</option>';}).join('')+'</select></label>'+
+  '<label class="truong">Số tài khoản<input id="nh-tk" inputmode="numeric" value="'+E(n.soTk||'')+'"></label><label class="truong">Tên chủ tài khoản (viết hoa không dấu)<input id="nh-chu" value="'+E(n.chuTk||'')+'"></label>'+
+  '<label class="truong">Số Zalo nhận đơn<input id="zalo" inputmode="tel" value="'+E(c.zalo||'')+'"></label><div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button class="nut" data-vc="luu-nh">Lưu</button></div>'+
+  '<p class="chu" style="margin:12px 0 0">Bản xem thử lưu trên trình duyệt này. Khi lên sóng, em ghi thông tin này vào file cấu hình chung để mọi khách đều thấy.</p></div>'+
+  '<div class="o"><h2>Mã QR thử</h2><p class="chu">Kiểm tra trước khi cho khách quét.</p><div id="qrthu"></div></div></section>'+
+  '<section class="o"><h2>Việc cần làm để lên sóng thật</h2><p class="chu">Đánh dấu khi xong. Việc nào cần em làm, anh chỉ cần nhắn tên việc.</p><ul class="cs">'+VIEC.map(function(v,i){return '<li><label><input type="checkbox" data-viec="'+i+'"'+(xong[i]?' checked':'')+'><span>'+v[0]+'<small>'+v[1]+'</small></span></label></li>';}).join('')+'</ul></section>'+
+  '<section class="o"><h2>Dọn dữ liệu</h2><p class="chu">Xoá toàn bộ đơn, khách đăng ký và lượt xem lưu trên trình duyệt này. Không hoàn tác được.</p><button class="nut do" data-vc="xoa-het" id="xoahet">Xoá toàn bộ dữ liệu</button></section>';
+ veQr();}
+/* ---------- điều hướng + thao tác ---------- */
+var man=document.getElementById('man'),MAN={'tong-quan':tongQuan,'cac-web':cacWeb,'don-hang':donHang,'khach':khachDk,'cai-dat':caiDat};
+function ve(){var h=(location.hash||'').slice(1);if(!MAN[h])h='tong-quan';[].forEach.call(document.querySelectorAll('#the a'),function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});document.getElementById('meo').hidden=true;MAN[h]();}
+window.addEventListener('hashchange',function(){ve();window.scrollTo(0,0);});
+window.addEventListener('pageshow',ve);
+document.addEventListener('click',function(e){var b=e.target.closest('[data-vc]'),c=e.target.closest('[data-cong]'),l=e.target.closest('[data-luu]');
+ if(c){var mo=c.getAttribute('aria-checked')==='true';datWeb(c.dataset.cong,{tat:mo});KOLAI.toast(web(c.dataset.cong).ten+(mo?' đã tạm nghỉ':' đã mở lại'));ve();return;}
+ if(l){var id=l.dataset.luu;datWeb(id,{banner:document.getElementById('bn-'+id).value.trim(),ma:document.getElementById('ma-'+id).value.trim().toUpperCase(),pt:Math.min(90,Math.max(0,+document.getElementById('pt-'+id).value||0))});KOLAI.toast('Đã lưu cho '+web(id).ten+'. Mở web để xem.');ve();return;}
+ if(!b)return;var v=b.dataset.vc;
+ if(v==='xoa-mau'){xoaMau();KOLAI.toast('Đã xoá dữ liệu mẫu');ve();}
+ if(v==='nap-mau'){gieo();KOLAI.toast('Đã nạp dữ liệu mẫu');ve();}
+ if(v==='csv-don')chep(csv([['Mã đơn','Web','Khách','Điện thoại','Email','Món','Tổng','Lúc','Trạng thái']].concat(don().map(function(x){return [x.id,web(x.site).ten,x.khach.ten,x.khach.sdt,x.khach.email,x.items.map(function(i){return i.ten+' x'+i.sl;}).join('; '),x.tong,gio(x.ts),TT[x.trangThai]];}))),'csv-don');
+ if(v==='csv-khach')chep(khach().map(function(x){return x.email;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join('\n'),'csv-khach');
+ if(v==='luu-nh'){var cc=cfg(),bin=document.getElementById('nh-bin').value,tk=document.getElementById('nh-tk').value.replace(/\s/g,'');if(bin&&!/^\d{6,19}$/.test(tk)){KOLAI.toast('Số tài khoản chỉ gồm 6–19 chữ số');return;}
+  cc.nganHang={bin:bin,soTk:tk,chuTk:document.getElementById('nh-chu').value.trim().toUpperCase(),tenNh:(NH.filter(function(x){return x[0]===bin;})[0]||[])[1]||''};cc.zalo=document.getElementById('zalo').value.trim();K.ghi('cfg',cc);KOLAI.toast('Đã lưu tài khoản nhận tiền');veQr();}
+ if(v==='xoa-het'){if(b.dataset.chac){['orders','leads','visits','visitsMau','events'].forEach(function(k){K.ghi(k,k==='visits'||k==='visitsMau'?{}:[]);});K.ghi('seeded','da-xoa');KOLAI.toast('Đã xoá toàn bộ dữ liệu');ve();}else{b.dataset.chac=1;b.textContent='Bấm lần nữa để xoá thật';}}});
+document.addEventListener('change',function(e){var t=e.target;
+ if(t.id==='lw'){locWeb=t.value;donHang();}if(t.id==='lt'){locTt=t.value;donHang();}
+ if(t.dataset.tt){var a=don();a.forEach(function(x){if(x.id===t.dataset.tt)x.trangThai=t.value;});K.ghi('orders',a);KOLAI.toast('Đơn '+t.dataset.tt+': '+TT[t.value]);}
+ if(t.dataset.viec){var x=K.doc('viec',{});x[t.dataset.viec]=t.checked;K.ghi('viec',x);}});
+(function(){var s=document.createElement('style');s.textContent='.k-toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--muc);color:var(--nen);padding:11px 16px;border-radius:999px;font:600 14px/1.3 var(--than);z-index:50;opacity:0;transition:all .25s;max-width:calc(100% - 32px);text-align:center;pointer-events:none}.k-toast.mo{opacity:1;transform:translate(-50%,0)}';document.head.appendChild(s);})();
+ve();
+})();
+</script>
+<!--/NOIDUNG-->
+</body>
+</html>

@@ -7,12 +7,20 @@
 - [ ] Bật Claude in Chrome, đăng nhập TikTok → em xem nốt 23 video YouTube + 20 video TikTok, nâng cẩm nang lên bản 2
 - [ ] Đọc báo cáo sản phẩm win đầu tiên (tự chạy 5h47 sáng 26/10, bản chưa có Kalodata)
 
+## Hệ thống web (thư mục `web/`) — cần anh quyết
+- [ ] Xem bản thử 10 web + Trung tâm điều hành, báo em web nào cần sửa tên, giá, nội dung
+- [ ] Anh nói 20 web nhưng danh sách có 10 mô hình + 1 web quản lý: chốt 9 web còn lại (em đã gợi ý trong báo cáo 16/11)
+- [ ] Nhập tài khoản ngân hàng nhận tiền (Trung tâm → Cài đặt) để hiện mã QR thật
+- [ ] Chọn tên miền + nơi lưu đơn (Supabase hoặc Google Sheet) để đơn của khách thật đổ về Trung tâm
+- [ ] Chọn dịch vụ thật cho 4 web cần dữ liệu ngoài: Chênh (nguồn giá), Cõi (tạo 3D), Trạm AI và Đội (API/agent)
+
 ## Đang làm
 - [ ] Đăng ký tên miền kolai.vn + tạo email (hello@, minhan@)
 - [ ] Tạo tài khoản @kolai.vn trên TikTok, YouTube, Facebook (Fanpage), Threads
 - [ ] Chạy `/ke-hoach-tuan` để có gói nội dung tuần đầu tiên
 
 ## Đã xong
+- [x] 16/11: dựng 10 web bán hàng + Trung tâm điều hành (bản xem thử, `web/`), đã chạy thử tự động 27 bước
 - [x] Dựng bộ phòng ban AI (AI Tổng + 11 sub agent)
 - [x] Đổi tên 11 nhân sự sang tên nữ KOL (biệt danh nội bộ)
 - [x] Cài 7 skill: find-skills, claude-mem, ui-ux-pro-max, task-observer, watch, watch-video, last30days

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KỆ SỐ — Sàn sản phẩm số</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Bố cục: kiểu kho lưu trữ — màn hình chia đôi đen/xám sáng, tiêu đề chữ hẹp đậm, thân bài serif; danh mục là một bảng mục lục đánh mã như thẻ thư viện. */
+:root{--den:#050505;--sang:#efefec;--muc:#0a0a0a;--xam:#77756f;--ke:#0a0a0a;
+  --hien:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;--than:'Noto Serif',Georgia,serif;
+  --k-bg:#efefec;--k-fg:#0a0a0a;--k-accent:#050505;--k-on:#efefec;--k-radius:0px;--k-font:var(--than);--k-line:#0a0a0a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--sang);color:var(--muc);font:400 17px/1.32 var(--than)}
+a{color:inherit}:focus-visible{outline:3px solid currentColor;outline-offset:2px}
+h1,h2,h3,.h{font-family:var(--hien);font-weight:800;text-transform:uppercase;line-height:.9;margin:0;letter-spacing:.005em}
+.doi{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:860px){.doi{grid-template-columns:1fr}}
+.trai{background:var(--den);color:var(--sang);padding:14px max(18px,env(safe-area-inset-right,0px)) 26px max(18px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:22px;min-height:min(92vh,860px)}
+@media(max-width:860px){.trai{min-height:0}}
+.logo{font-size:clamp(64px,9vw,128px);display:flex;align-items:baseline;gap:.04em;line-height:1.05;padding-top:.1em}.logo i{font-style:normal;display:inline-block;transform:skewX(-24deg);font-weight:700}
+.trai p{margin:0;font-size:clamp(19px,2.1vw,27px);line-height:1.12;max-width:21em}
+.trai .day{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.so{font:800 clamp(22px,2.6vw,34px)/1 var(--hien)}.trai small{font-size:13px;line-height:1.3;display:block;max-width:22em;color:#bdbbb4}
+.phai{padding:14px max(18px,env(safe-area-inset-right,0px)) 26px max(18px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:18px}
+.phai h2{font-size:clamp(44px,6vw,84px)}
+.phai p{margin:0;font-size:clamp(18px,1.9vw,24px);line-height:1.14}
+.muc a{display:block;font:800 clamp(40px,5.4vw,76px)/.92 var(--hien);text-transform:uppercase;text-decoration:none}.muc a:hover{font-style:italic}
+.muc sup{font:400 14px/1 var(--than);vertical-align:top;margin-left:6px}
+.thanh{position:sticky;top:0;z-index:20;background:var(--sang);border-block:3px solid var(--ke);display:flex;gap:8px 18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px max(18px,env(safe-area-inset-right,0px)) 10px max(18px,env(safe-area-inset-left,0px))}
+.loc{display:flex;gap:4px 14px;flex-wrap:wrap}
+.loc button,.nutchu{all:unset;cursor:pointer;font:800 22px/1 var(--hien);text-transform:uppercase}
+.loc button[aria-pressed=true]{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.nut{all:unset;cursor:pointer;box-sizing:border-box;background:var(--den);color:var(--sang);font:800 20px/1 var(--hien);text-transform:uppercase;padding:10px 16px;text-align:center}
+.nut:hover{background:var(--sang);color:var(--den);box-shadow:inset 0 0 0 3px var(--den)}
+.kho{padding:0 max(18px,env(safe-area-inset-right,0px)) 60px max(18px,env(safe-area-inset-left,0px))}
+details{border-bottom:1px solid var(--ke)}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:80px minmax(0,1fr) 130px 110px 110px;gap:14px;align-items:baseline;padding:14px 0}
+summary::-webkit-details-marker{display:none}
+summary .ma,summary .l,summary .dd{font-size:14px;color:var(--xam)}
+summary .t{font:800 clamp(24px,3vw,38px)/.95 var(--hien);text-transform:uppercase}
+summary .g{font:800 24px/1 var(--hien);text-align:right}
+details[open] summary .t,summary:hover .t{font-style:italic}
+@media(max-width:760px){summary{grid-template-columns:54px minmax(0,1fr) auto}summary .l,summary .dd{display:none}}
+.trong{display:grid;grid-template-columns:80px minmax(0,1fr) minmax(0,340px);gap:14px 30px;padding:4px 0 26px}
+.trong>div:first-child{grid-column:2}
+@media(max-width:760px){.trong{grid-template-columns:1fr}.trong>div:first-child{grid-column:1}}
+.trong p{margin:0 0 10px;max-width:34em}.trong ul{margin:0;padding-left:18px;font-size:15px;color:#3a3935}
+.gp{display:flex;flex-direction:column;gap:8px}
+.gp label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--ke);padding:10px;cursor:pointer;font-size:15px}
+.gp label:has(input:checked){background:var(--den);color:var(--sang)}
+.gp b{font:800 20px/1 var(--hien);margin-left:auto;white-space:nowrap}
+.cuoi{background:var(--den);color:var(--sang)}
+.cuoi .doi>div{padding:34px max(18px,env(safe-area-inset-right,0px)) 44px max(18px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px}
+.cuoi h2{font-size:clamp(40px,5vw,72px)}.cuoi p{margin:0;font-size:19px;max-width:26em}
+.cuoi input{font:400 17px/1.3 var(--than);padding:12px;border:1px solid var(--sang);background:transparent;color:var(--sang);border-radius:0;max-width:420px}
+.cuoi .nut{background:var(--sang);color:var(--den);align-self:flex-start}
+.tu{font-size:15px;border-top:1px solid #444;padding-top:10px}.tu div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #2a2a2a}
+footer{padding:22px max(18px,env(safe-area-inset-right,0px)) 90px max(18px,env(safe-area-inset-left,0px));font-size:13px;color:var(--xam)}
+</style>
+</head>
+<body>
+<div class="doi">
+  <section class="trai"><h1 class="logo">K<i>/</i>SỐ</h1>
+    <p>Kệ Số là sàn bán tệp tin cho người làm việc trên máy tính: mã script, template, preset chỉnh ảnh và ứng dụng tự động hoá nhỏ.</p>
+    <p>Người làm ra tệp làm một lần. Người mua tải về dùng ngay. Sàn giữ 15% mỗi đơn, không thu phí lên kệ.</p>
+    <div class="day"><div><div class="so" id="dem"></div><small>Kệ được bổ sung mỗi sáng thứ Hai. Mọi tệp đều được kiểm tra chạy được trước khi lên kệ.</small></div><button class="nut" style="background:var(--sang);color:var(--den)" data-k-gio>Giỏ (<span data-k-dem>0</span>)</button></div></section>
+  <section class="phai"><h2>Mới lên kệ:<br><span id="moiten"></span></h2><p id="moimo"></p>
+    <p><em>Xếp theo loại</em></p><nav class="muc" id="muc" aria-label="Loại sản phẩm"></nav></section>
+</div>
+<div class="thanh" id="kho"><div class="loc" id="loc" role="group" aria-label="Lọc theo loại"></div><button class="nutchu" id="xep">Xếp: mới nhất</button></div>
+<main class="kho" id="ds"></main>
+<section class="cuoi"><div class="doi">
+  <div><h2>Tủ của tôi</h2><p>Tệp đã mua nằm ở đây. Link tải mở ngay khi shop xác nhận tiền về.</p><div class="tu" id="tu"></div></div>
+  <div><h2>Đem tệp lên kệ</h2><p>Bạn có script, template hay preset đang dùng tốt? Gửi email, sàn hướng dẫn đóng gói và định giá.</p>
+    <input id="b-email" type="email" placeholder="Email của bạn" aria-label="Email"><button class="nut" id="ban">Đăng ký bán</button></div></div></section>
+<footer>© 2026 Kệ Số — thuộc hệ sinh thái KOLAI · Danh mục và giá là bản mẫu chờ duyệt</footer>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'keso'});
+var P=[
+ ['Script lên lịch đăng bài từ Google Sheet','Script','.gs','18 KB',189000,'Điền nội dung và giờ đăng vào bảng tính, script tự đẩy bài lên Fanpage đúng giờ.',['Chạy trên Google Apps Script, không cần máy chủ','Kèm video cài đặt 6 phút','Dùng cổng kết nối chính thức của Facebook']],
+ ['Script gộp và làm sạch file Excel đơn hàng','Script','.py','9 KB',149000,'Gộp file xuất từ nhiều sàn thành một bảng, bỏ dòng trùng, chuẩn hoá số điện thoại.',['Hỗ trợ file Shopee, TikTok Shop, Lazada','Chạy bằng một lệnh','Có file mẫu để thử']],
+ ['Bộ 40 template story bán hàng','Template','Canva','link','129000','Bốn mươi khung story dọc cho ra mắt, giảm giá, phản hồi khách và hậu trường.',['Sửa trực tiếp trên Canva bản miễn phí','Đổi màu thương hiệu trong một lần bấm']],
+ ['Template báo giá và hợp đồng dịch vụ','Template','.docx','240 KB',99000,'Bộ ba văn bản: báo giá một trang, hợp đồng dịch vụ, biên bản nghiệm thu.',['Có chú thích chỗ cần điền','Nên nhờ luật sư rà lại trước khi dùng cho hợp đồng lớn']],
+ ['Bộ slide gọi vốn 24 trang','Template','.pptx','3,1 MB',159000,'Khung trình bày đủ các phần nhà đầu tư thường hỏi, mỗi trang một ý.',['Kèm bản Google Slides','Có trang ghi chú cách nói']],
+ ['Preset Lightroom Nắng Sài Gòn 12 màu','Preset','.xmp · .dng','1,4 MB',119000,'Mười hai tông màu ấm cho ảnh đường phố và ảnh quán cà phê.',['Dùng được trên điện thoại và máy tính','Kèm ảnh trước và sau']],
+ ['Bộ màu video món ăn','Preset','.cube','620 KB',139000,'Tám bảng màu làm món ăn trông tươi và ấm, dùng cho CapCut, Premiere, DaVinci.',['Kèm hướng dẫn nạp trên từng phần mềm']],
+ ['Notion quản lý đơn hàng cho shop nhỏ','Template','Notion','link',179000,'Một không gian gồm đơn hàng, khách, tồn kho và việc cần làm trong ngày.',['Nhân bản về tài khoản của bạn','Có bảng tổng hợp doanh thu tuần']],
+ ['Ứng dụng đổi tên ảnh hàng loạt','Ứng dụng','Windows · Mac','22 MB',99000,'Kéo thả cả thư mục, đặt quy tắc tên theo mã sản phẩm, xong trong vài giây.',['Chạy không cần mạng','Xem trước tên mới rồi mới đổi']],
+ ['Bot Telegram báo đơn mới','Script','.js','14 KB',229000,'Mỗi đơn mới trên web là một tin nhắn về nhóm Telegram của shop.',['Triển khai miễn phí trên Cloudflare Workers','Kèm hướng dẫn tạo bot']],
+ ['Bộ 200 biểu tượng nét mảnh','Template','.svg','780 KB',89000,'Biểu tượng cho web và slide, nét đều 1,5 điểm, đổi màu được.',['Kèm file Figma']],
+ ['Bảng tính lãi lỗ theo từng sản phẩm','Template','.xlsx','96 KB',79000,'Nhập giá vốn, phí sàn, phí quảng cáo. Bảng chỉ ra món nào đang lỗ.',['Có sẵn công thức phí các sàn, cần cập nhật theo biểu phí hiện hành']]
+].map(function(a,i){return {id:'k'+('00'+(i+1)).slice(-3),ma:'K-'+('00'+(i+1)).slice(-3),ten:a[0],loai:a[1],dd:a[2],nang:a[3],gia:+a[4],mo:a[5],diem:a[6],tt:i};});
+var loai='Tất cả',xep=0,XEP=['mới nhất','giá thấp trước','giá cao trước'];
+var LOAI=['Script','Template','Preset','Ứng dụng'];
+function soLoai(l){return P.filter(function(p){return p.loai===l;}).length;}
+document.getElementById('dem').textContent=P.length+' tệp trên kệ';
+var moi=P[P.length-3];document.getElementById('moiten').textContent=moi.ten;document.getElementById('moimo').textContent=moi.mo+' Giá '+KOLAI.vnd(moi.gia)+'.';
+document.getElementById('muc').innerHTML=LOAI.map(function(l){return '<a href="#kho" data-l="'+l+'">'+l+'<sup>('+soLoai(l)+')</sup></a>';}).join('');
+function ve(){document.getElementById('loc').innerHTML=['Tất cả'].concat(LOAI).map(function(l){return '<button aria-pressed="'+(l===loai)+'" data-l="'+l+'">'+l+'</button>';}).join('');
+ var a=P.filter(function(p){return loai==='Tất cả'||p.loai===loai;}).sort(function(x,y){return xep===0?y.tt-x.tt:xep===1?x.gia-y.gia:y.gia-x.gia;});
+ document.getElementById('ds').innerHTML=a.map(function(p){return '<details id="'+p.id+'"><summary><span class="ma">'+p.ma+'</span><span class="t">'+p.ten+'</span><span class="l">'+p.loai+'</span><span class="dd">'+p.dd+'</span><span class="g">'+KOLAI.vnd(p.gia)+'</span></summary>'+
+  '<div class="trong"><div><p>'+p.mo+'</p><ul>'+p.diem.map(function(d){return '<li>'+d+'</li>';}).join('')+'<li>Định dạng '+p.dd+' · dung lượng '+p.nang+'</li></ul></div>'+
+  '<div class="gp"><label><input type="radio" name="gp-'+p.id+'" value="1" checked><span>Giấy phép cá nhân<br><small>Dùng cho 1 người, không bán lại</small></span><b>'+KOLAI.vnd(p.gia)+'</b></label>'+
+  '<label><input type="radio" name="gp-'+p.id+'" value="2.5"><span>Giấy phép thương mại<br><small>Dùng cho khách hàng và cả nhóm</small></span><b>'+KOLAI.vnd(p.gia*2.5)+'</b></label>'+
+  '<button class="nut" data-them="'+p.id+'">Thêm vào giỏ</button></div></div></details>';}).join('');
+ document.getElementById('xep').textContent='Xếp: '+XEP[xep];}
+ve();
+document.addEventListener('click',function(e){var l=e.target.closest('[data-l]');if(l){loai=l.dataset.l;ve();return;}
+ var t=e.target.closest('[data-them]');if(t){var p=P.filter(function(x){return x.id===t.dataset.them;})[0],hs=+document.querySelector('input[name="gp-'+p.id+'"]:checked').value;
+  KOLAI.gio.them({id:p.id+(hs>1?'-tm':''),ten:p.ten,gia:p.gia*hs,ghiChu:p.ma+' · giấy phép '+(hs>1?'thương mại':'cá nhân')});}});
+document.getElementById('xep').onclick=function(){xep=(xep+1)%3;ve();};
+function veTu(){var d=KOLAI.KHO.doc('orders',[]).filter(function(o){return o.site==='keso';}),h='';
+ d.forEach(function(o){o.items.forEach(function(i){h+='<div><span>'+KOLAI.esc(i.ten)+' <small>('+o.id+')</small></span><span>'+(o.trangThai==='cho'?'Chờ xác nhận':'Tải về ↓')+'</span></div>';});});
+ document.getElementById('tu').innerHTML=h||'<p style="font-size:15px;color:#bdbbb4;margin:6px 0 0">Tủ đang trống. Đơn bạn đặt trên trình duyệt này sẽ hiện ở đây.</p>';}
+veTu();document.addEventListener('kolai:don',veTu);
+document.getElementById('ban').onclick=function(){if(KOLAI.lead({email:document.getElementById('b-email').value,nguon:'Muốn bán tệp trên Kệ Số'})){document.getElementById('b-email').value='';KOLAI.toast('Đã nhận. Sàn gửi hướng dẫn đóng gói qua email.');}};
+</script>
+</body></html>

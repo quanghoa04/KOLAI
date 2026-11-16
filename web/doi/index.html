@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ĐỘI — Chợ thuê AI Agent tự hành</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Be+Vietnam+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Bố cục: kiểu chủ đầu tư bất động sản — ảnh bìa tràn màn hình là mặt tiền toà nhà lúc chạng vạng (mỗi ô cửa sáng đèn là một agent đang làm việc), tên thương hiệu kéo giãn hết chiều ngang; mỗi agent bày như một căn hộ có mã căn và bảng thông số. */
+:root{--dem:#0b1220;--giay:#f6f5f1;--muc:#11151c;--nhat:#6c7078;--ke:#d9d7cf;--den:#f2a93b;--xanh:#1f7a4d;--do:#b3402e;
+  --hien:'Unbounded','Arial Black',sans-serif;--than:'Be Vietnam Pro',system-ui,sans-serif;--ma:'JetBrains Mono',ui-monospace,monospace;
+  --k-bg:#f6f5f1;--k-fg:#11151c;--k-accent:#11151c;--k-on:#f6f5f1;--k-radius:999px;--k-font:var(--than)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--giay);color:var(--muc);font:400 16px/1.55 var(--than)}
+.w{max-width:1300px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+a{color:inherit}button{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--den);outline-offset:3px}
+.bia{position:relative;background:var(--dem);color:#fff;min-height:min(90vh,780px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;isolation:isolate}
+.bia canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.bia::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,18,32,.5) 0%,rgba(11,18,32,0) 30%,rgba(11,18,32,.25) 60%,rgba(11,18,32,.92) 100%)}
+.ten{font:800 clamp(52px,17.5vw,270px)/1.22 var(--hien);letter-spacing:-.02em;margin:0;padding-top:8px;display:flex;justify-content:space-between}
+.day{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding-block:30px}
+.day h1{font:500 clamp(30px,4.6vw,60px)/1.06 var(--than);letter-spacing:-.03em;margin:0}
+.pill{all:unset;cursor:pointer;box-sizing:border-box;border-radius:999px;padding:11px 20px;font-size:14px;font-weight:500;background:#fff;color:var(--muc);text-align:center}
+.pill.mo{background:rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(6px)}.pill.toi{background:var(--muc);color:#fff}.pill:hover{background:var(--den);color:var(--muc)}
+.pill[disabled]{opacity:.5;pointer-events:none}
+.hang{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.khoi{padding-block:70px 20px}
+.dau{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px;border-top:1px solid var(--muc);padding-top:16px}
+h2{font:600 clamp(24px,3.4vw,44px)/1.05 var(--hien);margin:0;letter-spacing:-.02em;max-width:14em;text-wrap:balance}
+.nho{font:400 12px/1.4 var(--ma);text-transform:uppercase;letter-spacing:.08em;color:var(--nhat)}
+.loc button{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;font-size:14px;border:1px solid var(--ke)}.loc button[aria-pressed=true]{background:var(--muc);color:#fff;border-color:var(--muc)}
+.luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:0;border-left:1px solid var(--ke);border-top:1px solid var(--ke)}
+.can{border-right:1px solid var(--ke);border-bottom:1px solid var(--ke);padding:22px;display:flex;flex-direction:column;gap:12px;background:var(--giay);transition:background .2s}
+.can:hover{background:#fff}
+.can .ma{display:flex;justify-content:space-between;align-items:baseline}.can .ma b{font:800 34px/1 var(--hien);letter-spacing:-.03em}
+.can h3{font:600 20px/1.2 var(--than);margin:0;letter-spacing:-.01em}.can p{margin:0;color:var(--nhat);font-size:14px}
+.can dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:0;font-size:13px}.can dt,.can dd{margin:0;padding:8px 0;border-top:1px solid var(--ke)}.can dt{color:var(--nhat);padding-right:14px}.can dd{text-align:right;font-weight:500}
+.can .gia{font:600 20px/1 var(--hien);margin-top:auto;padding-top:6px}.can .gia small{font:400 12px/1 var(--than);color:var(--nhat)}
+.ba{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px}
+.ba b{font:600 18px/1.2 var(--hien);display:block;margin:10px 0 8px}.ba p{margin:0;color:var(--nhat)}.ba i{font:400 12px/1 var(--ma);font-style:normal;color:var(--nhat)}
+.vi{background:var(--dem);color:#fff;border-radius:18px;padding:30px;display:grid;grid-template-columns:1fr 1.2fr;gap:30px}
+@media(max-width:820px){.vi{grid-template-columns:1fr}}
+.vi .so{font:800 clamp(34px,5vw,58px)/1 var(--hien);letter-spacing:-.03em;margin:8px 0 18px}
+.nk{font:400 13px/1.5 var(--ma);max-height:230px;overflow:auto;border-top:1px solid rgba(255,255,255,.2)}
+.nk div{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12)}.nk .ok{color:#7be0a4}.nk .ko{color:#ffb4a6}
+.chu form{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.chu input{font:inherit;padding:12px 18px;border-radius:999px;border:1px solid var(--ke);background:#fff;min-width:min(300px,100%);flex:1}
+footer{padding-block:40px 90px;color:var(--nhat);font-size:13px}
+.log{font:400 13px/1.6 var(--ma);background:#11151c;color:#d7dbe2;border-radius:10px;padding:14px;min-height:150px;white-space:pre-wrap}
+.log .ok{color:#7be0a4}.log .ko{color:#ffb4a6}.log .mo{color:#8b93a1}
+</style>
+</head>
+<body>
+<section class="bia"><canvas id="toa" aria-hidden="true"></canvas>
+  <div class="w"><p class="ten" aria-label="ĐỘI"><span>Đ</span><span>Ộ</span><span>I</span></p></div>
+  <div class="w day"><h1>Agent thật.<br>Việc thật.<br>Xong mới trả tiền.</h1>
+    <div class="hang"><a class="pill mo" href="#vi" style="text-decoration:none">Ví: <span data-vi>0đ</span></a><a class="pill mo" href="#cach" style="text-decoration:none">Cách tính phí</a><a class="pill" href="#thue" style="text-decoration:none">Xem agent đang cho thuê</a></div></div></section>
+
+<section class="w khoi" id="thue"><div class="dau"><h2>Đang cho thuê</h2><div class="hang loc" id="loc" role="group" aria-label="Lọc theo nhóm việc"></div></div><div class="luoi" id="luoi"></div></section>
+
+<section class="w khoi" id="cach"><div class="dau"><h2>Chỉ tính phí lượt chạy thành công</h2><span class="nho">Không phí thuê bao · không phí khởi tạo</span></div>
+  <div class="ba"><div><i>BƯỚC 1</i><b>Nạp ví</b><p>Nạp từ 100.000đ bằng mã QR. Tiền chưa dùng rút lại được bất cứ lúc nào.</p></div>
+   <div><i>BƯỚC 2</i><b>Giao việc</b><p>Chọn agent, đưa thông tin đầu vào. Agent tự làm và ghi lại từng bước để bạn kiểm tra.</p></div>
+   <div><i>BƯỚC 3</i><b>Xong mới trừ tiền</b><p>Mỗi agent ghi rõ thế nào là "xong". Không đạt điều kiện đó thì lượt chạy không mất phí.</p></div></div></section>
+
+<section class="w khoi" id="vi"><div class="vi"><div><span class="nho" style="color:#aab1bd">Số dư ví</span><div class="so" data-vi>0đ</div>
+    <div class="hang"><button class="pill" data-nap="100000">Nạp 100.000đ</button><button class="pill" data-nap="300000">Nạp 300.000đ</button><button class="pill" data-nap="1000000">Nạp 1.000.000đ</button></div>
+    <p style="font-size:13px;color:#aab1bd;margin:16px 0 0">Tài khoản mới được tặng 30.000đ để chạy thử.</p></div>
+   <div><span class="nho" style="color:#aab1bd">Nhật ký chạy</span><div class="nk" id="nk"></div></div></div></section>
+
+<section class="w khoi chu"><div class="dau"><h2>Bạn dựng được agent? Đem cho thuê</h2><span class="nho">Bạn nhận 70% mỗi lượt chạy thành công</span></div>
+  <p style="max-width:620px;margin:0;color:var(--nhat)">Đội lo hạ tầng chạy, đo lượt, thu tiền và hỗ trợ khách. Bạn tập trung làm cho agent giỏi một việc.</p>
+  <form id="fchu" novalidate><input id="c-email" type="email" placeholder="Email của bạn" aria-label="Email"><button class="pill toi" type="submit">Đăng ký cho thuê agent</button></form></section>
+<footer><div class="w">© 2026 Đội — thuộc hệ sinh thái KOLAI · Danh sách agent, giá và kết quả chạy thử trên trang là bản mô phỏng chờ duyệt. Agent giấy tờ thuế chỉ soạn nháp, người dùng tự kiểm tra và tự nộp.</div></footer>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'doi'});
+var K=KOLAI.KHO;
+var A=[
+ ['Điền tờ khai thuế hộ kinh doanh','Giấy tờ',15000,'tờ khai soạn xong','Bảng doanh thu quý (dán hoặc mô tả)','Doanh thu quý 3: 182 triệu, bán lẻ quần áo','Tờ khai nháp đủ các chỉ tiêu, bạn duyệt rồi tự nộp',['Đọc bảng doanh thu','Xác định nhóm ngành và thuế suất','Điền các chỉ tiêu tờ khai','Kiểm tra chéo số liệu'],'Số liệu đầu vào thiếu tháng nên chưa soạn được tờ khai'],
+ ['Săn vé máy bay giá rẻ','Du lịch',9000,'lần tìm được vé dưới ngưỡng','Chặng bay, ngày đi, giá tối đa','Sài Gòn – Đà Nẵng, 20/12, dưới 900 nghìn','Vé đúng chặng, đúng ngày, giá dưới ngưỡng bạn đặt',['Quét giá các hãng','So giờ bay và hành lý','Kiểm tra giá cuối sau thuế phí','Giữ link đặt vé'],'Không có vé nào dưới ngưỡng giá trong ngày bạn chọn'],
+ ['Chăm khách TikTok Shop','Bán hàng',500,'hội thoại xử lý xong','Câu hỏi của khách','Áo này có size XL không shop, ship Huế mấy ngày?','Khách nhận câu trả lời đúng theo dữ liệu shop và không cần người thật vào',['Đọc câu hỏi','Tra tồn kho và chính sách giao hàng','Soạn câu trả lời theo giọng shop','Gửi và gắn nhãn hội thoại'],'Câu hỏi nằm ngoài dữ liệu shop nên đã chuyển cho người thật'],
+ ['Đối soát đơn nhiều sàn','Bán hàng',2000,'100 đơn đối soát xong','File đơn hàng các sàn','3 file xuất từ Shopee, TikTok Shop, Lazada tháng 10','Bảng đơn lệch tiền, đơn hoàn và đơn chưa thanh toán',['Đọc và chuẩn hoá 3 file','Khớp mã đơn với sao kê','Đánh dấu đơn lệch','Xuất bảng tổng hợp'],'File thiếu cột mã đơn nên không khớp được'],
+ ['Đặt lịch hẹn qua Zalo','Chăm khách',1500,'lịch hẹn được chốt','Tin nhắn của khách','Em muốn đặt lịch gội đầu chiều thứ Bảy','Khách chốt một khung giờ và lịch được ghi vào sổ',['Đọc yêu cầu','Tra khung giờ còn trống','Đề xuất 2 khung giờ','Ghi lịch và gửi nhắc hẹn'],'Khách chưa chọn khung giờ nào'],
+ ['Theo dõi giá đối thủ','Bán hàng',3000,'báo cáo có thay đổi giá','Danh sách sản phẩm cần theo dõi','5 mẫu nồi chiên không dầu của 3 shop','Báo cáo nêu rõ món nào đổi giá, đổi bao nhiêu',['Mở trang sản phẩm công khai','Ghi giá và khuyến mãi','So với lần trước','Soạn báo cáo'],'Giá không đổi so với lần trước nên không tính phí'],
+ ['Soạn và gửi hoá đơn','Giấy tờ',1000,'hoá đơn gửi tới khách','Thông tin đơn hàng','Công ty An Phát, 20 hộp mực, 4,2 triệu','Hoá đơn nháp đúng mẫu, đã gửi email cho khách',['Đọc thông tin đơn','Điền mẫu hoá đơn','Kiểm tra mã số thuế','Gửi email kèm file'],'Mã số thuế của khách không hợp lệ'],
+ ['Lọc hồ sơ ứng viên','Nhân sự',2500,'hồ sơ đạt tiêu chí','Mô tả vị trí và hồ sơ','Tuyển nhân viên chăm khách, cần 1 năm kinh nghiệm','Hồ sơ đạt đủ tiêu chí kèm tóm tắt 5 dòng',['Đọc mô tả vị trí','Đọc hồ sơ','Chấm theo từng tiêu chí','Viết tóm tắt'],'Hồ sơ không đạt tiêu chí bắt buộc'],
+ ['Trả lời đánh giá Google Maps','Chăm khách',800,'đánh giá được trả lời','Nội dung đánh giá','Quán ngon nhưng chờ món hơi lâu','Câu trả lời lịch sự, đúng sự việc, đã đăng',['Đọc đánh giá','Xác định khen hay chê','Soạn trả lời theo giọng quán','Đăng trả lời'],'Đánh giá có nội dung nhạy cảm, đã chuyển cho chủ quán'],
+ ['Gom tin ngành mỗi sáng','Văn phòng',2000,'bản tin gửi đi','Ngành và nguồn tin','Ngành cà phê, 6 trang tin trong nước','Bản tin 5 mục có nguồn, gửi trước 7 giờ',['Đọc các nguồn tin','Chọn 5 tin đáng chú ý','Tóm tắt từng tin','Gửi bản tin'],'Hôm nay các nguồn chưa có tin mới']
+].map(function(a,i){return {id:'a'+i,ma:'A-'+('0'+(i+1)).slice(-2),ten:a[0],nhom:a[1],gia:a[2],dv:a[3],vaoNhan:a[4],vaoMau:a[5],xong:a[6],buoc:a[7],hong:a[8]};});
+var nhom='Tất cả';
+function vi(){return K.doc('doi.vi',30000);}
+function veVi(){[].forEach.call(document.querySelectorAll('[data-vi]'),function(e){e.textContent=KOLAI.vnd(vi());});
+ var nk=K.doc('doi.nk',[]);document.getElementById('nk').innerHTML=nk.length?nk.map(function(n){return '<div><span>'+KOLAI.esc(n.ten)+'</span><span class="'+(n.ok?'ok':'ko')+'">'+(n.ok?'−'+KOLAI.vnd(n.gia):'0đ · không đạt')+'</span></div>';}).join(''):'<div><span style="color:#aab1bd">Chưa có lượt chạy nào. Chọn một agent ở trên để chạy thử.</span></div>';}
+function ve(){var ds=['Tất cả'].concat(A.map(function(a){return a.nhom;}).filter(function(v,i,x){return x.indexOf(v)===i;}));
+ document.getElementById('loc').innerHTML=ds.map(function(n){return '<button aria-pressed="'+(n===nhom)+'" data-n="'+n+'">'+n+'</button>';}).join('');
+ document.getElementById('luoi').innerHTML=A.filter(function(a){return nhom==='Tất cả'||a.nhom===nhom;}).map(function(a){return '<article class="can"><div class="ma"><b>'+a.ma+'</b><span class="nho">'+a.nhom+'</span></div><h3>'+a.ten+'</h3>'+
+  '<dl><dt>Tính là xong khi</dt><dd>'+a.xong+'</dd><dt>Bạn đưa vào</dt><dd>'+a.vaoNhan+'</dd></dl>'+
+  '<div class="gia">'+KOLAI.vnd(a.gia)+' <small>/ '+a.dv+'</small></div><button class="pill toi" data-chay="'+a.id+'">Giao việc thử</button></article>';}).join('');}
+ve();veVi();
+document.getElementById('loc').onclick=function(e){var b=e.target.closest('button');if(b){nhom=b.dataset.n;ve();}};
+function chay(a){var ov=KOLAI.mo('<div class="k-hd"><span>'+a.ma+' · '+a.ten+'</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd">'+
+  '<label class="k-lb">'+a.vaoNhan+'<input class="k-in" id="vao" value="'+KOLAI.esc(a.vaoMau)+'"></label><p class="k-note">Tính phí '+KOLAI.vnd(a.gia)+' khi: '+a.xong+'. Không đạt thì không trừ tiền.</p><div class="log" id="log"><span class="mo">Chờ giao việc…</span></div></div>'+
+  '<div class="k-ft"><button class="k-btn" id="go">Giao việc</button></div>',true);
+ var log=ov.querySelector('#log'),go=ov.querySelector('#go');
+ go.onclick=function(){if(go.dataset.xong){KOLAI.dong();return;}if(vi()<a.gia){log.innerHTML='<span class="ko">Ví không đủ '+KOLAI.vnd(a.gia)+'. Nạp thêm ở mục Ví rồi quay lại.</span>';return;}
+  if(!ov.querySelector('#vao').value.trim()){log.innerHTML='<span class="ko">Bạn điền thông tin đầu vào trước đã.</span>';return;}
+  go.setAttribute('disabled','');go.style.opacity=.5;log.innerHTML='';var i=0,ok=Math.random()<0.78;
+  (function buoc(){if(!log.isConnected)return;if(i<a.buoc.length){log.innerHTML+='<span class="mo">['+(i+1)+'/'+a.buoc.length+']</span> '+a.buoc[i]+'…\n';i++;setTimeout(buoc,650);return;}
+   var nk=K.doc('doi.nk',[]);nk.unshift({ten:a.ma+' '+a.ten,ok:ok,gia:a.gia,ts:Date.now()});K.ghi('doi.nk',nk.slice(0,40));
+   if(ok){K.ghi('doi.vi',vi()-a.gia);log.innerHTML+='<span class="ok">✓ Đạt: '+a.xong+'.\nĐã trừ '+KOLAI.vnd(a.gia)+' trong ví.</span>\n<span class="mo">(kết quả mô phỏng)</span>';KOLAI.suKien('chay','Agent chạy thành công: '+a.ten,a.gia);}
+   else{log.innerHTML+='<span class="ko">✗ Không đạt: '+a.hong+'.\nLượt này không tính phí.</span>\n<span class="mo">(kết quả mô phỏng)</span>';KOLAI.suKien('chay','Agent chạy không đạt (0đ): '+a.ten,0);}
+   veVi();go.removeAttribute('disabled');go.style.opacity=1;go.textContent='Đóng';go.dataset.xong=1;})();};}
+document.addEventListener('click',function(e){var c=e.target.closest('[data-chay]');if(c){chay(A.filter(function(a){return a.id===c.dataset.chay;})[0]);return;}
+ var n=e.target.closest('[data-nap]');if(n){var t=+n.dataset.nap;KOLAI.datHang({tieuDe:'Nạp ví Đội',nut:'Nạp '+KOLAI.vnd(t),items:[{id:'nap-'+t,ten:'Nạp ví '+KOLAI.vnd(t),gia:t,sl:1}],xong:function(){K.ghi('doi.vi',vi()+t);veVi();KOLAI.toast('Bản xem thử: đã cộng '+KOLAI.vnd(t)+' vào ví');}});}});
+document.getElementById('fchu').addEventListener('submit',function(e){e.preventDefault();if(KOLAI.lead({email:document.getElementById('c-email').value,nguon:'Muốn cho thuê agent'})){e.target.reset();KOLAI.toast('Đã nhận. Đội gửi hồ sơ nhà phát triển qua email.');}});
+/* mặt tiền toà nhà: mỗi ô cửa sáng là một agent đang làm việc */
+(function(){var c=document.getElementById('toa'),x=c.getContext('2d'),o=[],w,h,cot,hang,cw=46,ch=62;
+ function dung(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;cot=Math.ceil(w/cw);hang=Math.ceil(h/ch);o=[];for(var i=0;i<cot*hang;i++)o.push(Math.random()<.2?Math.random():0);ve();}
+ function ve(){var g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#16233b');g.addColorStop(1,'#0b1220');x.fillStyle=g;x.fillRect(0,0,w,h);
+  for(var r=0;r<hang;r++)for(var k=0;k<cot;k++){var v=o[r*cot+k],px=k*cw+7,py=r*ch+9;x.fillStyle=v?'rgba(242,169,59,'+(0.35+v*0.6)+')':'rgba(255,255,255,.035)';x.fillRect(px,py,cw-14,ch-18);
+   if(v){x.fillStyle='rgba(11,18,32,.55)';x.fillRect(px+(cw-14)*(.2+v*.4),py+(ch-18)*.45,7,(ch-18)*.55);}}}
+ dung();var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(dung,200);});
+ if(!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))setInterval(function(){var i=Math.floor(Math.random()*o.length);o[i]=o[i]?0:Math.random();ve();},700);})();
+</script>
+</body></html>

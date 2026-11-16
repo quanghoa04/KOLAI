@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TRẠM AI — Chợ công cụ và API AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Bố cục: kiểu giải thưởng chữ — nền đen tuyệt đối, vài chữ cái trắng khổng lồ đứng rải trên lưới, mỗi chữ kéo theo một dòng chữ nhỏ; danh mục là bảng kẻ mảnh trắng trên đen. */
+:root{--den:#000;--trang:#f4f1ea;--xam:#8d8a84;--ke:rgba(244,241,234,.22);--xanh:#00d27a;
+  --hien:'Archivo','Helvetica Neue',Arial,sans-serif;--ma:'JetBrains Mono',ui-monospace,monospace;
+  --k-bg:#0c0c0c;--k-fg:#f4f1ea;--k-accent:#f4f1ea;--k-on:#000;--k-radius:0px;--k-font:var(--hien);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--den);color:var(--trang);font:500 16px/1.5 var(--hien)}
+.w{max-width:1280px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+a{color:inherit}:focus-visible{outline:2px solid var(--trang);outline-offset:3px}
+.nho{font:800 clamp(13px,1.5vw,19px)/1.05 var(--hien);font-stretch:112%;text-transform:uppercase;letter-spacing:.01em}
+header .w{display:flex;justify-content:space-between;align-items:center;padding-block:18px;gap:14px}
+header .nho a{text-decoration:none;margin-left:22px}header .nho a:hover{text-decoration:underline}
+@media(max-width:640px){header nav a:not(.vi){display:none}}
+.san{position:relative;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(60px,auto);gap:0 10px;padding-block:10px 60px;min-height:min(78vh,700px)}
+.to{font:900 clamp(120px,26vw,360px)/.74 var(--hien);font-stretch:100%;margin:0;display:block}
+.cum{display:flex;align-items:flex-start;gap:6px}.cum.duoi{align-items:flex-end}
+.c1{grid-column:1/6;grid-row:1}.c2{grid-column:7/13;grid-row:2;justify-self:end}.c3{grid-column:3/9;grid-row:3}
+.c2 .nho{text-align:right}.xoay{writing-mode:vertical-rl;transform:rotate(180deg)}
+.loi{grid-column:9/13;grid-row:3;align-self:end;font-weight:500;color:#d6d2c8;max-width:340px}
+@media(max-width:760px){.san{display:flex;flex-direction:column;gap:26px;min-height:0}.c2{align-self:flex-end}.loi{max-width:none}}
+.nut{all:unset;cursor:pointer;display:inline-block;box-sizing:border-box;background:var(--trang);color:var(--den);font:800 14px/1 var(--hien);font-stretch:112%;text-transform:uppercase;padding:14px 20px;text-align:center}
+.nut:hover{background:var(--xanh)}.nut.vien{background:transparent;color:var(--trang);box-shadow:inset 0 0 0 2px var(--trang)}.nut.vien:hover{background:var(--trang);color:var(--den)}
+.khoi{border-top:2px solid var(--trang);padding-block:26px 80px}
+.dautb{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+h2{font:900 clamp(40px,7vw,96px)/.84 var(--hien);margin:0;text-transform:uppercase;letter-spacing:-.02em}
+.loc{display:flex;gap:6px;flex-wrap:wrap}.loc button{all:unset;cursor:pointer;padding:9px 14px;box-shadow:inset 0 0 0 1px var(--ke)}.loc button[aria-pressed=true]{background:var(--trang);color:var(--den)}
+.bang{width:100%;border-collapse:collapse}
+.bang th{font:600 11px/1 var(--ma);color:var(--xam);text-transform:uppercase;letter-spacing:.1em;text-align:left;padding:0 12px 10px 0}
+.bang td{padding:16px 12px 16px 0;border-top:1px solid var(--ke);vertical-align:top}
+.bang tr.hg{cursor:pointer}.bang tr.hg:hover td{background:#141414}
+.bang .ten{font:800 clamp(18px,2.3vw,26px)/1.1 var(--hien);font-stretch:108%}.bang .mo{color:var(--xam);font-size:14px;display:block;margin-top:4px;font-weight:500}
+.bang .loai{font:600 12px/1 var(--ma);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.bang .gia{font:600 14px/1.3 var(--ma);white-space:nowrap;text-align:right}
+.bang .tt{font:600 12px/1 var(--ma);color:var(--xanh);white-space:nowrap}.bang .tt::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--xanh);margin-right:7px}
+@media(max-width:700px){.bang thead,.bang .an{display:none}.bang td{padding-right:8px}}
+.thu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+@media(max-width:860px){.thu{grid-template-columns:1fr}}
+.o{border:1px solid var(--ke);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.o label{font:600 11px/1 var(--ma);color:var(--xam);text-transform:uppercase;letter-spacing:.1em}
+select,textarea,input{font:500 15px/1.4 var(--hien);color:var(--trang);background:#0c0c0c;border:1px solid var(--ke);padding:11px;border-radius:0;width:100%}
+textarea{font-family:var(--ma);font-size:13px;resize:vertical}
+pre{margin:0;font:400 12.5px/1.6 var(--ma);color:#d6d2c8;background:#0c0c0c;border:1px solid var(--ke);padding:14px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;min-height:120px}
+pre b{color:var(--xanh);font-weight:600}
+.dong{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;font:600 13px/1.3 var(--ma)}
+.goi{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--ke)}
+.goi div{padding:22px;border-right:1px solid var(--ke);display:flex;flex-direction:column;gap:10px}.goi div:last-child{border:0}
+.goi b{font:900 44px/.9 var(--hien)}.goi span{color:var(--xam);font-size:14px}
+.khoa{font:600 14px/1.4 var(--ma);border:1px dashed var(--ke);padding:14px;word-break:break-all}
+footer{border-top:1px solid var(--ke);padding-block:26px 90px;color:var(--xam);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="w"><span class="nho">Trạm AI</span><nav class="nho"><a href="#bang">Bảng tàu</a><a href="#thu">Thử ngay</a><a href="#nap">Nạp credit</a><a class="vi" href="#nap">Ví: <span id="vi">0</span></a></nav></div></header>
+
+<section class="w san" aria-label="Trạm AI: công cụ, API, bot">
+  <div class="cum c1"><span class="to">C</span><span class="nho" style="padding-top:.6em">ông cụ<br>dùng ngay<br>trên web</span></div>
+  <div class="cum c2 duoi"><span class="nho" style="padding-bottom:.4em">gọi một dòng lệnh<br>trả tiền theo lượt</span><span class="to">A</span><span class="nho" style="padding-bottom:.4em">PI</span></div>
+  <div class="cum c3"><span class="nho xoay">tự chạy 24 giờ</span><span class="to">B</span><span class="nho" style="padding-top:.6em">ot mạng<br>xã hội</span></div>
+  <div class="loi"><p style="margin:0 0 16px">Một tài khoản, một ví credit, dùng được mọi công cụ AI trên trạm. Không thuê bao tối thiểu, không cần thẻ quốc tế.</p><a class="nut" href="#bang">Xem bảng tàu</a></div>
+</section>
+
+<section class="w khoi" id="bang"><div class="dautb"><h2>Bảng tàu</h2><div class="loc" id="loc" role="group" aria-label="Lọc theo loại"></div></div>
+  <table class="bang"><thead><tr><th>Tên</th><th class="an">Loại</th><th class="an">Trạng thái</th><th style="text-align:right">Giá</th></tr></thead><tbody id="ds"></tbody></table></section>
+
+<section class="w khoi" id="thu"><div class="dautb"><h2>Thử ngay</h2><span class="nho">Mỗi lượt thử trừ credit trong ví</span></div>
+  <div class="thu"><div class="o"><label for="api">Chọn API</label><select id="api"></select><label for="vao">Dữ liệu gửi đi</label><textarea id="vao" rows="5"></textarea>
+    <div class="dong"><span id="giathu"></span><button class="nut" id="chay">Gửi yêu cầu</button></div></div>
+   <div class="o"><label>Lệnh gọi</label><pre id="lenh"></pre><label>Phản hồi</label><pre id="ra">Bấm "Gửi yêu cầu" để xem phản hồi.</pre></div></div></section>
+
+<section class="w khoi" id="nap"><div class="dautb"><h2>Nạp credit</h2><span class="nho">1 credit = 1 đồng · không hết hạn</span></div>
+  <div class="goi" id="goi"></div>
+  <div class="thu" style="margin-top:26px"><div class="o"><label>Khoá API của bạn</label><div class="khoa" id="khoa"></div><div class="dong"><span id="soduvi"></span><button class="nut vien" id="taokhoa">Tạo khoá mới</button></div></div>
+   <div class="o"><label for="d-email">Có công cụ AI muốn bán trên trạm?</label><p style="margin:0;color:#d6d2c8">Trạm lo thanh toán, đo lượt gọi và chăm khách. Bạn nhận 80% doanh thu.</p><input id="d-email" type="email" placeholder="Email của bạn"><button class="nut vien" id="dua">Đăng ký đưa lên trạm</button></div></div></section>
+<footer><div class="w">© 2026 Trạm AI — thuộc hệ sinh thái KOLAI · Danh mục, giá và phản hồi API trên trang là bản mô phỏng chờ duyệt. Bot mạng xã hội chỉ dùng cổng kết nối chính thức của từng nền tảng.</div></footer>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'tramai'});
+var D=[
+ {id:'tom-tat',ten:'Tóm tắt văn bản tiếng Việt',loai:'API',mo:'Rút một tài liệu dài thành 5 ý chính',gia:40,dv:'lượt',vao:'{"van_ban":"Dán văn bản cần tóm tắt vào đây…","so_y":5}',ra:{y_chinh:['Ý chính thứ nhất của văn bản','Ý chính thứ hai của văn bản','Ý chính thứ ba của văn bản'],so_tu_goc:1240,so_tu_tom_tat:86}},
+ {id:'caption',ten:'Viết caption bán hàng',loai:'API',mo:'Ba phiên bản caption theo giọng thương hiệu',gia:60,dv:'lượt',vao:'{"san_pham":"Nến thơm sáp đậu nành","giong":"ấm áp, gần gũi","so_ban":3}',ra:{caption:['Bản 1: mở bằng một cảnh buổi tối ở nhà…','Bản 2: mở bằng một câu hỏi…','Bản 3: mở bằng lời khách kể…'],hashtag:['#nenthom','#quatang']}},
+ {id:'phan-loai',ten:'Phân loại bình luận',loai:'API',mo:'Gắn nhãn hỏi giá, khen, chê, spam cho từng bình luận',gia:20,dv:'lượt',vao:'{"binh_luan":["Giá bao nhiêu shop?","Ship Đà Nẵng mấy ngày?"]}',ra:{ket_qua:[{nhan:'hoi_gia',do_tin:0.97},{nhan:'hoi_giao_hang',do_tin:0.94}]}},
+ {id:'tach-nen',ten:'Tách nền ảnh sản phẩm',loai:'API',mo:'Trả về ảnh PNG nền trong suốt',gia:150,dv:'ảnh',vao:'{"anh_url":"https://vi-du.vn/anh-san-pham.jpg"}',ra:{anh_png:'https://tram.vi-du.vn/kq/a1b2c3.png',rong:1200,cao:1200}},
+ {id:'giong-noi',ten:'Chuyển giọng nói thành chữ',loai:'API',mo:'Tiếng Việt ba miền, có dấu câu và mốc thời gian',gia:300,dv:'phút',vao:'{"am_thanh_url":"https://vi-du.vn/ghi-am.mp3","moc_thoi_gian":true}',ra:{van_ban:'Xin chào, đây là nội dung được chuyển từ ghi âm.',thoi_luong_giay:58}},
+ {id:'thumbnail',ten:'Xưởng thumbnail',loai:'Công cụ',mo:'Gõ tiêu đề, nhận 6 mẫu ảnh bìa video',gia:99000,dv:'tháng'},
+ {id:'bao-gia',ten:'Trợ lý soạn báo giá',loai:'Công cụ',mo:'Dán tin nhắn khách, ra báo giá một trang',gia:149000,dv:'tháng'},
+ {id:'bot-bl',ten:'Bot trả lời bình luận Fanpage',loai:'Bot',mo:'Trả lời theo kịch bản của bạn, chuyển người thật khi khách chê',gia:199000,dv:'tháng'},
+ {id:'bot-dang',ten:'Bot đăng bài hẹn giờ đa kênh',loai:'Bot',mo:'Một lần soạn, đăng Facebook, TikTok, YouTube, Threads',gia:249000,dv:'tháng'},
+ {id:'bot-gio',ten:'Bot nhắc khách bỏ giỏ qua Zalo',loai:'Bot',mo:'Nhắn lại sau 30 phút, 1 ngày, 3 ngày',gia:299000,dv:'tháng'}
+];
+var K=KOLAI.KHO,loai='Tất cả';
+function vi(){return K.doc('tramai.vi',2000);}
+function veVi(){var v=vi();document.getElementById('vi').textContent=v.toLocaleString('vi-VN');document.getElementById('soduvi').textContent='Số dư: '+v.toLocaleString('vi-VN')+' credit';}
+function gia(d){return d.loai==='API'?d.gia+' credit / '+d.dv:KOLAI.vnd(d.gia)+' / '+d.dv;}
+function ve(){document.getElementById('loc').innerHTML=['Tất cả','API','Công cụ','Bot'].map(function(l){return '<button aria-pressed="'+(l===loai)+'" data-l="'+l+'">'+l+'</button>';}).join('');
+ document.getElementById('ds').innerHTML=D.filter(function(d){return loai==='Tất cả'||d.loai===loai;}).map(function(d){return '<tr class="hg" data-id="'+d.id+'" tabindex="0"><td><span class="ten">'+d.ten+'</span><span class="mo">'+d.mo+'</span></td><td class="loai an">'+d.loai+'</td><td class="tt an">Đang chạy</td><td class="gia">'+gia(d)+'</td></tr>';}).join('');}
+ve();veVi();
+document.getElementById('loc').onclick=function(e){var b=e.target.closest('button');if(b){loai=b.dataset.l;ve();}};
+function chon(id){var d=D.filter(function(x){return x.id===id;})[0];
+ if(d.loai==='API'){document.getElementById('api').value=id;doiApi();document.getElementById('thu').scrollIntoView({behavior:'smooth'});return;}
+ KOLAI.datHang({tieuDe:d.loai+': '+d.ten,nut:'Đăng ký tháng đầu',items:[{id:d.id,ten:d.ten+' — 1 tháng',gia:d.gia,sl:1,ghiChu:d.mo}]});}
+document.getElementById('ds').addEventListener('click',function(e){var r=e.target.closest('tr[data-id]');if(r)chon(r.dataset.id);});
+document.getElementById('ds').addEventListener('keydown',function(e){if(e.key==='Enter'){var r=e.target.closest('tr[data-id]');if(r)chon(r.dataset.id);}});
+/* thử API */
+var API=D.filter(function(d){return d.loai==='API';}),sel=document.getElementById('api');
+sel.innerHTML=API.map(function(d){return '<option value="'+d.id+'">'+d.ten+'</option>';}).join('');
+function khoa(){var k=K.doc('tramai.khoa','');if(!k){k='tram_thu_'+Math.random().toString(36).slice(2,12)+Math.random().toString(36).slice(2,8);K.ghi('tramai.khoa',k);}return k;}
+function doiApi(){var d=API.filter(function(x){return x.id===sel.value;})[0];document.getElementById('vao').value=d.vao;document.getElementById('giathu').textContent='Giá: '+d.gia+' credit / '+d.dv;veLenh();}
+function veLenh(){var d=API.filter(function(x){return x.id===sel.value;})[0];document.getElementById('lenh').textContent='curl https://api.tram-ai.vn/v1/'+d.id+' \\\n  -H "Authorization: Bearer '+khoa().slice(0,14)+'…" \\\n  -d \''+document.getElementById('vao').value.replace(/\s+/g,' ')+'\'';document.getElementById('khoa').textContent=khoa();}
+sel.onchange=doiApi;document.getElementById('vao').oninput=veLenh;doiApi();
+document.getElementById('chay').onclick=function(){var d=API.filter(function(x){return x.id===sel.value;})[0],ra=document.getElementById('ra'),v=vi();
+ try{JSON.parse(document.getElementById('vao').value);}catch(e){ra.textContent='400 — Dữ liệu gửi đi chưa đúng định dạng JSON. Kiểm tra lại dấu ngoặc và dấu phẩy.';return;}
+ if(v<d.gia){ra.textContent='402 — Ví không đủ credit. Nạp thêm ở mục bên dưới.';return;}
+ ra.textContent='Đang gửi…';var ms=180+Math.floor(Math.random()*420);
+ setTimeout(function(){K.ghi('tramai.vi',v-d.gia);veVi();KOLAI.suKien('api','Gọi thử API '+d.ten,d.gia);
+  ra.innerHTML='<b>200 OK</b> · '+ms+' ms · trừ '+d.gia+' credit · (phản hồi mô phỏng)\n'+KOLAI.esc(JSON.stringify(d.ra,null,2));},ms);};
+document.getElementById('taokhoa').onclick=function(){K.ghi('tramai.khoa','');veLenh();KOLAI.toast('Đã tạo khoá mới. Khoá cũ ngừng hoạt động.');};
+/* nạp credit */
+var GOI=[[100000,100000,'Dùng thử'],[500000,550000,'Tặng 10%'],[2000000,2400000,'Tặng 20%']];
+document.getElementById('goi').innerHTML=GOI.map(function(g,i){return '<div><span>'+g[2]+'</span><b>'+(g[1]/1000).toLocaleString('vi-VN')+'K</b><span>credit · giá '+KOLAI.vnd(g[0])+'</span><button class="nut" data-goi="'+i+'">Nạp gói này</button></div>';}).join('');
+document.getElementById('goi').onclick=function(e){var b=e.target.closest('[data-goi]');if(!b)return;var g=GOI[+b.dataset.goi];
+ KOLAI.datHang({tieuDe:'Nạp credit',nut:'Nạp '+KOLAI.vnd(g[0]),items:[{id:'credit-'+g[0],ten:'Gói '+g[1].toLocaleString('vi-VN')+' credit',gia:g[0],sl:1,ghiChu:g[2]}],xong:function(){K.ghi('tramai.vi',vi()+g[1]);veVi();KOLAI.toast('Bản xem thử: đã cộng '+g[1].toLocaleString('vi-VN')+' credit vào ví');}});};
+document.getElementById('dua').onclick=function(){if(KOLAI.lead({email:document.getElementById('d-email').value,nguon:'Muốn bán công cụ trên trạm'})){document.getElementById('d-email').value='';KOLAI.toast('Đã nhận. Trạm gửi hồ sơ đối tác qua email.');}};
+</script>
+</body></html>

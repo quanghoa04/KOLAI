@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CHÊNH — Săn chênh lệch giá xuyên biên giới</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Bố cục: kiểu màn hình giao dịch tài chính — nền tối, chữ đơn cách, bảng dày đặc cập nhật liên tục, số xanh đỏ nhấp nháy khi đổi; bên phải là bảng tính lãi cho món đang chọn. */
+:root{--nen:#0a0d0c;--o:#111514;--ke:#232b27;--chu:#d5ded8;--mo:#7c8a82;--ho:#f5a524;--len:#3ddc84;--xuong:#ff6b5e;
+  --ma:'IBM Plex Mono',ui-monospace,Menlo,monospace;--hien:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;
+  --k-bg:#111514;--k-fg:#d5ded8;--k-accent:#f5a524;--k-on:#0a0d0c;--k-radius:2px;--k-font:var(--ma);--k-line:#2f3a35;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--nen);color:var(--chu);font:400 13px/1.45 var(--ma);font-variant-numeric:tabular-nums}
+.w{padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+a{color:inherit}button{font:inherit;color:inherit}:focus-visible{outline:1px solid var(--ho);outline-offset:2px}
+.dau{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--ke);padding-block:10px}
+.logo{font:700 22px/1 var(--hien);color:var(--ho);letter-spacing:.06em}
+.tg{display:flex;gap:16px;flex-wrap:wrap;color:var(--mo)}.tg b{color:var(--chu);font-weight:500}
+.mp{margin-left:auto;background:var(--ho);color:var(--nen);padding:3px 8px;font-weight:600;font-size:11px;letter-spacing:.05em}
+.tom{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--ke)}
+.tom div{padding:14px;border-right:1px solid var(--ke)}.tom div:last-child{border:0}
+.tom span{color:var(--mo);font-size:11px;text-transform:uppercase;letter-spacing:.08em;display:block}.tom b{font:600 clamp(20px,3vw,30px)/1.2 var(--hien);display:block}
+@media(max-width:700px){.tom{grid-template-columns:1fr 1fr}.tom div:nth-child(2){border-right:0}.tom div:nth-child(-n+2){border-bottom:1px solid var(--ke)}}
+.chinh{display:grid;grid-template-columns:minmax(0,1fr) 370px;align-items:start}
+@media(max-width:1040px){.chinh{grid-template-columns:minmax(0,1fr)}}
+main,.ben{min-width:0}
+.loc{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;padding-block:10px;border-bottom:1px solid var(--ke)}
+.loc label{color:var(--mo);display:flex;gap:6px;align-items:center}
+select,input[type=search],input[type=number],input[type=email]{font:inherit;color:var(--chu);background:var(--o);border:1px solid var(--ke);padding:6px 8px;border-radius:2px;min-width:0}
+input[type=range]{accent-color:var(--ho);width:110px}
+.bangw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th{font-weight:500;color:var(--mo);text-align:right;padding:8px 10px;border-bottom:1px solid var(--ke);font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;position:sticky;top:0;background:var(--nen)}
+th:nth-child(-n+3),td:nth-child(-n+3){text-align:left}
+td{padding:8px 10px;border-bottom:1px solid var(--ke);text-align:right;white-space:nowrap}
+td.ten{white-space:normal;min-width:190px;color:#fff}td small{color:var(--mo);display:block}
+tr.hg{cursor:pointer}tr.hg:hover td{background:var(--o)}tr.chon td{background:#1a201d;box-shadow:inset 0 1px 0 var(--ho),inset 0 -1px 0 var(--ho)}
+.len{color:var(--len)}.xuong{color:var(--xuong)}
+.nhay-len{animation:nl .9s}.nhay-xuong{animation:nx .9s}
+@keyframes nl{0%{background:rgba(61,220,132,.35)}100%{background:transparent}}@keyframes nx{0%{background:rgba(255,107,94,.35)}100%{background:transparent}}
+.sao{all:unset;cursor:pointer;color:var(--mo);padding:2px 6px}.sao[aria-pressed=true]{color:var(--ho)}
+.ben{border-left:1px solid var(--ke);padding-block:14px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0}
+@media(max-width:1040px){.ben{border-left:0;border-top:1px solid var(--ke);position:static}}
+.ben h2{font:600 18px/1.2 var(--hien);margin:0;color:#fff}.nh{color:var(--mo);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.tinh{display:grid;grid-template-columns:1fr 120px;gap:7px 10px;align-items:center}.tinh input{width:100%;text-align:right}
+.kq{border:1px solid var(--ke);background:var(--o);padding:12px;display:grid;grid-template-columns:1fr auto;gap:6px 10px}.kq b{font:600 22px/1 var(--hien);text-align:right}.kq span{color:var(--mo)}.kq div{text-align:right}
+.nut{all:unset;cursor:pointer;box-sizing:border-box;background:var(--ho);color:var(--nen);font-weight:600;padding:9px 14px;text-align:center;border-radius:2px}.nut.vien{background:transparent;color:var(--ho);box-shadow:inset 0 0 0 1px var(--ho)}
+.goi{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border-top:1px solid var(--ke)}
+.goi div{padding:20px 14px;border-right:1px solid var(--ke);border-bottom:1px solid var(--ke);display:flex;flex-direction:column;gap:8px}
+.goi h3{font:600 20px/1 var(--hien);margin:0;color:#fff}.goi b{font:700 30px/1 var(--hien);color:var(--ho)}.goi ul{margin:0;padding-left:16px;color:var(--mo)}.goi .nut{margin-top:auto}
+footer{color:var(--mo);padding-block:18px 90px;font-size:12px;max-width:900px}
+svg text{font-family:var(--ma)}
+</style>
+</head>
+<body>
+<header class="w dau"><span class="logo">CHÊNH</span><span class="tg">USD <b id="t-usd"></b> · CNY <b id="t-cny"></b> · THB <b id="t-thb"></b> · <span id="dongho"></span></span><span class="mp">DỮ LIỆU MÔ PHỎNG</span></header>
+<section class="tom"><div><span>Cơ hội đang mở</span><b id="s-mo">0</b></div><div><span>Biên ròng cao nhất</span><b id="s-max" class="len">0%</b></div><div><span>Lãi ròng trung bình / món</span><b id="s-tb">0đ</b></div><div><span>Lần quét gần nhất</span><b id="s-quet">—</b></div></section>
+<div class="chinh">
+  <main>
+    <div class="w loc"><label>Mua ở <select id="l-mua"></select></label><label>Bán ở <select id="l-ban"></select></label><label>Ngành <select id="l-dm"></select></label>
+      <label>Biên ròng ≥ <input type="range" id="l-bien" min="0" max="40" value="0"><b id="l-bienso">0%</b></label><label><input type="checkbox" id="l-sao"> Chỉ món đã gắn sao</label><input type="search" id="l-tim" placeholder="Tìm mặt hàng" aria-label="Tìm mặt hàng"></div>
+    <div class="bangw"><table><thead><tr><th></th><th>Mặt hàng</th><th>Tuyến</th><th>Giá mua</th><th>Giá bán</th><th>Phí + ship</th><th>Lãi ròng</th><th>Biên</th></tr></thead><tbody id="ds"></tbody></table></div>
+    <section class="goi" id="goi"></section>
+    <footer class="w">Bản xem thử: giá, tỷ giá và phí trên trang là số mô phỏng để trình diễn cách công cụ hoạt động, chưa phải giá thật. Khi lên sóng, dữ liệu lấy qua cổng dữ liệu chính thức và chương trình đối tác của từng sàn. Trước khi nhập hàng cần tự kiểm tra thuế nhập khẩu, giấy phép và chính sách người bán của từng sàn. © 2026 Chênh — thuộc hệ sinh thái KOLAI.</footer>
+  </main>
+  <aside class="w ben" id="ben"></aside>
+</div>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'chenh'});
+var K=KOLAI.KHO,TG={USD:25400,CNY:3520,THB:720,VND:1};
+var SAN={'Shopee VN':['VND',.12],'TikTok Shop VN':['VND',.10],'Amazon US':['USD',.15],'eBay US':['USD',.13],'Shopee TH':['THB',.11],'1688 CN':['CNY',0]};
+/* [tên, ngành, sàn mua, giá mua (tiền gốc), sàn bán, giá bán (tiền gốc), cân nặng kg] */
+var H=[
+ ['Bàn phím cơ 75% không dây','Điện tử','1688 CN',128,'Shopee VN',890000,.9],['Máy xay cà phê cầm tay','Gia dụng','1688 CN',62,'TikTok Shop VN',459000,.6],
+ ['Đèn LED livestream 10 inch','Điện tử','1688 CN',38,'TikTok Shop VN',289000,.7],['Bình giữ nhiệt 1 lít','Gia dụng','1688 CN',24,'Shopee VN',199000,.5],
+ ['Nón lá thủ công','Thủ công','Shopee VN',45000,'Amazon US',18.9,.3],['Cà phê phin giấy 20 gói','Thực phẩm','Shopee VN',95000,'eBay US',16.5,.4],
+ ['Túi cói đan tay','Thủ công','TikTok Shop VN',120000,'Amazon US',27.5,.5],['Đũa gỗ dừa 10 đôi','Thủ công','Shopee VN',38000,'eBay US',12.9,.25],
+ ['Tai nghe nhét tai không dây','Điện tử','1688 CN',46,'Shopee VN',329000,.15],['Thảm yoga 6mm','Thể thao','1688 CN',29,'TikTok Shop VN',219000,1.1],
+ ['Balo laptop chống nước','Thời trang','1688 CN',58,'Shopee VN',399000,.8],['Kem chống nắng nội địa Thái','Làm đẹp','Shopee TH',189,'TikTok Shop VN',229000,.12],
+ ['Bộ cọ trang điểm 12 cây','Làm đẹp','1688 CN',19,'Shopee VN',149000,.2],['Áo dài cách tân','Thời trang','Shopee VN',320000,'Amazon US',44.9,.45],
+ ['Tinh dầu sả chanh 100ml','Làm đẹp','TikTok Shop VN',85000,'eBay US',14.5,.2],['Đế tản nhiệt laptop','Điện tử','1688 CN',41,'Shopee VN',245000,.75]
+].map(function(a,i){return {id:'h'+i,ten:a[0],dm:a[1],mua:a[2],gm:a[3],ban:a[4],gb:a[5],kg:a[6],ls:[]};});
+var PHI={ship:180000,thue:10},chon=K.doc('chenh.chon',H[0].id),sao=K.doc('chenh.sao',[]);
+function tinh(h,o){o=o||{};var tm=SAN[h.mua][0],tb=SAN[h.ban][0],mua=(o.gm!=null?o.gm:h.gm)*TG[tm],ban=(o.gb!=null?o.gb:h.gb)*TG[tb];
+ var phiSan=ban*(o.phi!=null?o.phi/100:SAN[h.ban][1]),ship=(o.ship!=null?o.ship:PHI.ship)*h.kg,thue=mua*(o.thue!=null?o.thue:PHI.thue)/100,cp=phiSan+ship+thue,lai=ban-mua-cp;
+ return {mua:mua,ban:ban,cp:cp,lai:lai,bien:lai/ban*100,roi:lai/(mua+ship+thue)*100,phiSan:phiSan,ship:ship,thue:thue};}
+function goc(v,t){return t==='VND'?'':(t==='USD'?'$'+v.toFixed(2):v.toFixed(0)+' '+t);}
+H.forEach(function(h){for(var i=0;i<24;i++)h.ls.push(tinh(h).bien+(Math.random()-.5)*4);});
+function opt(id,ds){document.getElementById(id).innerHTML=ds.map(function(x){return '<option>'+x+'</option>';}).join('');}
+function duyNhat(k){return ['Tất cả'].concat(H.map(function(h){return h[k];}).filter(function(v,i,a){return a.indexOf(v)===i;}));}
+opt('l-mua',duyNhat('mua'));opt('l-ban',duyNhat('ban'));opt('l-dm',duyNhat('dm'));
+function locDs(){var m=document.getElementById('l-mua').value,b=document.getElementById('l-ban').value,d=document.getElementById('l-dm').value,bi=+document.getElementById('l-bien').value,q=document.getElementById('l-tim').value.toLowerCase(),cs=document.getElementById('l-sao').checked;
+ return H.filter(function(h){var t=tinh(h);return (m==='Tất cả'||h.mua===m)&&(b==='Tất cả'||h.ban===b)&&(d==='Tất cả'||h.dm===d)&&t.bien>=bi&&(!q||h.ten.toLowerCase().indexOf(q)>-1)&&(!cs||sao.indexOf(h.id)>-1);}).sort(function(x,y){return tinh(y).bien-tinh(x).bien;});}
+function ve(nhay){var ds=locDs();document.getElementById('l-bienso').textContent=document.getElementById('l-bien').value+'%';
+ document.getElementById('ds').innerHTML=ds.length?ds.map(function(h){var t=tinh(h),c=t.lai>=0?'len':'xuong',n=nhay&&nhay[h.id]?' nhay-'+nhay[h.id]:'';
+  return '<tr class="hg'+(h.id===chon?' chon':'')+'" data-id="'+h.id+'" tabindex="0"><td><button class="sao" data-sao="'+h.id+'" aria-pressed="'+(sao.indexOf(h.id)>-1)+'" aria-label="Gắn sao">★</button></td><td class="ten">'+h.ten+'<small>'+h.dm+' · '+h.kg+' kg</small></td><td>'+h.mua+'<small>→ '+h.ban+'</small></td>'+
+   '<td class="'+(nhay&&nhay[h.id+'m']?'nhay-'+nhay[h.id+'m']:'')+'">'+KOLAI.vnd(t.mua)+'<small>'+goc(h.gm,SAN[h.mua][0])+'</small></td><td class="'+(nhay&&nhay[h.id+'b']?'nhay-'+nhay[h.id+'b']:'')+'">'+KOLAI.vnd(t.ban)+'<small>'+goc(h.gb,SAN[h.ban][0])+'</small></td>'+
+   '<td>'+KOLAI.vnd(t.cp)+'</td><td class="'+c+n+'">'+(t.lai>=0?'+':'−')+KOLAI.vnd(Math.abs(t.lai))+'</td><td class="'+c+'"><b>'+t.bien.toFixed(1)+'%</b></td></tr>';}).join(''):'<tr><td colspan="8" style="text-align:left;color:var(--mo);padding:24px 10px">Không có món nào khớp bộ lọc. Hạ mức biên tối thiểu hoặc chọn "Tất cả".</td></tr>';
+ var tat=H.map(function(h){return tinh(h);}),mo=tat.filter(function(t){return t.bien>=15;});
+ document.getElementById('s-mo').textContent=mo.length+' / '+H.length;document.getElementById('s-max').textContent=Math.max.apply(null,tat.map(function(t){return t.bien;})).toFixed(1)+'%';
+ document.getElementById('s-tb').textContent=KOLAI.vnd(tat.reduce(function(s,t){return s+t.lai;},0)/tat.length);}
+/* ---------- bảng tính bên phải ---------- */
+function duong(ls){var W=340,Hh=70,mn=Math.min.apply(null,ls),mx=Math.max.apply(null,ls),r=mx-mn||1,p=ls.map(function(v,i){return (4+i*(W-64)/(ls.length-1)).toFixed(1)+','+(8+(Hh-16)*(1-(v-mn)/r)).toFixed(1);}),c=p[p.length-1].split(',');
+ return '<svg viewBox="0 0 '+W+' '+Hh+'" width="100%" role="img" aria-label="Biên ròng 24 lần quét gần nhất, từ '+mn.toFixed(1)+'% đến '+mx.toFixed(1)+'%"><line x1="4" x2="'+(W-60)+'" y1="'+(Hh-8)+'" y2="'+(Hh-8)+'" stroke="#232b27"/><polyline points="'+p.join(' ')+'" fill="none" stroke="#f5a524" stroke-width="2" stroke-linejoin="round"/><circle cx="'+c[0]+'" cy="'+c[1]+'" r="4" fill="#f5a524" stroke="#0a0d0c" stroke-width="2"/>'+
+  '<text x="'+(W-52)+'" y="'+(+c[1]+4)+'" fill="#d5ded8" font-size="12" font-weight="600">'+ls[ls.length-1].toFixed(1)+'%</text></svg><span class="nh">Biên ròng 24 lần quét gần nhất · thấp '+mn.toFixed(1)+'% · cao '+mx.toFixed(1)+'%</span>';}
+function veBen(){var h=H.filter(function(x){return x.id===chon;})[0]||H[0],tm=SAN[h.mua][0],tb=SAN[h.ban][0];
+ document.getElementById('ben').innerHTML='<div><span class="nh">Bảng tính lãi · '+h.mua+' → '+h.ban+'</span><h2>'+h.ten+'</h2></div><div id="duong">'+duong(h.ls)+'</div>'+
+  '<div class="tinh"><label for="i-gm">Giá mua ('+tm+')</label><input type="number" id="i-gm" value="'+h.gm+'" step="any"><label for="i-gb">Giá bán ('+tb+')</label><input type="number" id="i-gb" value="'+h.gb+'" step="any">'+
+  '<label for="i-phi">Phí sàn bán (%)</label><input type="number" id="i-phi" value="'+(SAN[h.ban][1]*100).toFixed(0)+'" step="any"><label for="i-ship">Ship quốc tế (đ/kg)</label><input type="number" id="i-ship" value="'+PHI.ship+'" step="1000">'+
+  '<label for="i-thue">Thuế nhập (%)</label><input type="number" id="i-thue" value="'+PHI.thue+'" step="any"><label for="i-sl">Số lượng nhập</label><input type="number" id="i-sl" value="50" min="1"></div>'+
+  '<div class="kq" id="kq"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="email" id="cb-email" placeholder="Email nhận cảnh báo" style="flex:1" aria-label="Email nhận cảnh báo"><button class="nut" id="cb">Báo khi biên ≥ 25%</button></div>';
+ veKq();}
+function veKq(){var h=H.filter(function(x){return x.id===chon;})[0],v=function(i){var x=parseFloat(document.getElementById(i).value);return isNaN(x)?0:x;},t=tinh(h,{gm:v('i-gm'),gb:v('i-gb'),phi:v('i-phi'),ship:v('i-ship'),thue:v('i-thue')}),sl=Math.max(1,v('i-sl')),c=t.lai>=0?'len':'xuong';
+ document.getElementById('kq').innerHTML='<span>Lãi ròng / món</span><b class="'+c+'">'+(t.lai>=0?'+':'−')+KOLAI.vnd(Math.abs(t.lai))+'</b><span>Biên ròng</span><div class="'+c+'">'+t.bien.toFixed(1)+'%</div><span>Lãi trên vốn</span><div>'+t.roi.toFixed(1)+'%</div>'+
+  '<span>Phí sàn · ship · thuế</span><div>'+KOLAI.vnd(t.phiSan)+' · '+KOLAI.vnd(t.ship)+' · '+KOLAI.vnd(t.thue)+'</div><span>Vốn cho '+sl+' món</span><div>'+KOLAI.vnd((t.mua+t.ship+t.thue)*sl)+'</div><span>Lãi dự kiến lô này</span><div class="'+c+'">'+KOLAI.vnd(t.lai*sl)+'</div>';}
+document.getElementById('ben').addEventListener('input',function(e){if(e.target.closest('.tinh'))veKq();});
+document.getElementById('ben').addEventListener('click',function(e){if(e.target.id==='cb'){var h=H.filter(function(x){return x.id===chon;})[0];if(KOLAI.lead({email:document.getElementById('cb-email').value,nguon:'Cảnh báo biên ≥ 25%: '+h.ten})){KOLAI.toast('Đã đặt cảnh báo cho "'+h.ten+'"');document.getElementById('cb-email').value='';}}});
+document.getElementById('ds').addEventListener('click',function(e){var s=e.target.closest('[data-sao]');if(s){var i=sao.indexOf(s.dataset.sao);if(i>-1)sao.splice(i,1);else sao.push(s.dataset.sao);K.ghi('chenh.sao',sao);ve();return;}
+ var r=e.target.closest('tr[data-id]');if(r){chon=r.dataset.id;K.ghi('chenh.chon',chon);ve();veBen();if(innerWidth<=1040)document.getElementById('ben').scrollIntoView({behavior:'smooth'});}});
+document.getElementById('ds').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.matches('tr[data-id]')){chon=e.target.dataset.id;ve();veBen();}});
+[].forEach.call(document.querySelectorAll('.loc select,.loc input'),function(el){el.addEventListener('input',function(){ve();});});
+/* ---------- giá nhảy ---------- */
+function dongHo(){var d=new Date();document.getElementById('dongho').textContent=d.toLocaleTimeString('vi-VN');}
+function tyGia(){document.getElementById('t-usd').textContent=TG.USD.toLocaleString('vi-VN');document.getElementById('t-cny').textContent=TG.CNY.toLocaleString('vi-VN');document.getElementById('t-thb').textContent=TG.THB.toLocaleString('vi-VN');}
+function quet(){var nhay={};for(var i=0;i<3;i++){var h=H[Math.floor(Math.random()*H.length)],truoc=tinh(h).lai,k=Math.random()<.5?'gm':'gb',d=1+(Math.random()-.5)*.03;h[k]=+(h[k]*d).toFixed(SAN[k==='gm'?h.mua:h.ban][0]==='VND'?0:2);
+  var sau=tinh(h);nhay[h.id]=sau.lai>=truoc?'len':'xuong';nhay[h.id+(k==='gm'?'m':'b')]=d>=1?'len':'xuong';h.ls.push(sau.bien);h.ls.shift();}
+ ve(nhay);document.getElementById('s-quet').textContent=new Date().toLocaleTimeString('vi-VN');
+ var dc=document.getElementById('duong');if(dc&&!document.activeElement.closest('.tinh'))dc.innerHTML=duong(H.filter(function(x){return x.id===chon;})[0].ls);}
+/* ---------- gói dịch vụ ---------- */
+var GOI=[['Dùng thử',0,['Dữ liệu trễ 15 phút','Theo dõi 20 mặt hàng','Bảng tính lãi đầy đủ']],['Pro',399000,['Dữ liệu theo thời gian thực','Không giới hạn mặt hàng','Cảnh báo qua email và Telegram','Xuất Excel']],['Đội nhóm',1290000,['Mọi thứ của gói Pro','5 tài khoản','Tự thêm sàn và tuyến riêng','Hỗ trợ ưu tiên']]];
+document.getElementById('goi').innerHTML=GOI.map(function(g,i){return '<div><h3>'+g[0]+'</h3><b>'+(g[1]?KOLAI.vnd(g[1]):'0đ')+'</b><span class="nh">mỗi tháng</span><ul>'+g[2].map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><button class="nut'+(g[1]?'':' vien')+'" data-goi="'+i+'">'+(g[1]?'Đăng ký '+g[0]:'Đang dùng')+'</button></div>';}).join('');
+document.getElementById('goi').onclick=function(e){var b=e.target.closest('[data-goi]');if(!b)return;var g=GOI[+b.dataset.goi];if(!g[1]){KOLAI.toast('Bạn đang ở gói Dùng thử');return;}
+ KOLAI.datHang({tieuDe:'Gói '+g[0],nut:'Đăng ký tháng đầu',items:[{id:'goi-'+b.dataset.goi,ten:'Chênh '+g[0]+' — 1 tháng',gia:g[1],sl:1,ghiChu:g[2].join(' · ')}]});};
+tyGia();dongHo();ve();veBen();document.getElementById('s-quet').textContent=new Date().toLocaleTimeString('vi-VN');
+setInterval(dongHo,1000);setInterval(quet,2600);
+</script>
+</body></html>

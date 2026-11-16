@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TAY NGHỀ — Chợ skill cho AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+<style>
+/* Bố cục: kiểu phòng thí nghiệm chữ — băng đỏ trên cùng với chữ điểm ảnh khổng lồ, thân trang đen chữ đỏ, mỗi skill là một dòng lệnh có mũi tên. */
+:root{--do:#ff2a1a;--den:#140404;--den2:#220707;--kem:#ffe9e4;--mo:#b3564d;
+  --hien:'VT323','Courier New',monospace;--than:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --k-bg:#140404;--k-fg:#ffe9e4;--k-accent:#ff2a1a;--k-on:#140404;--k-radius:0px;--k-font:var(--than);--k-line:rgba(255,42,26,.45);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--den);color:var(--do);font:400 15px/1.6 var(--than)}
+a{color:inherit}
+.w{max-width:1100px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.bang{background:var(--do);color:var(--den);position:relative;overflow:hidden}
+.bang .w{padding-block:16px 26px}
+.tren{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.06em}
+.tren button{all:unset;cursor:pointer;background:var(--den);color:var(--do);padding:8px 14px}
+.tren button:focus-visible,button:focus-visible,a:focus-visible{outline:2px dashed currentColor;outline-offset:3px}
+.bang h1{font:400 clamp(86px,22vw,260px)/.78 var(--hien);margin:26px 0 0;letter-spacing:.02em;text-transform:uppercase;
+  -webkit-mask-image:repeating-linear-gradient(#000 0 5px,transparent 5px 8px);mask-image:repeating-linear-gradient(#000 0 5px,transparent 5px 8px)}
+.moc{position:absolute;width:22px;height:6px;background:var(--den)}
+.gt{padding-block:34px 10px;display:grid;grid-template-columns:28px 1fr;gap:18px;max-width:780px}
+.o{width:22px;height:12px;background:var(--do);margin-top:6px}
+.gt p{margin:0;text-transform:uppercase;font-weight:700;font-size:14px;letter-spacing:.03em}
+.loc{display:flex;flex-wrap:wrap;gap:8px;padding-block:26px 8px}
+.loc button{all:unset;cursor:pointer;padding:7px 12px;border:1px solid var(--do);text-transform:uppercase;font-size:13px;font-weight:500}
+.loc button[aria-pressed=true]{background:var(--do);color:var(--den)}
+.tim{width:100%;background:transparent;border:0;border-bottom:1px solid var(--do);color:var(--kem);font:inherit;padding:12px 0;margin-top:8px}
+.tim::placeholder{color:var(--mo)}.tim:focus{outline:none;border-bottom-width:3px}
+.ds{list-style:none;margin:18px 0 0;padding:0}
+.ds li{border-top:1px solid rgba(255,42,26,.35)}
+.ds button{all:unset;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline;width:100%;padding:14px 0;box-sizing:border-box}
+.ds .ten{font:400 clamp(30px,5.2vw,50px)/1 var(--hien);text-transform:uppercase;letter-spacing:.02em}
+.ds .ten::after{content:" →";opacity:.5}
+.ds .gia{font-weight:700;font-size:16px;white-space:nowrap}
+.ds .phu{grid-column:1/-1;color:var(--mo);font-size:13px;text-transform:uppercase}
+.ds button:hover,.ds button:focus-visible{background:var(--do);color:var(--den);padding-inline:12px;outline:none}
+.ds button:hover .phu,.ds button:focus-visible .phu{color:var(--den)}.ds button:hover .ten::after{opacity:1}
+.trong{padding:28px 0;color:var(--mo)}
+.khoi{padding-block:70px 20px}
+h2{font:400 clamp(44px,8vw,84px)/.9 var(--hien);text-transform:uppercase;margin:0 0 26px}
+.buoc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+.buoc div{border-top:6px solid var(--do);padding-top:14px}
+.buoc b{display:block;text-transform:uppercase;margin-bottom:6px}.buoc p{margin:0;color:var(--kem);font-size:14px}
+pre{background:var(--den2);border:1px solid rgba(255,42,26,.4);color:var(--kem);padding:16px;overflow-x:auto;font:400 13px/1.6 var(--than);margin:26px 0 0}
+pre i{color:var(--do);font-style:normal}
+.tron{background:var(--do);color:var(--den);padding:26px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:60px}
+.tron b{font:400 clamp(34px,6vw,58px)/.9 var(--hien);text-transform:uppercase;display:block}
+.nut{all:unset;cursor:pointer;background:var(--den);color:var(--do);padding:14px 22px;font-weight:700;text-transform:uppercase;font-size:14px;box-sizing:border-box;text-align:center}
+.nut.d{background:var(--do);color:var(--den)}
+.ban form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+@media(max-width:720px){.ban form{grid-template-columns:1fr}}
+.ban input{background:transparent;border:0;border-bottom:1px solid var(--do);color:var(--kem);font:inherit;padding:12px 0;width:100%}
+.ban input::placeholder{color:var(--mo)}.ban input:focus{outline:none;border-bottom-width:3px}
+footer{padding-block:40px 80px;color:var(--mo);font-size:12px;text-transform:uppercase}
+.ct h3{font:400 44px/.9 var(--hien);text-transform:uppercase;margin:0;color:var(--do)}
+.ct dl{margin:0;display:grid;gap:12px}.ct dt{font-size:11px;text-transform:uppercase;color:var(--do);font-weight:700}.ct dd{margin:2px 0 0;color:var(--kem)}
+.ct q{display:block;border-left:6px solid var(--do);padding:8px 12px;background:var(--den2);quotes:none}
+</style>
+</head>
+<body>
+<div class="bang"><span class="moc" style="left:0;top:38px"></span><span class="moc" style="right:0;top:38px"></span><span class="moc" style="left:0;bottom:30px"></span><span class="moc" style="right:0;bottom:30px"></span>
+  <div class="w"><div class="tren"><span>Chợ skill cho AI</span><button data-k-gio>Giỏ [<span data-k-dem>0</span>]</button></div><h1>Tay nghề</h1></div></div>
+
+<div class="w">
+  <div class="gt"><span class="o"></span><p>Skill là một bộ hướng dẫn đóng gói sẵn. Cài vào là AI của bạn biết làm trọn một việc cụ thể, làm đúng quy trình của người trong nghề, không cần bạn viết prompt.</p></div>
+  <div class="loc" id="loc" role="group" aria-label="Lọc theo nhóm"></div>
+  <input class="tim" id="tim" type="search" placeholder="GÕ VIỆC BẠN CẦN: cắt video, báo giá, tách nền…" aria-label="Tìm skill">
+  <ul class="ds" id="ds"></ul>
+
+  <div class="tron"><div><b>Trọn bộ 12 skill</b><span id="tronmo"></span></div><button class="nut" id="tron">Lấy cả bộ</button></div>
+
+  <section class="khoi"><h2>Dùng thế nào</h2>
+    <div class="buoc">
+      <div><b>1. Chọn và thanh toán</b><p>Quét mã QR chuyển khoản. Link cài gửi về email ngay khi shop xác nhận.</p></div>
+      <div><b>2. Cài bằng một câu</b><p>Dán link vào Claude hoặc Codex và nói "cài skill này". AI tự làm phần còn lại.</p></div>
+      <div><b>3. Nhờ việc bằng tiếng Việt</b><p>Mỗi skill có sẵn câu nhờ mẫu. Bạn chỉ việc thay nội dung của mình vào.</p></div>
+    </div>
+<pre><i>bạn ›</i> Cài skill "Soạn báo giá từ tin nhắn khách" giúp tôi
+<i>AI  ›</i> Đã cài vào dự án. Skill này dùng khi khách nhắn hỏi giá.
+<i>bạn ›</i> Khách hỏi 200 áo thun in logo, giao Đà Nẵng. Soạn báo giá.
+<i>AI  ›</i> Đây là báo giá 1 trang kèm tin nhắn gửi khách…</pre></section>
+
+  <section class="khoi ban"><h2>Bạn có nghề? Đóng gói mà bán</h2>
+    <div class="gt" style="padding-top:0"><span class="o"></span><p>Biến quy trình làm việc của bạn thành skill. Viết một lần, bán nhiều lần. Chợ giữ 20% mỗi đơn, phần còn lại là của bạn.</p></div>
+    <form id="ban" novalidate><input id="b-ten" placeholder="TÊN CỦA BẠN" aria-label="Tên"><input id="b-email" type="email" placeholder="EMAIL" aria-label="Email"><button class="nut d" type="submit">Đăng ký bán</button></form></section>
+</div>
+<footer><div class="w">© 2026 Tay Nghề — thuộc hệ sinh thái KOLAI · Danh mục và giá là bản mẫu chờ duyệt</div></footer>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'taynghe'});
+var S=[
+ ['bai-fb','Viết bài Facebook đúng giọng','Nội dung',149000,'Khi cần bài đăng nghe đúng là bạn viết, không phải giọng máy.','Viết 1 bài về đợt hàng mới, theo giọng kênh của tôi'],
+ ['lich-30','Lên lịch nội dung 30 ngày','Nội dung',149000,'Khi bí ý tưởng và cần lịch đăng cả tháng cho 1 kênh.','Lên lịch 30 ngày cho kênh bán mỹ phẩm thuần chay'],
+ ['cat-short','Cắt video dài thành short','Video',249000,'Khi có buổi livestream hay podcast dài và muốn ra nhiều clip dọc.','Cắt video này thành 5 short, ưu tiên đoạn nói về giá'],
+ ['seo-yt','SEO video YouTube trọn bộ','Video',179000,'Khi vừa đăng video và cần tiêu đề, mô tả, chương mục, thẻ.','SEO đầy đủ cho video mới nhất của tôi'],
+ ['tach-nen','Tách nền ảnh hàng loạt','Hình ảnh',99000,'Khi cần ảnh sản phẩm nền trong suốt cho cả thư mục.','Tách nền hết ảnh trong thư mục san-pham'],
+ ['poster','Bộ 10 poster sản phẩm','Hình ảnh',199000,'Khi cần bộ ảnh quảng cáo đồng bộ từ một ảnh sản phẩm.','Làm bộ 10 poster cho chai serum này'],
+ ['bao-gia','Soạn báo giá từ tin nhắn khách','Bán hàng',199000,'Khi khách nhắn hỏi giá và bạn cần báo giá gọn trong 1 trang.','Khách hỏi 200 áo thun in logo, soạn báo giá giúp tôi'],
+ ['san-win','Săn sản phẩm win TikTok Shop','Bán hàng',299000,'Khi cần chọn sản phẩm đáng làm tiếp thị liên kết tuần này.','Đọc file Kalodata và chấm điểm Top 5'],
+ ['binh-luan','Trả lời bình luận tự nhiên','Chăm khách',149000,'Khi bài đăng có nhiều bình luận và không muốn trả lời rập khuôn.','Trả lời hết bình luận mới, mỗi câu một kiểu'],
+ ['inbox','Kịch bản chốt đơn qua inbox','Chăm khách',179000,'Khi khách hỏi rồi im lặng và bạn cần câu trả lời kéo lại.','Khách chê đắt, soạn 3 cách trả lời'],
+ ['bao-cao','Báo cáo doanh thu tuần từ Excel','Văn phòng',199000,'Khi có file bán hàng và cần báo cáo 1 trang cho sếp.','Đọc file tuần này và chỉ ra 3 điểm cần sửa'],
+ ['bien-ban','Tóm tắt biên bản họp','Văn phòng',99000,'Khi có bản ghi cuộc họp và cần danh sách việc ai làm, hạn nào.','Tóm tắt buổi họp này thành việc cần làm']
+].map(function(a){return {id:a[0],ten:a[1],nhom:a[2],gia:a[3],dung:a[4],cau:a[5]};});
+var nhom='Tất cả',q='';
+var NH=['Tất cả'].concat(S.map(function(s){return s.nhom;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+function veLoc(){document.getElementById('loc').innerHTML=NH.map(function(n){return '<button aria-pressed="'+(n===nhom)+'" data-n="'+n+'">'+n+'</button>';}).join('');}
+function ve(){var a=S.filter(function(s){return (nhom==='Tất cả'||s.nhom===nhom)&&(!q||(s.ten+' '+s.dung+' '+s.nhom).toLowerCase().indexOf(q)>-1);});
+ document.getElementById('ds').innerHTML=a.length?a.map(function(s){return '<li><button data-id="'+s.id+'"><span class="ten">'+s.ten+'</span><span class="gia">'+KOLAI.vnd(s.gia)+'</span><span class="phu">'+s.nhom+' · '+s.dung+'</span></button></li>';}).join(''):'<li class="trong">Chưa có skill khớp với "'+KOLAI.esc(q)+'". Thử từ khác, hoặc đăng ký bán skill đó ở cuối trang.</li>';}
+veLoc();ve();
+document.getElementById('loc').onclick=function(e){var b=e.target.closest('button');if(b){nhom=b.dataset.n;veLoc();ve();}};
+document.getElementById('tim').oninput=function(e){q=e.target.value.trim().toLowerCase();ve();};
+document.getElementById('ds').onclick=function(e){var b=e.target.closest('button[data-id]');if(!b)return;var s=S.filter(function(x){return x.id===b.dataset.id;})[0];
+ var ov=KOLAI.mo('<div class="k-hd"><span>'+s.nhom.toUpperCase()+'</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd ct"><h3>'+s.ten+'</h3>'+
+  '<dl><div><dt>Dùng khi</dt><dd>'+s.dung+'</dd></div><div><dt>Câu nhờ mẫu</dt><dd><q>'+s.cau+'</q></dd></div><div><dt>Chạy trên</dt><dd>Claude Code · Claude.ai · Codex · ChatGPT</dd></div><div><dt>Gồm</dt><dd>File hướng dẫn SKILL.md, mẫu kết quả, cập nhật miễn phí 12 tháng</dd></div></dl></div>'+
+  '<div class="k-ft"><div class="k-tong"><span>Giá</span><span>'+KOLAI.vnd(s.gia)+'</span></div><button class="k-btn" id="them">'+(KOLAI.gio.co(s.id)?'Đã có trong giỏ — xem giỏ':'Thêm vào giỏ')+'</button></div>');
+ ov.querySelector('#them').onclick=function(){if(!KOLAI.gio.co(s.id))KOLAI.gio.them({id:s.id,ten:'Skill: '+s.ten,gia:s.gia});KOLAI.gio.mo();};};
+var tongLe=S.reduce(function(t,s){return t+s.gia;},0),giaBo=1290000;
+document.getElementById('tronmo').textContent='Mua lẻ '+KOLAI.vnd(tongLe)+' · cả bộ '+KOLAI.vnd(giaBo);
+document.getElementById('tron').onclick=function(){KOLAI.datHang({tieuDe:'Trọn bộ 12 skill',items:[{id:'tron-bo',ten:'Trọn bộ 12 skill Tay Nghề',gia:giaBo,sl:1,ghiChu:'Tiết kiệm '+KOLAI.vnd(tongLe-giaBo)+' so với mua lẻ'}]});};
+document.getElementById('ban').addEventListener('submit',function(e){e.preventDefault();if(KOLAI.lead({email:document.getElementById('b-email').value,ten:document.getElementById('b-ten').value,nguon:'Đăng ký bán skill'})){e.target.reset();KOLAI.toast('Đã nhận. Chợ sẽ gửi hướng dẫn đóng gói skill qua email.');}});
+</script>
+</body></html>

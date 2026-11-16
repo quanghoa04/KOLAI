@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VƯỢT — Học viện nghề giá trị cao</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Bố cục: phong cách hãng vũ trụ — nền đen, chữ in hoa cỡ lớn, mỗi chương trình là một "sứ mệnh" tràn màn hình, số liệu kiểu bảng thông số phóng. */
+:root{--bg:#000;--bg2:#0b0d10;--fg:#f2f4f5;--mut:#9aa3ab;--line:rgba(255,255,255,.16);--lua:#ff5a1f;
+  --hien:'Barlow Condensed','Arial Narrow',sans-serif;--than:'Barlow','Helvetica Neue',Arial,sans-serif;--so:'JetBrains Mono',ui-monospace,monospace;
+  --k-bg:#0b0d10;--k-fg:#f2f4f5;--k-accent:#f2f4f5;--k-on:#000;--k-radius:0px;--k-font:var(--than);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--than)}
+a{color:inherit}
+.w{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.nhan{font:600 12px/1 var(--so);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+h1,h2,h3{font-family:var(--hien);text-transform:uppercase;font-weight:700;letter-spacing:.01em;line-height:.98;margin:0;text-wrap:balance}
+.nut{display:inline-block;font:600 14px/1 var(--than);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--fg);padding:16px 30px;border:2px solid var(--fg);background:transparent;cursor:pointer;position:relative;overflow:hidden;transition:color .35s}
+.nut::before{content:"";position:absolute;inset:0;background:var(--fg);transform:translateY(101%);transition:transform .35s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.nut:hover,.nut:focus-visible{color:#000;outline:none}.nut:hover::before,.nut:focus-visible::before{transform:none}
+.nut.dac{background:var(--fg);color:#000}.nut.dac::before{background:var(--lua)}.nut.dac:hover{color:#000}
+header{position:fixed;inset:0 0 auto;z-index:40;background:linear-gradient(#000c,#0000)}
+header .w{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.logo{font:700 30px/1 var(--hien);letter-spacing:.32em;text-decoration:none}
+nav{display:flex;gap:26px}nav a{font:600 13px/1 var(--than);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent}nav a:hover{border-color:var(--fg)}
+@media(max-width:760px){nav{display:none}}
+.dau{position:relative;min-height:min(92vh,820px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.dau canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.cau{position:absolute;left:50%;bottom:-118vw;width:220vw;height:140vw;border-radius:50%;transform:translateX(-50%);z-index:-1;
+  background:radial-gradient(ellipse at 50% 0%,#1b2a3a 0%,#0a1018 28%,#000 60%);box-shadow:0 -2px 60px 6px rgba(120,180,255,.28),inset 0 3px 2px rgba(190,220,255,.55)}
+.dau .w{width:100%;padding-block:150px 64px}
+.dau h1{font-size:clamp(54px,11vw,150px)}
+.dau p{max-width:560px;color:#d5dade;margin:22px 0 30px;font-size:19px}
+.dem{display:flex;gap:clamp(14px,3vw,34px);font-family:var(--so);margin:0 0 34px;flex-wrap:wrap;align-items:flex-end}
+.dem div{display:flex;flex-direction:column;gap:6px}.dem b{font-size:clamp(30px,6vw,56px);font-weight:400;line-height:1;font-variant-numeric:tabular-nums}.dem span{font-size:11px;letter-spacing:.18em;color:var(--mut);text-transform:uppercase}
+.dem .t{font-size:clamp(30px,6vw,56px);line-height:1;color:var(--lua)}
+.thongso{border-block:1px solid var(--line);background:var(--bg2)}
+.thongso .w{display:grid;grid-template-columns:repeat(4,1fr)}
+.thongso div{padding:28px 18px 28px 0;border-right:1px solid var(--line);padding-left:18px}.thongso div:first-child{padding-left:0}.thongso div:last-child{border:0}
+.thongso b{display:block;font:600 clamp(34px,5vw,58px)/1 var(--hien)}.thongso span{font:400 12px/1.4 var(--so);letter-spacing:.12em;color:var(--mut);text-transform:uppercase}
+@media(max-width:640px){.thongso .w{grid-template-columns:1fr 1fr}.thongso div:nth-child(2){border-right:0}.thongso div:nth-child(-n+2){border-bottom:1px solid var(--line)}.thongso div:nth-child(3){padding-left:0}}
+.sm{position:relative;min-height:88vh;display:flex;align-items:center;border-bottom:1px solid var(--line);overflow:hidden;isolation:isolate}
+.sm::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--nen)}
+.sm .so{position:absolute;right:-2vw;bottom:-7vw;font:700 46vw/0.8 var(--hien);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.13);z-index:-1;user-select:none}
+.sm .w{width:100%;padding-block:90px}
+.sm h2{font-size:clamp(44px,8vw,104px);margin:14px 0 18px}
+.sm p{max-width:520px;color:#d5dade;margin:0 0 26px}
+.bang{display:grid;grid-template-columns:auto 1fr;gap:0;max-width:520px;margin:0 0 30px;font-family:var(--so);font-size:14px}
+.bang dt,.bang dd{margin:0;padding:11px 0;border-top:1px solid var(--line)}.bang dt{color:var(--mut);padding-right:28px;letter-spacing:.08em;text-transform:uppercase;font-size:12px}.bang dd{text-align:right}
+.hang{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.gia{font:600 30px/1 var(--hien);margin-right:10px}
+.khoi{padding-block:100px}.khoi h2{font-size:clamp(40px,6.5vw,84px);margin:14px 0 46px}
+.chang{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--fg)}
+.chang article{padding:26px 26px 30px 0;border-right:1px solid var(--line);padding-left:26px}.chang article:first-child{padding-left:0}.chang article:last-child{border:0}
+.chang h3{font-size:34px;margin:14px 0 12px}.chang ul{margin:0;padding:0;list-style:none;color:#cfd5da;font-size:16px}.chang li{padding:9px 0;border-top:1px solid var(--line)}
+@media(max-width:800px){.chang{grid-template-columns:1fr}.chang article{padding:26px 0;border-right:0;border-bottom:1px solid var(--line)}}
+.camket{background:var(--fg);color:#000}.camket .nhan{color:#444}
+.camket .luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:34px}
+.camket h3{font-size:28px;margin:0 0 10px}.camket p{margin:0;font-size:16px}
+.ghidanh .luoi{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media(max-width:860px){.ghidanh .luoi{grid-template-columns:1fr;gap:36px}}
+form{display:flex;flex-direction:column;gap:14px}
+label{display:flex;flex-direction:column;gap:7px;font:600 11px/1 var(--so);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+input,select,textarea{font:400 17px/1.4 var(--than);color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 0;border-radius:0}
+select option{color:#000}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--fg)}
+details{border-top:1px solid var(--line);padding:18px 0}details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font:600 22px/1.2 var(--hien);text-transform:uppercase;letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between;gap:14px}
+summary::after{content:"+";font-family:var(--so)}details[open] summary::after{content:"−"}details p{color:#cfd5da;margin:12px 0 0;max-width:640px}
+footer{border-top:1px solid var(--line);padding-block:34px;color:var(--mut);font-size:13px}footer .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="w"><a class="logo" href="#top">VƯỢT</a>
+  <nav><a href="#chuong-trinh">Chương trình</a><a href="#lo-trinh">Lộ trình</a><a href="#cam-ket">Cam kết</a><a href="#hoi-dap">Hỏi đáp</a></nav>
+  <a class="nut" href="#ghi-danh" style="padding:12px 20px">Ghi danh</a></div></header>
+
+<section class="dau" id="top"><canvas id="sao" aria-hidden="true"></canvas><div class="cau" aria-hidden="true"></div>
+  <div class="w">
+    <div class="nhan">Khoá 07 · Khai giảng 12.01.2027 · Tối đa 20 học viên</div>
+    <h1 style="margin-top:18px">Một nghề.<br>Hết tầm.</h1>
+    <p>Chương trình 12 tuần học trực tiếp cùng người đang làm nghề. Bạn ra khỏi khoá với một dự án chạy thật và một bộ kỹ năng đủ để nhận việc ngay.</p>
+    <div class="dem" aria-label="Đếm ngược đến ngày khai giảng"><span class="t">T−</span>
+      <div><b id="d">00</b><span>Ngày</span></div><div><b id="h">00</b><span>Giờ</span></div><div><b id="m">00</b><span>Phút</span></div><div><b id="s">00</b><span>Giây</span></div></div>
+    <div class="hang"><a class="nut dac" href="#ghi-danh">Giữ chỗ khoá 07</a><a class="nut" href="#chuong-trinh">Xem 3 chương trình</a></div>
+  </div></section>
+
+<div class="thongso"><div class="w">
+  <div><b>12</b><span>tuần huấn luyện</span></div><div><b>24</b><span>buổi trực tiếp</span></div><div><b>20</b><span>học viên mỗi khoá</span></div><div><b>01</b><span>dự án chạy thật</span></div></div></div>
+
+<main id="chuong-trinh"></main>
+
+<section class="khoi" id="lo-trinh"><div class="w">
+  <div class="nhan">Lộ trình bay</div><h2>Ba chặng,<br>mười hai tuần</h2>
+  <div class="chang">
+    <article><div class="nhan">Tuần 01–04</div><h3>Cất cánh</h3><ul><li>Nền tảng nghề và bộ công cụ chuẩn</li><li>Mỗi tuần một bài tập có chấm chữa</li><li>Chọn đề bài cho dự án cuối khoá</li></ul></article>
+    <article><div class="nhan">Tuần 05–09</div><h3>Vào quỹ đạo</h3><ul><li>Làm dự án thật, có người hướng dẫn kèm</li><li>Họp nhóm 4 người mỗi tuần</li><li>Rà soát giữa kỳ 1 kèm 1</li></ul></article>
+    <article><div class="nhan">Tuần 10–12</div><h3>Hạ cánh</h3><ul><li>Hoàn thiện và trình bày dự án</li><li>Dựng hồ sơ năng lực để nhận việc</li><li>Kế hoạch 90 ngày sau khoá</li></ul></article>
+  </div></div></section>
+
+<section class="khoi camket" id="cam-ket"><div class="w">
+  <div class="nhan">Cam kết</div><h2>Nói trước<br>cho rõ</h2>
+  <div class="luoi">
+    <div><h3>Hoàn tiền trong 14 ngày</h3><p>Học hết 2 tuần đầu thấy không hợp, bạn nhận lại toàn bộ học phí, không cần giải thích.</p></div>
+    <div><h3>Học lại miễn phí</h3><p>Chưa xong dự án cuối khoá thì được học lại khoá kế tiếp mà không đóng thêm.</p></div>
+    <div><h3>Không hứa thu nhập</h3><p>Kết quả phụ thuộc vào công sức của bạn. Chúng tôi cam kết chất lượng dạy và kèm, không cam kết con số bạn kiếm được.</p></div>
+  </div></div></section>
+
+<section class="khoi ghidanh" id="ghi-danh"><div class="w"><div class="luoi">
+  <div><div class="nhan">Ghi danh khoá 07</div><h2 style="margin-bottom:22px">Xin một<br>suất bay</h2>
+    <p style="color:#cfd5da;max-width:440px">Mỗi khoá chỉ nhận 20 người nên có vòng trao đổi 20 phút trước khi nhận. Gửi đơn bên cạnh, cố vấn sẽ gọi lại trong 24 giờ làm việc.</p>
+    <p style="color:#cfd5da;max-width:440px">Đã chắc chắn? Đặt cọc <b style="color:#fff">2.000.000đ</b> để giữ chỗ. Cọc được trừ vào học phí và hoàn lại nếu bạn không qua vòng trao đổi.</p>
+    <button class="nut" id="coc" style="margin-top:10px">Đặt cọc giữ chỗ</button></div>
+  <form id="don" novalidate>
+    <label for="f-ten">Họ tên<input id="f-ten" autocomplete="name" required></label>
+    <label for="f-sdt">Số điện thoại / Zalo<input id="f-sdt" inputmode="tel" autocomplete="tel" required></label>
+    <label for="f-email">Email<input id="f-email" type="email" autocomplete="email" required></label>
+    <label for="f-ct">Chương trình quan tâm<select id="f-ct"></select></label>
+    <label for="f-mt">Bạn muốn đạt điều gì sau 12 tuần?<textarea id="f-mt" rows="2"></textarea></label>
+    <button class="nut dac" type="submit" style="align-self:flex-start;margin-top:8px">Gửi đơn ghi danh</button>
+  </form></div></div></section>
+
+<section class="khoi" id="hoi-dap" style="padding-top:0"><div class="w">
+  <div class="nhan">Hỏi đáp</div><h2>Trước khi lên tàu</h2>
+  <details><summary>Người chưa có nền tảng học được không?</summary><p>Được, nếu bạn dành được 8–10 giờ mỗi tuần. Vòng trao đổi đầu vào là để chắc rằng chương trình hợp với xuất phát điểm của bạn.</p></details>
+  <details><summary>Học trực tiếp hay xem video?</summary><p>Hai buổi trực tiếp qua Zoom mỗi tuần, có ghi hình để xem lại. Bài tập được chấm chữa bằng chữ và bằng video.</p></details>
+  <details><summary>Có trả góp học phí không?</summary><p>Có. Học phí chia được thành 3 đợt không lãi: khi nhận lớp, tuần 5 và tuần 9.</p></details>
+  <details><summary>Đặt cọc rồi đổi ý thì sao?</summary><p>Cọc hoàn 100% nếu bạn báo trước ngày khai giảng 7 ngày, hoặc nếu bạn không qua vòng trao đổi.</p></details>
+</div></section>
+
+<footer><div class="w"><span>© 2026 VƯỢT — thuộc hệ sinh thái KOLAI</span><span>Nội dung và học phí trên trang là bản mẫu, chờ anh Hòa duyệt.</span></div></footer>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'vuot'});
+var CT=[
+ {id:'ai-tu-dong',so:'01',ten:'AI tự động hoá doanh nghiệp',mo:'Dựng hệ thống AI làm thay việc lặp lại cho một doanh nghiệp thật: chăm khách, soạn nội dung, báo cáo.',gia:38000000,tuan:'12 tuần',buoi:'24 buổi · tối T3, T5',hop:'Chủ doanh nghiệp, trưởng nhóm vận hành',ra:'Một quy trình AI chạy thật trong công ty bạn',nen:'radial-gradient(ellipse at 80% 20%,#3a1d0e 0%,#000 60%)'},
+ {id:'kol-ai',so:'02',ten:'Dựng kênh KOL AI bán hàng',mo:'Tạo nhân vật AI, sản xuất video hằng ngày và gắn giỏ hàng tiếp thị liên kết trên TikTok, YouTube, Facebook.',gia:26000000,tuan:'12 tuần',buoi:'24 buổi · tối T2, T4',hop:'Người làm nội dung, người bán hàng online',ra:'Một kênh đã đăng đủ 60 video đầu tiên',nen:'radial-gradient(ellipse at 20% 30%,#0f2b3f 0%,#000 62%)'},
+ {id:'quang-cao',so:'03',ten:'Quảng cáo hiệu suất chuyên sâu',mo:'Đọc số, dựng phễu, tối ưu ngân sách trên Meta và TikTok cho sản phẩm có biên lợi nhuận thật.',gia:32000000,tuan:'12 tuần',buoi:'24 buổi · sáng T7, CN',hop:'Marketer đã chạy quảng cáo từ 6 tháng',ra:'Một chiến dịch thật có báo cáo đầy đủ',nen:'radial-gradient(ellipse at 70% 80%,#2a2140 0%,#000 60%)'}
+];
+document.getElementById('chuong-trinh').innerHTML=CT.map(function(c){return '<section class="sm" style="--nen:'+c.nen+'"><div class="so" aria-hidden="true">'+c.so+'</div><div class="w">'+
+ '<div class="nhan">Sứ mệnh '+c.so+'</div><h2>'+c.ten+'</h2><p>'+c.mo+'</p>'+
+ '<dl class="bang"><dt>Thời lượng</dt><dd>'+c.tuan+'</dd><dt>Lịch học</dt><dd>'+c.buoi+'</dd><dt>Hợp với</dt><dd>'+c.hop+'</dd><dt>Ra khoá có</dt><dd>'+c.ra+'</dd></dl>'+
+ '<div class="hang"><span class="gia">'+KOLAI.vnd(c.gia)+'</span><button class="nut dac" data-coc="'+c.id+'">Giữ chỗ</button><a class="nut" href="#ghi-danh" data-chon="'+c.id+'">Xin tư vấn</a></div></div></section>';}).join('');
+var sel=document.getElementById('f-ct');sel.innerHTML=CT.map(function(c){return '<option value="'+c.id+'">'+c.ten+'</option>';}).join('');
+function coc(id){var c=CT.filter(function(x){return x.id===id;})[0]||CT[0];
+ KOLAI.datHang({tieuDe:'Đặt cọc giữ chỗ',nut:'Đặt cọc 2.000.000đ',items:[{id:'coc-'+c.id,ten:'Cọc giữ chỗ — '+c.ten,gia:2000000,sl:1,ghiChu:'Khoá 07 · học phí '+KOLAI.vnd(c.gia)+' · cọc được trừ vào học phí'}]});}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-coc]');if(b)coc(b.dataset.coc);var a=e.target.closest('[data-chon]');if(a)sel.value=a.dataset.chon;});
+document.getElementById('coc').onclick=function(){coc(sel.value);};
+document.getElementById('don').addEventListener('submit',function(e){e.preventDefault();var f=e.target,ten=f['f-ten'].value.trim(),sdt=f['f-sdt'].value.trim();
+ if(!ten||!sdt){KOLAI.toast('Bạn điền giúp họ tên và số điện thoại');return;}
+ if(KOLAI.lead({email:f['f-email'].value,ten:ten,sdt:sdt,nguon:'Đơn ghi danh: '+sel.options[sel.selectedIndex].text+(f['f-mt'].value?' — '+f['f-mt'].value:'')})){f.reset();KOLAI.toast('Đã nhận đơn. Cố vấn sẽ gọi lại trong 24 giờ làm việc.');}});
+/* đếm ngược */
+var dich=new Date('2027-01-12T19:30:00+07:00').getTime();
+function dem(){var t=Math.max(0,dich-Date.now()),p=function(n){return ('0'+n).slice(-2);};
+ document.getElementById('d').textContent=p(Math.floor(t/864e5));document.getElementById('h').textContent=p(Math.floor(t/36e5)%24);document.getElementById('m').textContent=p(Math.floor(t/6e4)%60);document.getElementById('s').textContent=p(Math.floor(t/1e3)%60);}
+dem();setInterval(dem,1000);
+/* trời sao */
+(function(){var c=document.getElementById('sao'),x=c.getContext('2d');function ve(){var w=c.width=c.offsetWidth,h=c.height=c.offsetHeight,i;x.fillStyle='#000';x.fillRect(0,0,w,h);
+ for(i=0;i<Math.round(w*h/5200);i++){var r=Math.random();x.fillStyle='rgba(255,255,255,'+(0.25+r*0.75)+')';x.fillRect(Math.random()*w,Math.random()*h*0.9,r>0.96?2:1,r>0.96?2:1);}}
+ ve();var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(ve,200);});})();
+</script>
+</body></html>

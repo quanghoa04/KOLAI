@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NỐT — Sheet nhạc tặng bạn</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@500;700;800&display=swap">
+<style>
+/* Bố cục: kiểu áp phích nhà hát — nền hồng phẳng, tên trang bằng chữ slab đen tràn hết chiều ngang, khối chữ đậm lệch phải; bản nhạc vẽ thẳng lên nền như in trên áp phích. */
+:root{--hong:#eba9a4;--hong2:#f3c3bf;--den:#0d0a0a;--trang:#fff7f2;
+  --hien:'Alfa Slab One','Rockwell','Georgia',serif;--than:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --k-bg:#fff7f2;--k-fg:#0d0a0a;--k-accent:#0d0a0a;--k-on:#eba9a4;--k-radius:0px;--k-font:var(--than);--k-line:#0d0a0a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--hong);color:var(--den);font:500 17px/1.45 var(--than)}
+.w{max-width:1320px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}:focus-visible{outline:3px solid var(--den);outline-offset:3px}
+h1{font:400 clamp(48px,15.6vw,236px)/.9 var(--hien);margin:0;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;padding-top:14px}
+.thanh{display:flex;justify-content:flex-end;align-items:center;gap:8px 26px;flex-wrap:wrap;padding-block:18px 0;font-weight:800;letter-spacing:-.01em}
+.thanh a{text-decoration:none}.thanh a:hover{text-decoration:underline;text-decoration-thickness:3px}
+.nut{all:unset;cursor:pointer;background:var(--den);color:var(--hong);font:800 16px/1 var(--than);padding:13px 20px;box-sizing:border-box;text-align:center}
+.nut:hover{background:var(--trang);color:var(--den);box-shadow:inset 0 0 0 3px var(--den)}
+.nut.vien{background:transparent;color:var(--den);box-shadow:inset 0 0 0 3px var(--den)}.nut.vien:hover{background:var(--den);color:var(--hong)}
+.loi{display:grid;grid-template-columns:1fr minmax(0,560px);padding-block:46px 60px}
+.loi div{grid-column:2;font:800 clamp(20px,2.3vw,27px)/1.22 var(--than);letter-spacing:-.02em}
+.loi p{margin:0 0 20px}.loi u{text-decoration-thickness:3px;text-underline-offset:4px}
+@media(max-width:760px){.loi{grid-template-columns:1fr}.loi div{grid-column:1}}
+h2{font:400 clamp(40px,7vw,96px)/.9 var(--hien);text-transform:uppercase;margin:0 0 22px;letter-spacing:-.01em}
+.loc{display:flex;flex-wrap:wrap;gap:8px 8px;margin-bottom:28px;align-items:center}
+.loc span{font-weight:800;margin-right:4px}.loc i{width:16px}
+.loc button{all:unset;cursor:pointer;font-weight:800;padding:8px 14px;box-shadow:inset 0 0 0 3px var(--den)}
+.loc button[aria-pressed=true]{background:var(--den);color:var(--hong)}
+.bai{border-top:6px solid var(--den);padding-block:22px 34px;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:18px 40px;align-items:start}
+@media(max-width:860px){.bai{grid-template-columns:1fr}}
+.bai h3{font:400 clamp(30px,3.6vw,46px)/.95 var(--hien);margin:0 0 8px;text-transform:uppercase}
+.bai .tt{font-weight:800;margin:0 0 4px}.bai .mo{margin:0 0 16px;font-weight:500}
+.bai .hang{display:flex;gap:10px;flex-wrap:wrap}
+.khuong{overflow-x:auto}.khuong svg{display:block;width:100%;min-width:560px;height:auto}
+.khuong .n{transition:fill .08s}.khuong .n.keu{fill:#c5241c;stroke:#c5241c}
+.trong{border-top:6px solid var(--den);padding-block:28px;font-weight:800}
+.doi{background:var(--den);color:var(--hong);margin-top:60px}
+.doi .w{display:grid;grid-template-columns:1fr 1fr;gap:50px;padding-block:70px}
+@media(max-width:800px){.doi .w{grid-template-columns:1fr;gap:44px}}
+.doi h2{font-size:clamp(34px,5vw,64px)}.doi p{margin:0 0 18px;max-width:480px}
+.doi .nut{background:var(--hong);color:var(--den)}.doi .nut:hover{background:var(--trang);box-shadow:none}
+.doi form{display:flex;flex-direction:column;gap:12px;max-width:440px}
+.doi input{font:500 17px/1.3 var(--than);padding:13px;border:3px solid var(--hong);background:transparent;color:var(--trang);border-radius:0}
+.doi input::placeholder{color:#b98884}
+.doi .hang{display:flex;gap:10px;flex-wrap:wrap}
+footer{padding-block:30px 90px;font-weight:800;font-size:14px}footer .w{display:flex;gap:10px 30px;justify-content:space-between;flex-wrap:wrap}
+/* bản đầy đủ */
+.to{position:fixed;inset:0;z-index:200;background:var(--trang);overflow:auto;color:var(--den)}
+.to .tr{position:sticky;top:0;background:var(--den);color:var(--hong);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));font-weight:800}
+.to .tr .nut{background:var(--hong);color:var(--den);padding:10px 14px}
+.giay{max-width:860px;margin:0 auto;padding:44px 20px 110px}
+.giay h3{font:400 clamp(32px,5vw,52px)/1 var(--hien);text-align:center;margin:0 0 6px;text-transform:uppercase}
+.giay .tg{text-align:center;font-weight:800;margin:0 0 30px}.giay .ghi{font-size:14px;margin-top:28px;border-top:3px solid var(--den);padding-top:12px}
+@media print{body>*:not(.to){display:none!important}.to{position:static}.to .tr,.k-hq{display:none!important}}
+</style>
+</head>
+<body>
+<header class="w"><h1>Nốt nhạc</h1>
+  <div class="thanh"><a href="#kho">Kho nhạc</a><a href="#xin">Xin bản nhạc</a><a href="#ung-ho">Ủng hộ</a><a class="nut" href="#kho">Nhận sheet</a></div></header>
+<section class="w loi"><div><p>SHEET NHẠC CHÉP TAY, TẶNG KHÔNG.<br><u>ĐÚNG NỐT, DỄ ĐỌC, IN RA LÀ TẬP</u> được ngay.</p>
+  <p>Mỗi tuần thêm bản mới cho piano, guitar và sáo. Toàn bộ là tác phẩm đã thuộc về công chúng, bạn tải, in và biểu diễn thoải mái.</p></div></section>
+
+<section class="w" id="kho"><h2>Kho nhạc</h2>
+  <div class="loc" id="loc" role="group" aria-label="Lọc kho nhạc"></div><div id="ds"></div></section>
+
+<section class="doi"><div class="w">
+  <div id="xin"><h2>Xin một bản</h2><p>Chưa thấy bài bạn cần? Gõ tên bài, người chép nhạc sẽ ưu tiên bài được xin nhiều nhất. Chỉ nhận tác phẩm hết thời hạn bản quyền hoặc dân ca.</p>
+    <form id="fxin" novalidate><input id="x-bai" placeholder="Tên bài và nhạc cụ" aria-label="Tên bài"><input id="x-email" type="email" placeholder="Email để báo khi có" aria-label="Email"><button class="nut" type="submit">Gửi lời xin</button></form></div>
+  <div id="ung-ho"><h2>Mời ly cà phê</h2><p>Trang sống nhờ người chơi nhạc ủng hộ. Mỗi ly cà phê là thêm một bản được chép.</p>
+    <div class="hang"><button class="nut" data-uh="20000">20.000đ</button><button class="nut" data-uh="50000">50.000đ</button><button class="nut" data-uh="100000">100.000đ</button></div>
+    <p style="margin-top:26px">Hoặc lấy <b>Tuyển tập 30 bản dễ cho người mới</b>, bản in đẹp kèm số ngón tay.</p><button class="nut" id="tuyentap">Mua tuyển tập · 99.000đ</button></div>
+</div></section>
+<footer><div class="w"><span>© 2026 Nốt — thuộc hệ sinh thái KOLAI</span><span>Chỉ đăng tác phẩm thuộc về công chúng. Bản mẫu chờ duyệt.</span></div></footer>
+<div class="to" id="to" hidden></div>
+
+<script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
+<script>
+KOLAI.khoiDong({site:'not'});
+/* nốt viết dạng "E4:1" = nốt Mi quãng 4, dài 1 phách. R = dấu lặng. */
+function nn(s){return s.split(' ').map(function(x){var p=x.split(':');return [p[0],+p[1]];});}
+var BAI=[
+ {id:'niem-vui',ten:'Bài ca niềm vui',tg:'L. v. Beethoven',cu:['Piano','Guitar','Sáo'],cap:'Dễ',nhip:[4,4],bpm:112,mo:'Giai điệu chủ đề từ Giao hưởng số 9. Năm nốt liền bậc, hợp làm bài đầu tiên.',
+  n:nn('E4:1 E4:1 F4:1 G4:1 G4:1 F4:1 E4:1 D4:1 C4:1 C4:1 D4:1 E4:1 E4:1.5 D4:.5 D4:2 E4:1 E4:1 F4:1 G4:1 G4:1 F4:1 E4:1 D4:1 C4:1 C4:1 D4:1 E4:1 D4:1.5 C4:.5 C4:2')},
+ {id:'buom-vang',ten:'Kìa con bướm vàng',tg:'Dân ca Pháp',cu:['Piano','Sáo'],cap:'Dễ',nhip:[4,4],bpm:116,mo:'Mỗi câu nhạc lặp lại hai lần nên rất dễ thuộc. Hát đuổi được với bạn cùng tập.',
+  n:nn('C4:1 D4:1 E4:1 C4:1 C4:1 D4:1 E4:1 C4:1 E4:1 F4:1 G4:2 E4:1 F4:1 G4:2 G4:.5 A4:.5 G4:.5 F4:.5 E4:1 C4:1 G4:.5 A4:.5 G4:.5 F4:.5 E4:1 C4:1 C4:1 G4:1 C4:2 C4:1 G4:1 C4:2')},
+ {id:'ngoi-sao',ten:'Ngôi sao nhỏ lấp lánh',tg:'Dân ca Pháp',cu:['Piano','Guitar'],cap:'Dễ',nhip:[4,4],bpm:104,mo:'Giai điệu Mozart từng viết mười hai biến tấu. Tập bước nhảy quãng năm ngay ô nhịp đầu.',
+  n:nn('C4:1 C4:1 G4:1 G4:1 A4:1 A4:1 G4:2 F4:1 F4:1 E4:1 E4:1 D4:1 D4:1 C4:2 G4:1 G4:1 F4:1 F4:1 E4:1 E4:1 D4:2 G4:1 G4:1 F4:1 F4:1 E4:1 E4:1 D4:2')},
+ {id:'chuong-ngan',ten:'Tiếng chuông ngân',tg:'J. L. Pierpont, 1857',cu:['Piano','Guitar','Sáo'],cap:'Dễ',nhip:[4,4],bpm:132,mo:'Điệp khúc bài Giáng sinh quen thuộc nhất. Tập giữ đều nốt trắng và nốt tròn.',
+  n:nn('E4:1 E4:1 E4:2 E4:1 E4:1 E4:2 E4:1 G4:1 C4:1.5 D4:.5 E4:4 F4:1 F4:1 F4:1.5 F4:.5 F4:1 E4:1 E4:1 E4:.5 E4:.5 E4:1 D4:1 D4:1 E4:1 D4:2 G4:2')},
+ {id:'hat-ru',ten:'Khúc hát ru',tg:'J. Brahms',cu:['Piano','Sáo'],cap:'Vừa',nhip:[3,4],lay:1,bpm:84,mo:'Nhịp ba chậm, có ô nhịp lấy đà. Tập ngân đủ nốt trắng và lấy hơi đúng chỗ.',
+  n:nn('E4:.5 E4:.5 G4:2 E4:.5 E4:.5 G4:2 E4:.5 G4:.5 C5:1 B4:1.5 A4:.5 A4:1 G4:1 D4:.5 E4:.5 F4:2 D4:.5 E4:.5 F4:2 D4:.5 F4:.5 B4:.5 A4:.5 G4:1 B4:1 C5:3')},
+ {id:'minuet',ten:'Minuet Sol trưởng',tg:'C. Petzold (sổ nhạc Anna Magdalena Bach)',cu:['Piano','Guitar'],cap:'Vừa',nhip:[3,4],bpm:120,mo:'Tám ô nhịp đầu của bản minuet nổi tiếng. Chú ý nốt Fa thăng ở ô nhịp thứ ba.',
+  n:nn('D5:1 G4:.5 A4:.5 B4:.5 C5:.5 D5:1 G4:1 G4:1 E5:1 C5:.5 D5:.5 E5:.5 F#5:.5 G5:1 G4:1 G4:1 C5:1 D5:.5 C5:.5 B4:.5 A4:.5 B4:1 C5:.5 B4:.5 A4:.5 G4:.5 F#4:1 G4:.5 A4:.5 B4:.5 G4:.5 A4:3')},
+ {id:'elise',ten:'Thư gửi Elise',tg:'L. v. Beethoven',cu:['Piano'],cap:'Vừa',nhip:[3,4],lay:1,bpm:132,mo:'Câu mở đầu, viết giãn trường độ gấp đôi cho dễ đọc. Tập luân phiên Mi và Rê thăng thật đều.',
+  n:nn('E5:.5 D#5:.5 E5:.5 D#5:.5 E5:.5 B4:.5 D5:.5 C5:.5 A4:1 R:.5 C4:.5 E4:.5 A4:.5 B4:1 R:.5 E4:.5 G#4:.5 B4:.5 C5:1 R:.5 E4:.5 E5:.5 D#5:.5 E5:.5 D#5:.5 E5:.5 B4:.5 D5:.5 C5:.5 A4:1 R:.5 C4:.5 E4:.5 A4:.5 B4:1 R:.5 E4:.5 C5:.5 B4:.5 A4:3')}
+];
+/* ---------- vẽ khuông nhạc ---------- */
+var CHU={C:0,D:1,E:2,F:3,G:4,A:5,B:6},BAN={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+function phan(p){var m=/^([A-G])(#?)(\d)$/.exec(p);return {buoc:(+m[3])*7+CHU[m[1]]-30,thang:!!m[2],tan:440*Math.pow(2,(((+m[3])+1)*12+BAN[m[1]]+(m[2]?1:0)-69)/12)};}
+function chiaO(b){var o=[],cur=[],con=b.lay||b.nhip[0];b.n.forEach(function(x,i){cur.push([x[0],x[1],i]);con-=x[1];if(con<=0.001){o.push(cur);cur=[];con=b.nhip[0];}});if(cur.length)o.push(cur);return o;}
+function veNhac(b,toiDa,moiHang){var o=chiaO(b);if(toiDa)o=o.slice(0,toiDa);moiHang=moiHang||4;var W=760,L=74,H=118,hang=Math.ceil(o.length/moiHang),s='',den='#0d0a0a';
+ for(var r=0;r<hang;r++){var top=r*H+34,rong=(W-L-8)/moiHang,k;
+  for(k=0;k<5;k++)s+='<line x1="4" x2="'+(W-4)+'" y1="'+(top+k*10)+'" y2="'+(top+k*10)+'" stroke="'+den+'" stroke-width="1.3"/>';
+  s+='<line x1="4" x2="4" y1="'+top+'" y2="'+(top+40)+'" stroke="'+den+'" stroke-width="2"/>';
+  s+='<path transform="translate(10 '+(top-14)+') scale(1.12)" d="M20 58C20 65 11 65 12 58M20 58L18 10C18 1 27 0 26 9C25 19 8 24 8 36C8 46 18 50 24 46C30 42 28 32 21 32C15 32 13 39 17 42" fill="none" stroke="'+den+'" stroke-width="2.6" stroke-linecap="round"/>';
+  if(r===0)s+='<text x="56" y="'+(top+18)+'" font-family="Georgia,serif" font-weight="700" font-size="23" text-anchor="middle" fill="'+den+'">'+b.nhip[0]+'</text><text x="56" y="'+(top+39)+'" font-family="Georgia,serif" font-weight="700" font-size="23" text-anchor="middle" fill="'+den+'">'+b.nhip[1]+'</text>';
+  o.slice(r*moiHang,(r+1)*moiHang).forEach(function(oNhip,j){var x0=L+j*rong,t=0;
+   oNhip.forEach(function(nt){var x=x0+14+(t/b.nhip[0])*(rong-18);t+=nt[1];
+    if(nt[0]==='R'){s+='<path class="n" data-i="'+nt[2]+'" d="M'+(x-3)+' '+(top+11)+'l6 8l-6 6l6 7q-9 -3 -5 6" fill="none" stroke="'+den+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>';return;}
+    var p=phan(nt[0]),y=top+40-p.buoc*5,len=p.buoc<4,d=nt[1],rong2=d>=2;
+    if(p.buoc<=-2)s+='<line x1="'+(x-10)+'" x2="'+(x+10)+'" y1="'+(top+50)+'" y2="'+(top+50)+'" stroke="'+den+'" stroke-width="1.3"/>';
+    if(p.buoc>=10)s+='<line x1="'+(x-10)+'" x2="'+(x+10)+'" y1="'+(top-10)+'" y2="'+(top-10)+'" stroke="'+den+'" stroke-width="1.3"/>';
+    if(p.thang)s+='<text x="'+(x-16)+'" y="'+(y+5)+'" font-size="15" font-family="Arial,sans-serif" fill="'+den+'">♯</text>';
+    s+='<g class="n" data-i="'+nt[2]+'" fill="'+den+'" stroke="'+den+'"><ellipse cx="'+x+'" cy="'+y+'" rx="6.2" ry="4.4" transform="rotate(-20 '+x+' '+y+')" '+(rong2?'fill="none" stroke-width="2"':'stroke-width="1"')+'/>';
+    if(d<4){var sx=len?x+5.6:x-5.6,sy=len?y-31:y+31;s+='<line x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+sy+'" stroke-width="1.6"/>';
+     if(d<=0.5)s+='<path d="M'+sx+' '+sy+(len?'q11 8 6 19':'q11 -8 6 -19')+'" fill="none" stroke-width="2"/>';}
+    if(d===1.5||d===3)s+='<circle cx="'+(x+11)+'" cy="'+(y-(p.buoc%2===0?4:0))+'" r="1.8" stroke="none"/>';
+    s+='</g>';});
+   var cuoi=(r*moiHang+j===o.length-1)&&!toiDa;
+   s+='<line x1="'+(x0+rong)+'" x2="'+(x0+rong)+'" y1="'+top+'" y2="'+(top+40)+'" stroke="'+den+'" stroke-width="'+(cuoi?4:1.3)+'"/>';});}
+ return '<svg viewBox="0 0 '+W+' '+(hang*H+4)+'" role="img" aria-label="Bản nhạc '+b.ten+'">'+s+'</svg>';}
+/* ---------- nghe thử ---------- */
+var ac,dangKeu=null,hen=[];
+function dung(){hen.forEach(clearTimeout);hen=[];if(dangKeu){dangKeu.stop.forEach(function(o){try{o.stop();}catch(e){}});dangKeu=null;}
+ [].forEach.call(document.querySelectorAll('.n.keu'),function(e){e.classList.remove('keu');});[].forEach.call(document.querySelectorAll('[data-nghe]'),function(b){b.textContent='Nghe thử';});}
+function nghe(b,nut,goc,toiDa){var dang=dangKeu&&dangKeu.id===b.id+goc.id;dung();if(dang)return;
+ try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();}catch(e){KOLAI.toast('Trình duyệt này không phát được âm thanh');return;}
+ var phach=60/b.bpm,t=ac.currentTime+0.08,t0=t,ds=toiDa?[].concat.apply([],chiaO(b).slice(0,toiDa)).map(function(x){return [x[0],x[1],x[2]];}):b.n.map(function(x,i){return [x[0],x[1],i];});
+ dangKeu={id:b.id+goc.id,stop:[]};nut.textContent='Dừng';
+ ds.forEach(function(x){var dai=x[1]*phach;
+  if(x[0]!=='R'){var o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=phan(x[0]).tan;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+dai*.96);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+dai);dangKeu.stop.push(o);}
+  (function(i,luc){hen.push(setTimeout(function(){[].forEach.call(goc.querySelectorAll('.n.keu'),function(e){e.classList.remove('keu');});var e=goc.querySelector('.n[data-i="'+i+'"]');if(e)e.classList.add('keu');},(luc-t0)*1000+80));})(x[2],t);
+  t+=dai;});
+ hen.push(setTimeout(dung,(t-t0)*1000+200));}
+/* ---------- kho nhạc ---------- */
+var lCu='Tất cả',lCap='Mọi cấp độ';
+function veLoc(){var a=['Tất cả','Piano','Guitar','Sáo'],c=['Mọi cấp độ','Dễ','Vừa'];
+ document.getElementById('loc').innerHTML='<span>Nhạc cụ</span>'+a.map(function(x){return '<button data-cu="'+x+'" aria-pressed="'+(x===lCu)+'">'+x+'</button>';}).join('')+'<i></i><span>Cấp độ</span>'+c.map(function(x){return '<button data-cap="'+x+'" aria-pressed="'+(x===lCap)+'">'+x+'</button>';}).join('');}
+function veDs(){dung();var a=BAI.filter(function(b){return (lCu==='Tất cả'||b.cu.indexOf(lCu)>-1)&&(lCap==='Mọi cấp độ'||b.cap===lCap);});
+ document.getElementById('ds').innerHTML=a.length?a.map(function(b){return '<article class="bai" id="b-'+b.id+'"><div><h3>'+b.ten+'</h3><p class="tt">'+b.tg+' · '+b.cu.join(', ')+' · '+b.cap+' · nhịp '+b.nhip.join('/')+'</p><p class="mo">'+b.mo+'</p>'+
+  '<div class="hang"><button class="nut vien" data-nghe="'+b.id+'">Nghe thử</button><button class="nut" data-nhan="'+b.id+'">Nhận sheet miễn phí</button></div></div><div class="khuong">'+veNhac(b,4)+'</div></article>';}).join(''):'<div class="trong">Chưa có bản nào cho lựa chọn này. Bạn xin bản ở phía dưới nhé.</div>';}
+veLoc();veDs();
+document.getElementById('loc').onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.cu)lCu=b.dataset.cu;else lCap=b.dataset.cap;veLoc();veDs();};
+function tim(id){return BAI.filter(function(x){return x.id===id;})[0];}
+var to=document.getElementById('to'),inDuoc=!/claude/i.test(location.hostname);
+function moTo(b){dung();to.innerHTML='<div class="tr"><button class="nut" id="dongto">← Kho nhạc</button><span style="display:flex;gap:8px"><button class="nut" data-nghe="'+b.id+'" data-day="1">Nghe thử</button>'+(inDuoc?'<button class="nut" id="in">In / lưu PDF</button>':'')+'</span></div>'+
+  '<div class="giay"><h3>'+b.ten+'</h3><p class="tg">'+b.tg+' · nhịp '+b.nhip.join('/')+' · ♩ = '+b.bpm+'</p><div class="khuong" id="khuongday">'+veNhac(b,0,4)+'</div>'+
+  '<p class="ghi">Tác phẩm thuộc về công chúng. Bản chép của Nốt, bạn được in, chia sẻ và biểu diễn tự do.<br>Bản xem thử: khi web lên sóng, file PDF sẽ tự gửi về email bạn đã đăng ký.</p></div>';
+ to.hidden=false;to.scrollTop=0;document.body.style.overflow='hidden';KOLAI.suKien('tai','Nhận sheet: '+b.ten);}
+function dongTo(){dung();to.hidden=true;document.body.style.overflow='';}
+function nhan(b){if(KOLAI.KHO.doc('not.email','')){moTo(b);return;}
+ var ov=KOLAI.mo('<div class="k-hd"><span>Nhận sheet miễn phí</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><form class="k-bd" id="fn" novalidate><p><b>'+b.ten+'</b><br>Để lại email, bạn mở được toàn bộ kho và nhận bản mới mỗi tuần.</p><label class="k-lb">Email<input class="k-in" id="n-email" type="email" autocomplete="email"></label><button class="k-btn" type="submit">Mở bản nhạc</button><p class="k-note">Mỗi tuần một thư, bỏ đăng ký bất cứ lúc nào.</p></form>',true);
+ ov.querySelector('#fn').addEventListener('submit',function(e){e.preventDefault();var em=ov.querySelector('#n-email').value;if(KOLAI.lead({email:em,nguon:'Nhận sheet: '+b.ten})){KOLAI.KHO.ghi('not.email',em.trim());KOLAI.dong();moTo(b);}});}
+document.addEventListener('click',function(e){var n=e.target.closest('[data-nghe]');
+ if(n){var b=tim(n.dataset.nghe);if(n.dataset.day)nghe(b,n,document.getElementById('khuongday'),0);else nghe(b,n,document.getElementById('b-'+b.id),4);return;}
+ var h=e.target.closest('[data-nhan]');if(h){nhan(tim(h.dataset.nhan));return;}
+ if(e.target.closest('#dongto'))dongTo();if(e.target.closest('#in'))window.print();
+ var u=e.target.closest('[data-uh]');if(u)KOLAI.datHang({tieuDe:'Mời ly cà phê',nut:'Ủng hộ',items:[{id:'ung-ho',ten:'Ủng hộ người chép nhạc',gia:+u.dataset.uh,sl:1}]});});
+document.getElementById('tuyentap').onclick=function(){KOLAI.datHang({tieuDe:'Tuyển tập 30 bản dễ',items:[{id:'tuyen-tap',ten:'Tuyển tập 30 bản dễ cho người mới (PDF)',gia:99000,sl:1,ghiChu:'Kèm số ngón tay · gửi qua email'}]});};
+document.getElementById('fxin').addEventListener('submit',function(e){e.preventDefault();var bai=document.getElementById('x-bai').value.trim();if(!bai){KOLAI.toast('Bạn gõ tên bài muốn xin nhé');return;}
+ if(KOLAI.lead({email:document.getElementById('x-email').value,nguon:'Xin bản nhạc: '+bai})){e.target.reset();KOLAI.toast('Đã ghi lời xin. Có bản là Nốt báo qua email.');}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!to.hidden)dongTo();});
+</script>
+</body></html>
