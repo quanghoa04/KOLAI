@@ -11,6 +11,23 @@
   };
   var site = null, opt = {};
   function vnd(n) { return Math.round(n).toLocaleString('vi-VN') + 'đ'; }
+  /* ---------- Ngôn ngữ + tiền tệ: mỗi web chọn khi khởi động, mặc định tiếng Việt + VND ---------- */
+  var NN = {
+    vi: { daThem: 'Đã thêm vào giỏ: ', bot: 'Bớt', them: 'Thêm', gioTrong: 'Giỏ đang trống. Anh/chị chọn món rồi quay lại đây nhé.', gio: 'Giỏ hàng', tamTinh: 'Tạm tính', datHang: 'Đặt hàng', dong: 'Đóng', trong: 'Giỏ đang trống',
+      hoTen: 'Họ tên', sdt: 'Số điện thoại / Zalo', email: 'Email nhận hàng', ma: 'Mã giảm giá (nếu có)', tong: 'Tổng thanh toán', xacNhan: 'Xác nhận đặt hàng', ghiChuTt: 'Thanh toán bằng chuyển khoản ngân hàng qua mã QR ở bước sau.',
+      daGiam: ' (đã giảm {n}%)', loiTen: 'Anh/chị điền họ tên giúp em.', loiSdt: 'Số điện thoại chưa đúng (8–15 chữ số).', loiEmail: 'Email chưa đúng định dạng, ví dụ ten@gmail.com.',
+      daGhi: 'Đã ghi đơn ', soTien: 'Số tiền', xong: 'Xong', donXong: 'Đơn {id} đã nằm trong Trung tâm điều hành', leadLoi: 'Email chưa đúng định dạng, ví dụ ten@gmail.com',
+      nghi: 'Web đang tạm nghỉ để nâng cấp', nghi2: 'Anh/chị quay lại sau ít phút nhé.', maBn: ' — nhập mã <b>{ma}</b> giảm {n}%' },
+    en: { daThem: 'Added to cart: ', bot: 'Remove one', them: 'Add one', gioTrong: 'Your cart is empty. Pick something you love and come back.', gio: 'Your cart', tamTinh: 'Subtotal', datHang: 'Checkout', dong: 'Close', trong: 'Your cart is empty',
+      hoTen: 'Full name', diaChi: 'Shipping address', email: 'Email', ma: 'Discount code (optional)', tong: 'Total', xacNhan: 'Place order', ghiChuTt: 'Preview store: no payment is taken yet. Card and PayPal checkout will be connected before launch.',
+      daGiam: ' ({n}% off)', loiTen: 'Please enter your full name.', loiDc: 'Please enter a shipping address.', loiEmail: 'That email doesn\u2019t look right. Try name@example.com.',
+      daGhi: 'Order received \u00b7 ', soTien: 'Total', xong: 'Done', donXong: 'Thank you! Order {id} is saved.', leadLoi: 'That email doesn\u2019t look right. Try name@example.com.',
+      ghiChuDon: 'Preview store: your order is saved, but no payment was taken. Card and PayPal checkout will be connected before launch.',
+      nghi: 'We\u2019re sprucing things up', nghi2: 'Please check back in a few minutes.', maBn: ' \u2014 use code <b>{ma}</b> for {n}% off' }
+  };
+  function t(k, o) { var v = (NN[opt.ngonNgu || 'vi'] || NN.vi)[k]; if (v == null) v = NN.vi[k]; if (o) Object.keys(o).forEach(function (x) { v = v.replace('{' + x + '}', o[x]); }); return v; }
+  function ngoai() { return opt.tien === 'USD'; }
+  function tien(n) { return ngoai() ? '$' + Number(n).toFixed(2) : vnd(n); }
   function ngay(d) { d = d || new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
@@ -77,26 +94,26 @@
     them: function (it, im) {
       var a = gio.ds(), c = a.filter(function (i) { return i.id === it.id; })[0];
       if (c && !it.rieng) c.sl += 1; else a.push({ id: it.id + (it.rieng ? '-' + Date.now() : ''), ten: it.ten, gia: it.gia, sl: 1, ghiChu: it.ghiChu || '' });
-      gio.luu(a); if (!im) toast('Đã thêm vào giỏ: ' + it.ten);
+      gio.luu(a); if (!im) toast(t('daThem') + it.ten);
     },
     bo: function (id) { gio.luu(gio.ds().filter(function (i) { return i.id !== id; })); },
     doiSl: function (id, d) { var a = gio.ds(); a.forEach(function (i) { if (i.id === id) i.sl = Math.max(0, i.sl + d); }); gio.luu(a.filter(function (i) { return i.sl > 0; })); },
     xoa: function () { gio.luu([]); },
     dem: function () {
-      var n = gio.soMon(), t = gio.tong(), a = document.querySelectorAll('[data-k-dem]'), b = document.querySelectorAll('[data-k-tong]'), i;
+      var n = gio.soMon(), tg = gio.tong(), a = document.querySelectorAll('[data-k-dem]'), b = document.querySelectorAll('[data-k-tong]'), i;
       for (i = 0; i < a.length; i++) a[i].textContent = n;
-      for (i = 0; i < b.length; i++) b[i].textContent = vnd(t);
-      document.dispatchEvent(new CustomEvent('kolai:gio', { detail: { soMon: n, tong: t } }));
+      for (i = 0; i < b.length; i++) b[i].textContent = tien(tg);
+      document.dispatchEvent(new CustomEvent('kolai:gio', { detail: { soMon: n, tong: tg } }));
     },
     mo: function () {
       var a = gio.ds();
       var body = a.length ? a.map(function (i) {
         return '<div class="k-it"><div><b>' + esc(i.ten) + '</b>' + (i.ghiChu ? '<small>' + esc(i.ghiChu) + '</small>' : '') +
-          '<span class="k-sl"><button data-k-sl="-1" data-id="' + esc(i.id) + '" aria-label="Bớt">−</button>' + i.sl + '<button data-k-sl="1" data-id="' + esc(i.id) + '" aria-label="Thêm">+</button></span></div>' +
-          '<div class="k-r"><b>' + vnd(i.gia * i.sl) + '</b></div></div>';
-      }).join('') : '<p class="k-note">Giỏ đang trống. Anh/chị chọn món rồi quay lại đây nhé.</p>';
-      var ov = mo('<div class="k-hd"><span>Giỏ hàng (' + gio.soMon() + ')</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd">' + body + '</div>' +
-        (a.length ? '<div class="k-ft"><div class="k-tong"><span>Tạm tính</span><span>' + vnd(gio.tong()) + '</span></div><button class="k-btn" data-k-tt>Đặt hàng</button></div>' : ''));
+          '<span class="k-sl"><button data-k-sl="-1" data-id="' + esc(i.id) + '" aria-label="' + t('bot') + '">−</button>' + i.sl + '<button data-k-sl="1" data-id="' + esc(i.id) + '" aria-label="' + t('them') + '">+</button></span></div>' +
+          '<div class="k-r"><b>' + tien(i.gia * i.sl) + '</b></div></div>';
+      }).join('') : '<p class="k-note">' + t('gioTrong') + '</p>';
+      var ov = mo('<div class="k-hd"><span>' + t('gio') + ' (' + gio.soMon() + ')</span><button class="k-x" data-k-dong aria-label="' + t('dong') + '">×</button></div><div class="k-bd">' + body + '</div>' +
+        (a.length ? '<div class="k-ft"><div class="k-tong"><span>' + t('tamTinh') + '</span><span>' + tien(gio.tong()) + '</span></div><button class="k-btn" data-k-tt>' + t('datHang') + '</button></div>' : ''));
       ov.addEventListener('click', function (e) {
         var b = e.target.closest('[data-k-sl]'); if (b) { gio.doiSl(b.dataset.id, +b.dataset.kSl); gio.mo(); return; }
         if (e.target.closest('[data-k-tt]')) datHang();
@@ -120,8 +137,10 @@
 
   /* ---------- Đặt hàng ---------- */
   function taoDon(items, khach, giam, extra) {
-    var tam = items.reduce(function (s, i) { return s + i.gia * i.sl; }, 0);
-    var don = Object.assign({ id: 'DH' + String(Math.floor(100000 + Math.random() * 900000)), site: site, items: items, tamTinh: tam, giam: giam || 0, tong: Math.max(0, tam - (giam || 0)), khach: khach, ts: Date.now(), trangThai: 'cho' }, extra || {});
+    var tam = items.reduce(function (s, i) { return s + i.gia * i.sl; }, 0), con = Math.max(0, tam - (giam || 0));
+    var quy = ngoai() ? ((CFG.tyGia && CFG.tyGia.USD) || 25400) : 1;   // web bán bằng USD: quy về VND để Trung tâm cộng chung
+    var don = Object.assign({ id: 'DH' + String(Math.floor(100000 + Math.random() * 900000)), site: site, items: items, tamTinh: Math.round(tam * quy), giam: Math.round((giam || 0) * quy), tong: Math.round(con * quy), khach: khach, ts: Date.now(), trangThai: 'cho' }, extra || {});
+    if (quy !== 1) { don.tienGoc = 'USD'; don.tongGoc = con; }
     var a = KHO.doc('orders', []); a.unshift(don); KHO.ghi('orders', a);
     suKien('don', 'Đơn ' + don.id + ' — ' + items.map(function (i) { return i.ten; }).join(', '), don.tong);
     return don;
@@ -129,42 +148,46 @@
   /* datHang({items, tieuDe, nut, xong(don)}) — bỏ trống items thì lấy giỏ hàng */
   function datHang(o) {
     o = o || {};
-    var items = o.items || gio.ds(); if (!items.length) { toast('Giỏ đang trống'); return; }
+    var items = o.items || gio.ds(); if (!items.length) { toast(t('trong')); return; }
     items = items.map(function (i) { return { id: i.id, ten: i.ten, gia: i.gia, sl: i.sl || 1, ghiChu: i.ghiChu || '' }; });
-    var tam = items.reduce(function (s, i) { return s + i.gia * i.sl; }, 0), wc = webCfg(), giam = 0;
-    var ov = mo('<div class="k-hd"><span>' + esc(o.tieuDe || 'Đặt hàng') + '</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div>' +
+    var tam = items.reduce(function (s, i) { return s + i.gia * i.sl; }, 0), wc = webCfg(), giam = 0, en = ngoai();
+    var ov = mo('<div class="k-hd"><span>' + esc(o.tieuDe || t('datHang')) + '</span><button class="k-x" data-k-dong aria-label="' + t('dong') + '">×</button></div>' +
       '<form class="k-bd" id="k-form" novalidate>' +
-      items.map(function (i) { return '<div class="k-it"><div><b>' + esc(i.ten) + (i.sl > 1 ? ' × ' + i.sl : '') + '</b>' + (i.ghiChu ? '<small>' + esc(i.ghiChu) + '</small>' : '') + '</div><div class="k-r"><b>' + vnd(i.gia * i.sl) + '</b></div></div>'; }).join('') +
-      '<label class="k-lb">Họ tên<input class="k-in" id="k-ten" autocomplete="name" required></label>' +
-      '<label class="k-lb">Số điện thoại / Zalo<input class="k-in" id="k-sdt" inputmode="tel" autocomplete="tel" required></label>' +
-      '<label class="k-lb">Email nhận hàng<input class="k-in" id="k-email" type="email" autocomplete="email" required></label>' +
-      '<label class="k-lb">Mã giảm giá (nếu có)<input class="k-in" id="k-ma" autocomplete="off"></label>' +
+      items.map(function (i) { return '<div class="k-it"><div><b>' + esc(i.ten) + (i.sl > 1 ? ' × ' + i.sl : '') + '</b>' + (i.ghiChu ? '<small>' + esc(i.ghiChu) + '</small>' : '') + '</div><div class="k-r"><b>' + tien(i.gia * i.sl) + '</b></div></div>'; }).join('') +
+      '<label class="k-lb">' + t('hoTen') + '<input class="k-in" id="k-ten" autocomplete="name" required></label>' +
+      (en ? '<label class="k-lb">' + t('diaChi') + '<input class="k-in" id="k-dc" autocomplete="street-address" required></label>'
+          : '<label class="k-lb">' + t('sdt') + '<input class="k-in" id="k-sdt" inputmode="tel" autocomplete="tel" required></label>') +
+      '<label class="k-lb">' + t('email') + '<input class="k-in" id="k-email" type="email" autocomplete="email" required></label>' +
+      '<label class="k-lb">' + t('ma') + '<input class="k-in" id="k-ma" autocomplete="off"></label>' +
       '<div class="k-loi" id="k-loi" hidden></div>' +
-      '<div class="k-tong"><span>Tổng thanh toán</span><span id="k-tongtt">' + vnd(tam) + '</span></div>' +
-      '<button class="k-btn" type="submit">' + esc(o.nut || 'Xác nhận đặt hàng') + '</button>' +
-      '<p class="k-note">Thanh toán bằng chuyển khoản ngân hàng qua mã QR ở bước sau.</p></form>', true);
+      '<div class="k-tong"><span>' + t('tong') + '</span><span id="k-tongtt">' + tien(tam) + '</span></div>' +
+      '<button class="k-btn" type="submit">' + esc(o.nut || t('xacNhan')) + '</button>' +
+      '<p class="k-note">' + t('ghiChuTt') + '</p></form>', true);
     var f = ov.querySelector('#k-form'), ma = ov.querySelector('#k-ma');
     ma.addEventListener('input', function () {
-      giam = (wc.ma && ma.value.trim().toUpperCase() === String(wc.ma).toUpperCase()) ? Math.round(tam * (wc.pt || 0) / 100) : 0;
-      ov.querySelector('#k-tongtt').textContent = vnd(tam - giam) + (giam ? ' (đã giảm ' + wc.pt + '%)' : '');
+      var khop = wc.ma && ma.value.trim().toUpperCase() === String(wc.ma).toUpperCase();
+      giam = !khop ? 0 : en ? Math.round(tam * (wc.pt || 0)) / 100 : Math.round(tam * (wc.pt || 0) / 100);
+      ov.querySelector('#k-tongtt').textContent = tien(tam - giam) + (giam ? t('daGiam', { n: wc.pt }) : '');
     });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var ten = f.querySelector('#k-ten').value.trim(), sdt = f.querySelector('#k-sdt').value.trim(), email = f.querySelector('#k-email').value.trim(), loi = f.querySelector('#k-loi');
-      var thieu = !ten ? 'Anh/chị điền họ tên giúp em.' : !/^[0-9+ .]{8,15}$/.test(sdt) ? 'Số điện thoại chưa đúng (8–15 chữ số).' : !/^\S+@\S+\.\S+$/.test(email) ? 'Email chưa đúng định dạng, ví dụ ten@gmail.com.' : '';
+      var ten = f.querySelector('#k-ten').value.trim(), email = f.querySelector('#k-email').value.trim(), loi = f.querySelector('#k-loi');
+      var sdt = en ? '' : f.querySelector('#k-sdt').value.trim(), dc = en ? f.querySelector('#k-dc').value.trim() : '';
+      var thieu = !ten ? t('loiTen') : (en && dc.length < 6) ? t('loiDc') : (!en && !/^[0-9+ .]{8,15}$/.test(sdt)) ? t('loiSdt') : !/^\S+@\S+\.\S+$/.test(email) ? t('loiEmail') : '';
       if (thieu) { loi.textContent = thieu; loi.hidden = false; return; }
-      var don = taoDon(items, { ten: ten, sdt: sdt, email: email }, giam, o.them);
+      var don = taoDon(items, { ten: ten, sdt: sdt, email: email, diaChi: dc }, giam, o.them);
       if (!o.items) gio.xoa();
       manQr(don, o.xong);
     });
   }
   function manQr(don, xong) {
-    var nh = caiDat().nganHang, coNh = nh.bin && nh.soTk;
-    var ov = mo('<div class="k-hd"><span>Đã ghi đơn ' + don.id + '</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd">' +
+    var nh = caiDat().nganHang, en = ngoai(), coNh = !en && nh.bin && nh.soTk;
+    var ov = mo('<div class="k-hd"><span>' + t('daGhi') + don.id + '</span><button class="k-x" data-k-dong aria-label="' + t('dong') + '">×</button></div><div class="k-bd">' +
       (coNh ? '<p>Mở app ngân hàng, quét mã để chuyển khoản. Số tiền và nội dung đã điền sẵn.</p><div class="k-qr" id="k-qr"></div>' +
         '<dl class="k-kv"><dt>Ngân hàng</dt><dd>' + esc(nh.tenNh || nh.bin) + '</dd><dt>Số tài khoản</dt><dd>' + esc(nh.soTk) + '</dd><dt>Chủ tài khoản</dt><dd>' + esc(nh.chuTk || '') + '</dd><dt>Số tiền</dt><dd>' + vnd(don.tong) + '</dd><dt>Nội dung</dt><dd>' + don.id + '</dd></dl>'
-        : '<div class="k-ma">' + don.id + '</div><dl class="k-kv"><dt>Số tiền</dt><dd>' + vnd(don.tong) + '</dd></dl><p class="k-note">Bản xem thử: chủ web chưa cài tài khoản nhận tiền nên chưa hiện mã QR. Vào Trung tâm điều hành → Cài đặt để nhập tài khoản ngân hàng, mã QR sẽ tự hiện ở đây.</p>') +
-      '</div><div class="k-ft"><button class="k-btn" id="k-dack">' + (coNh ? 'Tôi đã chuyển khoản' : 'Xong') + '</button></div>', true);
+        : '<div class="k-ma">' + don.id + '</div><dl class="k-kv"><dt>' + t('soTien') + '</dt><dd>' + (en ? tien(don.tongGoc) : vnd(don.tong)) + '</dd></dl><p class="k-note">' +
+          (en ? t('ghiChuDon') : 'Bản xem thử: chủ web chưa cài tài khoản nhận tiền nên chưa hiện mã QR. Vào Trung tâm điều hành → Cài đặt để nhập tài khoản ngân hàng, mã QR sẽ tự hiện ở đây.') + '</p>') +
+      '</div><div class="k-ft"><button class="k-btn" id="k-dack">' + (coNh ? 'Tôi đã chuyển khoản' : t('xong')) + '</button></div>', true);
     if (coNh) napQr(function (loi) {
       var box = ov.querySelector('#k-qr'); if (!box) return;
       if (loi || !window.qrcode) { box.textContent = 'Không tải được mã QR — anh/chị chuyển khoản theo thông tin bên dưới.'; box.style.lineHeight = '1.4'; return; }
@@ -172,7 +195,7 @@
     });
     ov.querySelector('#k-dack').addEventListener('click', function () {
       if (coNh) { var a = KHO.doc('orders', []); a.forEach(function (d) { if (d.id === don.id) d.khachBaoCk = true; }); KHO.ghi('orders', a); }
-      dong(); toast(coNh ? 'Cảm ơn anh/chị. Shop kiểm tra và gửi hàng qua email.' : 'Đơn ' + don.id + ' đã nằm trong Trung tâm điều hành');
+      dong(); toast(coNh ? 'Cảm ơn anh/chị. Shop kiểm tra và gửi hàng qua email.' : t('donXong', { id: don.id }));
       if (xong) xong(don);
     });
     document.dispatchEvent(new CustomEvent('kolai:don', { detail: don }));
@@ -180,7 +203,7 @@
 
   /* ---------- Thu email khách (lead) ---------- */
   function lead(d) {
-    if (!/^\S+@\S+\.\S+$/.test(d.email || '')) { toast('Email chưa đúng định dạng, ví dụ ten@gmail.com'); return false; }
+    if (!/^\S+@\S+\.\S+$/.test(d.email || '')) { toast(t('leadLoi')); return false; }
     var a = KHO.doc('leads', []); a.unshift({ site: site, email: d.email.trim(), ten: d.ten || '', sdt: d.sdt || '', nguon: d.nguon || '', ts: Date.now() }); KHO.ghi('leads', a);
     suKien('lead', 'Đăng ký: ' + d.email.trim() + (d.nguon ? ' — ' + d.nguon : '')); return true;
   }
@@ -191,12 +214,12 @@
     document.head.appendChild(el('<style>' + CSS + '</style>'));
     var v = KHO.doc('visits', {}), d = ngay(); v[site] = v[site] || {}; v[site][d] = (v[site][d] || 0) + 1; KHO.ghi('visits', v);
     var wc = webCfg();
-    if (wc.tat) document.body.appendChild(el('<div class="k-bt"><h1>Web đang tạm nghỉ để nâng cấp</h1><p>Anh/chị quay lại sau ít phút nhé.</p>' + (CFG.xemThu ? '<a href="' + CFG.hq + '">← Về Trung tâm điều hành để bật lại</a>' : '') + '</div>'));
-    if (wc.banner) document.body.insertBefore(el('<div class="k-bn">' + esc(wc.banner) + (wc.ma ? ' — nhập mã <b>' + esc(wc.ma) + '</b> giảm ' + (wc.pt || 0) + '%' : '') + '</div>'), document.body.firstChild);
+    if (wc.tat) document.body.appendChild(el('<div class="k-bt"><h1>' + t('nghi') + '</h1><p>' + t('nghi2') + '</p>' + (CFG.xemThu ? '<a href="' + CFG.hq + '">← Về Trung tâm điều hành để bật lại</a>' : '') + '</div>'));
+    if (wc.banner) document.body.insertBefore(el('<div class="k-bn">' + esc(wc.banner) + (wc.ma ? t('maBn', { ma: esc(wc.ma), n: wc.pt || 0 }) : '') + '</div>'), document.body.firstChild);
     if (CFG.xemThu) document.body.appendChild(el('<a class="k-hq" href="' + CFG.hq + '">← Trung tâm KOLAI</a>'));
     document.addEventListener('click', function (e) { if (e.target.closest('[data-k-gio]')) { e.preventDefault(); gio.mo(); } });
     gio.dem();
   }
 
-  window.KOLAI = { khoiDong: khoiDong, KHO: KHO, vnd: vnd, ngay: ngay, esc: esc, el: el, toast: toast, mo: mo, dong: dong, gio: gio, datHang: datHang, taoDon: taoDon, lead: lead, suKien: suKien, caiDat: caiDat, webCfg: webCfg, vietqr: vietqr, CFG: CFG };
+  window.KOLAI = { khoiDong: khoiDong, KHO: KHO, vnd: vnd, tien: tien, ngay: ngay, esc: esc, el: el, toast: toast, mo: mo, dong: dong, gio: gio, datHang: datHang, taoDon: taoDon, lead: lead, suKien: suKien, caiDat: caiDat, webCfg: webCfg, vietqr: vietqr, CFG: CFG };
 })();

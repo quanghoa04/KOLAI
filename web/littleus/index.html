@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MÌNH ƠI — Quà in hình chính bạn</title>
+<title>Little Us — Personalized gifts starring your people</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <style>
 /* Bố cục: theo khuôn các web quà cá nhân hoá bán chạy (thanh tìm quà to, danh mục theo người nhận, băng rôn lễ, lưới sản phẩm) + trình dựng nhân vật xem trước trực tiếp. */
@@ -71,42 +71,43 @@ footer{padding-block:34px 90px;color:var(--nhat);font-size:13px;text-align:cente
 </style>
 </head>
 <body>
-<header class="dau"><div class="w"><a class="logo" href="#top">mình ơi</a>
-  <form class="tim" id="tim" role="search"><input id="q" placeholder="Tìm quà cho Mẹ" aria-label="Tìm quà"><button type="submit">Tìm</button></form>
-  <div class="phai"><button id="theodoi">Theo dõi đơn</button><button class="gio" data-k-gio>Giỏ · <span data-k-dem>0</span></button></div></div>
-  <div class="w"><nav class="muc" id="muc" aria-label="Danh mục"></nav></div></header>
+<header class="dau"><div class="w"><a class="logo" href="#top">little us</a>
+  <form class="tim" id="tim" role="search"><input id="q" placeholder="Find a gift for Mom" aria-label="Find a gift"><button type="submit">Search</button></form>
+  <div class="phai"><button id="theodoi">Track order</button><button class="gio" data-k-gio>Cart · <span data-k-dem>0</span></button></div></div>
+  <div class="w"><nav class="muc" id="muc" aria-label="Categories"></nav></div></header>
 
-<section class="bangron" id="top"><div class="w"><div><h1>Quà có hình <em>chính người nhận</em></h1><p>Chọn tóc, áo, phụ kiện cho từng người. Nhân vật bạn dựng giữ nguyên trên cốc, áo, tranh và gối, in đúng như bản xem trước.</p>
-  <a class="nut trang" href="#thiet-ke">Tự thiết kế ngay</a></div><div id="anhbia"></div></div></section>
+<section class="bangron" id="top"><div class="w"><div><h1>Gifts starring <em>your favorite people</em></h1><p>Pick the hair, outfit and accessories for each person. Your characters stay exactly the same on mugs, tees, canvas and pillows, printed just like the preview.</p>
+  <a class="nut trang" href="#thiet-ke">Start designing</a></div><div id="anhbia"></div></div></section>
 
-<section class="khoi"><div class="w"><h2>Chọn theo người nhận</h2><p class="phu">Bấm một mẫu để mở sẵn trong trình thiết kế, rồi sửa theo ý bạn.</p><div class="bst" id="bst"></div></div></section>
+<section class="khoi"><div class="w"><h2>Shop by recipient</h2><p class="phu">Tap a design to open it in the designer, then make it yours.</p><div class="bst" id="bst"></div></div></section>
 
 <section class="xuong" id="thiet-ke"><div class="w">
-  <div class="xem"><div id="xem"></div><small>Bản xem trước. Nhân vật giữ nguyên khi bạn đổi sản phẩm.</small></div>
+  <div class="xem"><div id="xem"></div><small>Live preview. Your characters stay the same when you switch products.</small></div>
   <div class="tuy" id="tuy"></div></div></section>
 
-<section class="khoi"><div class="w"><h2>Một nhân vật, in lên mọi thứ</h2><p class="phu">Cùng thiết kế bạn đang dựng, trên 5 sản phẩm. Bấm để đổi.</p><div class="luoi" id="luoi"></div></div></section>
+<section class="khoi"><div class="w"><h2>One design, five keepsakes</h2><p class="phu">The design you’re building, on all five products. Tap to switch.</p><div class="luoi" id="luoi"></div></div></section>
 
 <section class="khoi" style="padding-top:0"><div class="w"><div class="tin">
-  <div><b>In theo từng đơn</b><p>Không có hàng tồn. Mỗi món được in riêng sau khi bạn đặt, giao trong 5–7 ngày.</p></div>
-  <div><b>Thấy sao in vậy</b><p>Bản in dùng đúng dữ liệu của bản xem trước, không vẽ lại bằng tay.</p></div>
-  <div><b>In lỗi, làm lại miễn phí</b><p>Sai tên, lệch màu hay vỡ khi vận chuyển, gửi ảnh là shop in lại.</p></div></div></div></section>
-<footer><div class="w">© 2026 Mình Ơi — thuộc hệ sinh thái KOLAI · Giá và thời gian giao là bản mẫu chờ duyệt</div></footer>
+  <div><b>Made to order</b><p>Nothing sits in a warehouse. Each gift is printed after you order and ships in 5–7 business days.</p></div>
+  <div><b>What you see is what we print</b><p>We print from the exact preview data. Nothing is redrawn by hand.</p></div>
+  <div><b>Free reprint if we slip up</b><p>Wrong name, off colors or damage in transit? Send a photo and we’ll reprint it.</p></div></div></div></section>
+<footer><div class="w">© 2026 Little Us · A KOLAI store · Prices and delivery times are placeholders pending approval</div></footer>
 
 <script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
 <script>
-KOLAI.khoiDong({site:'minhoi'});
+KOLAI.khoiDong({site:'littleus',ngonNgu:'en',tien:'USD'});
 var E=KOLAI.esc;
 /* ---------- bảng lựa chọn ---------- */
 var DA=['#fbe0cc','#f1c6a3','#d9a273','#9a6844'],
  MT={den:'#231a16',nau:'#5a3a26',hatde:'#9a5b34',vang:'#e3b765',bac:'#c9c9cf',do:'#b8452f'},
  MA={do:'#d94a3d',xanh:'#3d6b8c',la:'#3f7d5a',vang:'#e8b23a',hong:'#e79aa8',kem:'#efe6d6',den:'#2b2b2f'},
- TOC={ngan:'Ngắn',bob:'Bob',dai:'Dài',bui:'Búi',dinh:'Đầu đinh'},
- AO={thun:'Áo thun',hoodie:'Hoodie',vay:'Váy'},
- PK={kinh:'Kính',muluoi:'Mũ lưỡi trai',mulen:'Mũ len',no:'Nơ',khan:'Khăn quàng',tainghe:'Tai nghe'},
+ TOC={ngan:'Short',bob:'Bob',dai:'Long',bui:'Bun',dinh:'Buzz cut'},
+ AO={thun:'T-shirt',hoodie:'Hoodie',vay:'Dress'},
+ PK={kinh:'Glasses',muluoi:'Cap',mulen:'Beanie',no:'Bow',khan:'Scarf',tainghe:'Headphones'},
  NEN={kem:'#f6ecdc',hong:'#fbdcdc',xanh:'#d8e8ee',vang:'#fbe9b4',la:'#dcebd9'},
- THU={khong:'Không',cho:'Chó',meo:'Mèo'},
- SP={coc:['Cốc sứ',249000],ao:['Áo thun',329000],canvas:['Tranh canvas',459000],tote:['Túi tote',219000],goi:['Gối ôm',289000]},
+ THU={khong:'None',cho:'Dog',meo:'Cat'},
+ SP={coc:['Ceramic mug',19.95],ao:['T-shirt',24.95],canvas:['Canvas print',39.95],tote:['Tote bag',18.95],goi:['Throw pillow',26.95]},
+ TENMAU={trang:'White',den:'Black',be:'Beige',nau:'Brown',hatde:'Chestnut',vang:'Golden',bac:'Silver',do:'Red',xanh:'Blue',la:'Green',hong:'Pink',kem:'Cream'},
  MSP={trang:'#ffffff',den:'#26262a',be:'#e9dcc6'};
 function nvMoi(o){return Object.assign({ten:'',da:1,toc:'ngan',mauToc:'den',ao:'thun',mauAo:'do',pk:[]},o||{});}
 /* ---------- vẽ một nhân vật: khung 100×166, phần mặt và dáng người luôn cố định ---------- */
@@ -146,7 +147,7 @@ function veTranh(d){var n=d.nv.length,coThu=d.thu!=='khong',o=n+(coThu?0.62:0),s
  if(coThu)h+='<g transform="translate('+(x+n*100*s).toFixed(1)+' '+(206-78*s).toFixed(1)+') scale('+s.toFixed(3)+')">'+veThu(d.thu)+'</g>';
  return h;}
 function long(d,x,y,w){return '<svg x="'+x+'" y="'+y+'" width="'+w+'" height="'+(w*220/300)+'" viewBox="0 0 300 220">'+veTranh(d)+'</svg>';}
-function veSp(d,sp){var m=MSP[d.mauSp]||'#fff',v='rgba(0,0,0,.14)',h='<svg viewBox="0 0 400 400" role="img" aria-label="Xem trước '+SP[sp][0]+'"><circle cx="200" cy="210" r="170" fill="#fff" opacity=".55"/>';
+function veSp(d,sp){var m=MSP[d.mauSp]||'#fff',v='rgba(0,0,0,.14)',h='<svg viewBox="0 0 400 400" role="img" aria-label="Preview: '+SP[sp][0]+'"><circle cx="200" cy="210" r="170" fill="#fff" opacity=".55"/>';
  if(sp==='coc')h+='<path d="M292 160q62 0 62 52t-62 52" fill="none" stroke="'+m+'" stroke-width="24"/><path d="M292 160q62 0 62 52t-62 52" fill="none" stroke="'+v+'" stroke-width="1.5" transform="translate(0 13)"/><rect x="92" y="112" width="204" height="206" rx="18" fill="'+m+'" stroke="'+v+'" stroke-width="1.5"/>'+long(d,110,150,168);
  if(sp==='ao')h+='<path d="M132 66L84 88L40 144L80 176L104 152V344H296V152L320 176L360 144L316 88L268 66Q200 104 132 66Z" fill="'+m+'" stroke="'+v+'" stroke-width="1.5" stroke-linejoin="round"/>'+long(d,132,134,136);
  if(sp==='canvas')h+='<rect x="0" y="300" width="400" height="100" fill="#e4d8c6"/><rect x="52" y="66" width="296" height="230" fill="#00000022" transform="translate(5 7)"/><rect x="52" y="66" width="296" height="230" fill="#fff"/>'+long(d,62,76,276);
@@ -155,37 +156,37 @@ function veSp(d,sp){var m=MSP[d.mauSp]||'#fff',v='rgba(0,0,0,.14)',h='<svg viewB
  return h+'</svg>';}
 /* ---------- mẫu có sẵn ---------- */
 var MAU=[
- {k:'Tặng Mẹ',loi:'Mẹ là nhà',nen:'hong',thu:'khong',nv:[nvMoi({ten:'Mẹ',toc:'bui',mauToc:'nau',ao:'vay',mauAo:'hong',pk:['kinh']}),nvMoi({ten:'Con',da:0,toc:'dai',mauAo:'vang'})]},
- {k:'Tặng Bố',loi:'Bố là số một',nen:'xanh',thu:'khong',nv:[nvMoi({ten:'Bố',da:2,toc:'dinh',mauToc:'bac',ao:'thun',mauAo:'xanh',pk:['kinh']}),nvMoi({ten:'Con',toc:'ngan',mauAo:'la',pk:['muluoi']})]},
- {k:'Người yêu',loi:'Có nhau là đủ',nen:'kem',thu:'meo',nv:[nvMoi({ten:'Anh',da:2,toc:'ngan',ao:'hoodie',mauAo:'den'}),nvMoi({ten:'Em',da:0,toc:'dai',mauToc:'hatde',ao:'vay',mauAo:'do',pk:['no']})]},
- {k:'Bạn thân',loi:'Bạn thân là để ở lại',nen:'vang',thu:'khong',nv:[nvMoi({ten:'Vy',da:0,toc:'bob',mauToc:'do',ao:'hoodie',mauAo:'hong',pk:['tainghe']}),nvMoi({ten:'Chi',toc:'dai',mauToc:'vang',mauAo:'kem',pk:['kinh']}),nvMoi({ten:'Na',da:2,toc:'bui',mauAo:'la',pk:['no']})]},
- {k:'Thú cưng',loi:'Sen và boss',nen:'la',thu:'cho',nv:[nvMoi({ten:'Sen',toc:'bob',mauToc:'nau',ao:'hoodie',mauAo:'vang',pk:['mulen']})]},
- {k:'Gia đình',loi:'Nhà mình',nen:'kem',thu:'cho',nv:[nvMoi({ten:'Bố',da:2,toc:'dinh',mauAo:'xanh'}),nvMoi({ten:'Mẹ',toc:'dai',mauToc:'nau',ao:'vay',mauAo:'do'}),nvMoi({ten:'Bin',da:0,toc:'ngan',mauAo:'vang',pk:['muluoi']})]}
+ {k:'For Mom',loi:'Home is where Mom is',nen:'hong',thu:'khong',nv:[nvMoi({ten:'Mom',toc:'bui',mauToc:'nau',ao:'vay',mauAo:'hong',pk:['kinh']}),nvMoi({ten:'Me',da:0,toc:'dai',mauAo:'vang'})]},
+ {k:'For Dad',loi:'Best Dad Ever',nen:'xanh',thu:'khong',nv:[nvMoi({ten:'Dad',da:2,toc:'dinh',mauToc:'bac',ao:'thun',mauAo:'xanh',pk:['kinh']}),nvMoi({ten:'Me',toc:'ngan',mauAo:'la',pk:['muluoi']})]},
+ {k:'For Couples',loi:'Better together',nen:'kem',thu:'meo',nv:[nvMoi({ten:'Sam',da:2,toc:'ngan',ao:'hoodie',mauAo:'den'}),nvMoi({ten:'Mia',da:0,toc:'dai',mauToc:'hatde',ao:'vay',mauAo:'do',pk:['no']})]},
+ {k:'For Besties',loi:'Besties for life',nen:'vang',thu:'khong',nv:[nvMoi({ten:'Ava',da:0,toc:'bob',mauToc:'do',ao:'hoodie',mauAo:'hong',pk:['tainghe']}),nvMoi({ten:'Zoe',toc:'dai',mauToc:'vang',mauAo:'kem',pk:['kinh']}),nvMoi({ten:'Lily',da:2,toc:'bui',mauAo:'la',pk:['no']})]},
+ {k:'Pet Lovers',loi:'Me and my boss',nen:'la',thu:'cho',nv:[nvMoi({ten:'Me',toc:'bob',mauToc:'nau',ao:'hoodie',mauAo:'vang',pk:['mulen']})]},
+ {k:'For Family',loi:'Our little family',nen:'kem',thu:'cho',nv:[nvMoi({ten:'Dad',da:2,toc:'dinh',mauAo:'xanh'}),nvMoi({ten:'Mom',toc:'dai',mauToc:'nau',ao:'vay',mauAo:'do'}),nvMoi({ten:'Leo',da:0,toc:'ngan',mauAo:'vang',pk:['muluoi']})]}
 ];
 function sao(o){return JSON.parse(JSON.stringify(o));}
-var d=KOLAI.KHO.doc('minhoi.thietke',null)||Object.assign({sp:'coc',mauSp:'trang',chon:0},sao(MAU[2]));
+var d=KOLAI.KHO.doc('littleus.design',null)||Object.assign({sp:'coc',mauSp:'trang',chon:0},sao(MAU[2]));
 /* ---------- giao diện ---------- */
 function nutO(nhom,k,ten,dang){return '<button class="o" data-g="'+nhom+'" data-v="'+k+'" aria-pressed="'+dang+'">'+ten+'</button>';}
-function nutM(nhom,k,mau,dang,ten){return '<button class="m" data-g="'+nhom+'" data-v="'+k+'" aria-pressed="'+dang+'" aria-label="'+ten+'" title="'+ten+'" style="background:'+mau+'"></button>';}
+function nutM(nhom,k,mau,dang,ten){return '<button class="m" data-g="'+nhom+'" data-v="'+k+'" aria-pressed="'+dang+'" aria-label="'+(TENMAU[ten]||ten)+'" title="'+(TENMAU[ten]||ten)+'" style="background:'+mau+'"></button>';}
 function veXem(){document.getElementById('xem').innerHTML=veSp(d,d.sp);
- document.getElementById('luoi').innerHTML=Object.keys(SP).map(function(k){return '<button class="sp" data-sp="'+k+'">'+veSp(d,k)+'<span><b>'+SP[k][0]+'</b><i>'+KOLAI.vnd(SP[k][1])+'</i></span></button>';}).join('');
- var g=document.getElementById('gia');if(g)g.textContent=KOLAI.vnd(SP[d.sp][1]);KOLAI.KHO.ghi('minhoi.thietke',d);}
+ document.getElementById('luoi').innerHTML=Object.keys(SP).map(function(k){return '<button class="sp" data-sp="'+k+'">'+veSp(d,k)+'<span><b>'+SP[k][0]+'</b><i>'+KOLAI.tien(SP[k][1])+'</i></span></button>';}).join('');
+ var g=document.getElementById('gia');if(g)g.textContent=KOLAI.tien(SP[d.sp][1]);KOLAI.KHO.ghi('littleus.design',d);}
 function veTuy(){var c=d.nv[d.chon]||d.nv[0],h='';
- h+='<h3>1. Sản phẩm</h3><div class="hang">'+Object.keys(SP).map(function(k){return nutO('sp',k,SP[k][0],d.sp===k);}).join('')+'</div>';
- if(d.sp==='coc'||d.sp==='ao'||d.sp==='goi')h+='<h3>Màu '+SP[d.sp][0].toLowerCase()+'</h3><div class="hang">'+Object.keys(MSP).map(function(k){return nutM('mauSp',k,MSP[k],d.mauSp===k,k);}).join('')+'</div>';
- h+='<h3>2. Nhân vật <span>tối đa 3 người</span></h3><div class="hang">'+d.nv.map(function(x,i){return nutO('chon',i,x.ten||('Người '+(i+1)),d.chon===i);}).join('')+
-   (d.nv.length<3?'<button class="o" data-g="them" data-v="1">+ Thêm người</button>':'')+(d.nv.length>1?'<button class="o" data-g="xoa" data-v="1">Bỏ người này</button>':'')+'</div>';
- h+='<div class="nguoi"><h3>Tên in dưới nhân vật</h3><input class="nhap" id="i-ten" maxlength="10" value="'+E(c.ten)+'" placeholder="Ví dụ: Mẹ, Lan, Bin">'+
-   '<h3>Màu da</h3><div class="hang">'+DA.map(function(m,i){return nutM('da',i,m,c.da===i,'Màu da '+(i+1));}).join('')+'</div>'+
-   '<h3>Kiểu tóc</h3><div class="hang">'+Object.keys(TOC).map(function(k){return nutO('toc',k,TOC[k],c.toc===k);}).join('')+'</div>'+
-   '<h3>Màu tóc</h3><div class="hang">'+Object.keys(MT).map(function(k){return nutM('mauToc',k,MT[k],c.mauToc===k,k);}).join('')+'</div>'+
-   '<h3>Trang phục</h3><div class="hang">'+Object.keys(AO).map(function(k){return nutO('ao',k,AO[k],c.ao===k);}).join('')+'</div>'+
-   '<h3>Màu áo</h3><div class="hang">'+Object.keys(MA).map(function(k){return nutM('mauAo',k,MA[k],c.mauAo===k,k);}).join('')+'</div>'+
-   '<h3>Phụ kiện <span>chọn nhiều món được</span></h3><div class="hang">'+Object.keys(PK).map(function(k){return nutO('pk',k,PK[k],c.pk.indexOf(k)>-1);}).join('')+'</div></div>';
- h+='<h3>3. Thú cưng</h3><div class="hang">'+Object.keys(THU).map(function(k){return nutO('thu',k,THU[k],d.thu===k);}).join('')+'</div>';
- h+='<h3>4. Lời đề <span>tối đa 30 chữ</span></h3><input class="nhap" id="i-loi" maxlength="30" value="'+E(d.loi)+'">';
- h+='<h3>Màu nền tranh</h3><div class="hang">'+Object.keys(NEN).map(function(k){return nutM('nen',k,NEN[k],d.nen===k,k);}).join('')+'</div>';
- h+='<div class="chot"><b id="gia"></b><button class="nut" id="them">Thêm vào giỏ</button></div>';
+ h+='<h3>1. Product</h3><div class="hang">'+Object.keys(SP).map(function(k){return nutO('sp',k,SP[k][0],d.sp===k);}).join('')+'</div>';
+ if(d.sp==='coc'||d.sp==='ao'||d.sp==='goi')h+='<h3>'+SP[d.sp][0]+' color</h3><div class="hang">'+Object.keys(MSP).map(function(k){return nutM('mauSp',k,MSP[k],d.mauSp===k,k);}).join('')+'</div>';
+ h+='<h3>2. People <span>up to 3</span></h3><div class="hang">'+d.nv.map(function(x,i){return nutO('chon',i,x.ten||('Person '+(i+1)),d.chon===i);}).join('')+
+   (d.nv.length<3?'<button class="o" data-g="them" data-v="1">+ Add a person</button>':'')+(d.nv.length>1?'<button class="o" data-g="xoa" data-v="1">Remove this person</button>':'')+'</div>';
+ h+='<div class="nguoi"><h3>Name under the character</h3><input class="nhap" id="i-ten" maxlength="10" value="'+E(c.ten)+'" placeholder="e.g. Mom, Emma, Leo">'+
+   '<h3>Skin tone</h3><div class="hang">'+DA.map(function(m,i){return nutM('da',i,m,c.da===i,'Skin tone '+(i+1));}).join('')+'</div>'+
+   '<h3>Hairstyle</h3><div class="hang">'+Object.keys(TOC).map(function(k){return nutO('toc',k,TOC[k],c.toc===k);}).join('')+'</div>'+
+   '<h3>Hair color</h3><div class="hang">'+Object.keys(MT).map(function(k){return nutM('mauToc',k,MT[k],c.mauToc===k,k);}).join('')+'</div>'+
+   '<h3>Outfit</h3><div class="hang">'+Object.keys(AO).map(function(k){return nutO('ao',k,AO[k],c.ao===k);}).join('')+'</div>'+
+   '<h3>Outfit color</h3><div class="hang">'+Object.keys(MA).map(function(k){return nutM('mauAo',k,MA[k],c.mauAo===k,k);}).join('')+'</div>'+
+   '<h3>Accessories <span>mix and match</span></h3><div class="hang">'+Object.keys(PK).map(function(k){return nutO('pk',k,PK[k],c.pk.indexOf(k)>-1);}).join('')+'</div></div>';
+ h+='<h3>3. Pet</h3><div class="hang">'+Object.keys(THU).map(function(k){return nutO('thu',k,THU[k],d.thu===k);}).join('')+'</div>';
+ h+='<h3>4. Caption <span>up to 30 characters</span></h3><input class="nhap" id="i-loi" maxlength="30" value="'+E(d.loi)+'">';
+ h+='<h3>Background color</h3><div class="hang">'+Object.keys(NEN).map(function(k){return nutM('nen',k,NEN[k],d.nen===k,k);}).join('')+'</div>';
+ h+='<div class="chot"><b id="gia"></b><button class="nut" id="them">Add to cart</button></div>';
  document.getElementById('tuy').innerHTML=h;veXem();}
 document.getElementById('tuy').addEventListener('click',function(e){var b=e.target.closest('[data-g]');if(e.target.closest('#them')){themGio();return;}if(!b)return;var g=b.dataset.g,v=b.dataset.v,c=d.nv[d.chon];
  if(g==='sp'||g==='mauSp'||g==='thu'||g==='nen')d[g]=v;
@@ -196,28 +197,28 @@ document.getElementById('tuy').addEventListener('click',function(e){var b=e.targ
  else if(g==='pk'){var i=c.pk.indexOf(v);if(i>-1)c.pk.splice(i,1);else{if(v==='muluoi'||v==='mulen'||v==='tainghe')c.pk=c.pk.filter(function(x){return x!=='muluoi'&&x!=='mulen'&&x!=='tainghe';});c.pk.push(v);}}
  else c[g]=v;
  veTuy();});
-document.getElementById('tuy').addEventListener('input',function(e){if(e.target.id==='i-ten'){d.nv[d.chon].ten=e.target.value;veXem();var b=document.querySelector('[data-g=chon][aria-pressed=true]');if(b)b.textContent=e.target.value||('Người '+(d.chon+1));}
+document.getElementById('tuy').addEventListener('input',function(e){if(e.target.id==='i-ten'){d.nv[d.chon].ten=e.target.value;veXem();var b=document.querySelector('[data-g=chon][aria-pressed=true]');if(b)b.textContent=e.target.value||('Person '+(d.chon+1));}
  if(e.target.id==='i-loi'){d.loi=e.target.value;veXem();}});
-function themGio(){var ten=d.nv.map(function(c){return c.ten||'chưa đặt tên';}).join(', ');
- KOLAI.gio.them({id:'tk-'+d.sp,rieng:true,ten:SP[d.sp][0]+' thiết kế riêng',gia:SP[d.sp][1],ghiChu:d.nv.length+' nhân vật ('+ten+')'+(d.thu!=='khong'?' + '+THU[d.thu].toLowerCase():'')+' · lời đề: "'+d.loi+'"'});KOLAI.gio.mo();}
+function themGio(){var ten=d.nv.map(function(c){return c.ten||'unnamed';}).join(', ');
+ KOLAI.gio.them({id:'tk-'+d.sp,rieng:true,ten:'Custom '+SP[d.sp][0].toLowerCase(),gia:SP[d.sp][1],ghiChu:d.nv.length+(d.nv.length>1?' people (':' person (')+ten+')'+(d.thu!=='khong'?' + '+THU[d.thu].toLowerCase():'')+' · caption: "'+d.loi+'"'});KOLAI.gio.mo();}
 function dungMau(m){var giu={sp:d.sp,mauSp:d.mauSp,chon:0};d=Object.assign(giu,sao(m));veTuy();document.getElementById('thiet-ke').scrollIntoView({behavior:'smooth'});}
 document.getElementById('bst').innerHTML=MAU.map(function(m,i){return '<button data-mau="'+i+'"><svg viewBox="0 0 300 220">'+veTranh(m)+'</svg>'+m.k+'</button>';}).join('');
-document.getElementById('muc').innerHTML='<button class="le" data-mau="5">Tết sum vầy</button>'+MAU.map(function(m,i){return '<button data-mau="'+i+'">'+m.k+'</button>';}).join('')+'<button data-sp="coc">Cốc</button><button data-sp="ao">Áo</button><button data-sp="canvas">Tranh</button>';
+document.getElementById('muc').innerHTML='<button class="le" data-mau="5">Holiday Gifts</button>'+MAU.map(function(m,i){return '<button data-mau="'+i+'">'+m.k+'</button>';}).join('')+'<button data-sp="coc">Mugs</button><button data-sp="ao">Tees</button><button data-sp="canvas">Canvas</button>';
 document.getElementById('anhbia').innerHTML=veSp(Object.assign({mauSp:'trang'},MAU[5]),'coc');
 document.addEventListener('click',function(e){var m=e.target.closest('[data-mau]');if(m){dungMau(MAU[+m.dataset.mau]);return;}
  var s=e.target.closest('[data-sp]');if(s){d.sp=s.dataset.sp;veTuy();document.getElementById('thiet-ke').scrollIntoView({behavior:'smooth'});}});
 /* tìm quà: ô tìm đổi gợi ý liên tục, bấm tìm thì mở mẫu khớp nhất */
-var goiY=['Tìm quà cho Mẹ','Tìm quà cho Bố','Tìm quà cho người yêu','Tìm quà cho bạn thân','Tìm quà cho người nuôi chó mèo'],gi=0;
+var goiY=['Find a gift for Mom','Find a gift for Dad','Find a gift for your partner','Find a gift for your bestie','Find a gift for a pet lover'],gi=0;
 setInterval(function(){gi=(gi+1)%goiY.length;document.getElementById('q').placeholder=goiY[gi];},2800);
 document.getElementById('tim').addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('q').value.toLowerCase().trim();
- var tu={0:['mẹ','má','me'],1:['bố','ba','cha','bo'],2:['yêu','vợ','chồng','yeu'],3:['bạn','ban','thân'],4:['chó','mèo','thú','pet','boss'],5:['gia đình','nhà','tết','gia dinh']},kq=-1;
+ var tu={0:['mom','mother','mum'],1:['dad','father'],2:['couple','wife','husband','girlfriend','boyfriend','partner','love'],3:['friend','bestie','bff'],4:['dog','cat','pet'],5:['family','holiday','christmas','home']},kq=-1;
  Object.keys(tu).forEach(function(k){if(kq<0&&tu[k].some(function(t){return q.indexOf(t)>-1;}))kq=+k;});
- if(kq<0){KOLAI.toast(q?'Chưa có mẫu khớp "'+q+'". Thử: mẹ, bố, người yêu, bạn thân, thú cưng.':'Bạn gõ người nhận quà, ví dụ: mẹ');return;}dungMau(MAU[kq]);});
+ if(kq<0){KOLAI.toast(q?'No design matches "'+q+'" yet. Try: mom, dad, partner, bestie, pet.':'Type who the gift is for, like "mom"');return;}dungMau(MAU[kq]);});
 /* theo dõi đơn */
-document.getElementById('theodoi').onclick=function(){var ov=KOLAI.mo('<div class="k-hd"><span>Theo dõi đơn</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><form class="k-bd" id="ftd"><label class="k-lb">Mã đơn (ví dụ DH123456)<input class="k-in" id="madon" autocomplete="off"></label><button class="k-btn" type="submit">Xem tình trạng</button><div id="kqtd" class="k-note"></div></form>',true);
+document.getElementById('theodoi').onclick=function(){var ov=KOLAI.mo('<div class="k-hd"><span>Track your order</span><button class="k-x" data-k-dong aria-label="Close">×</button></div><form class="k-bd" id="ftd"><label class="k-lb">Order number (e.g. DH123456)<input class="k-in" id="madon" autocomplete="off"></label><button class="k-btn" type="submit">Check status</button><div id="kqtd" class="k-note"></div></form>',true);
  ov.querySelector('#ftd').addEventListener('submit',function(e){e.preventDefault();var ma=ov.querySelector('#madon').value.trim().toUpperCase(),don=KOLAI.KHO.doc('orders',[]).filter(function(x){return x.id===ma;})[0];
-  var tt={cho:'Đã nhận đơn, đang chờ xác nhận thanh toán.','da-tt':'Đã thanh toán. Xưởng đang in, dự kiến giao trong 5–7 ngày.','da-giao':'Đã giao cho đơn vị vận chuyển.'};
-  ov.querySelector('#kqtd').textContent=don?'Đơn '+ma+': '+tt[don.trangThai]:'Không thấy đơn '+(ma||'này')+'. Bạn xem lại mã trong email xác nhận.';});};
+  var tt={cho:'Order received. We’re confirming your payment.','da-tt':'Payment confirmed. Your gift is being printed and ships in 5–7 business days.','da-giao':'Shipped. It’s on its way to you.'};
+  ov.querySelector('#kqtd').textContent=don?'Order '+ma+': '+tt[don.trangThai]:'We can’t find order '+(ma||'that')+'. Check the number in your confirmation email.';});};
 veTuy();
 </script>
 </body></html>

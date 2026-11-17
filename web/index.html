@@ -101,10 +101,10 @@ function cfg(){var c=K.doc('cfg',{});c.webs=c.webs||{};c.nganHang=c.nganHang||{}
 function datWeb(id,o){var c=cfg();c.webs[id]=Object.assign({},c.webs[id],o);K.ghi('cfg',c);}
 /* ---------- dữ liệu mẫu (đánh dấu mau:true, xoá được) ---------- */
 var SP={vuot:[['Cọc giữ chỗ — AI tự động hoá doanh nghiệp',2000000],['Cọc giữ chỗ — Dựng kênh KOL AI bán hàng',2000000]],taynghe:[['Skill: Cắt video dài thành short',249000],['Trọn bộ 12 skill Tay Nghề',1290000],['Skill: Soạn báo giá từ tin nhắn khách',199000]],
- soi:[],minhoi:[['Cốc sứ thiết kế riêng',249000],['Tranh canvas thiết kế riêng',459000],['Áo thun thiết kế riêng',329000]],not:[['Tuyển tập 30 bản dễ cho người mới (PDF)',99000],['Ủng hộ người chép nhạc',50000]],
+ soi:[],littleus:[['Custom ceramic mug',506730],['Custom canvas print',1014730],['Custom t-shirt',633730]],not:[['Tuyển tập 30 bản dễ cho người mới (PDF)',99000],['Ủng hộ người chép nhạc',50000]],
  tramai:[['Gói 550.000 credit',500000],['Bot trả lời bình luận Fanpage — 1 tháng',199000]],keso:[['Bot Telegram báo đơn mới',229000],['Bộ 40 template story bán hàng',129000],['Notion quản lý đơn hàng cho shop nhỏ',179000]],
  coi:[['Robot trợ lý',259000],['Phòng trưng bày sản phẩm',890000]],doi:[['Nạp ví 300.000đ',300000],['Nạp ví 100.000đ',100000]],chenh:[['Chênh Pro — 1 tháng',399000]]};
-var NGUON={vuot:'Đơn ghi danh',taynghe:'Đăng ký bán skill',soi:'Thư thứ Bảy',not:'Nhận sheet: Bài ca niềm vui',tramai:'Muốn bán công cụ trên trạm',keso:'Muốn bán tệp trên Kệ Số',coi:'Muốn mở quầy bán mô hình 3D',doi:'Muốn cho thuê agent',chenh:'Cảnh báo biên ≥ 25%',minhoi:'Theo dõi mẫu mới'};
+var NGUON={vuot:'Đơn ghi danh',taynghe:'Đăng ký bán skill',soi:'Thư thứ Bảy',not:'Nhận sheet: Bài ca niềm vui',tramai:'Muốn bán công cụ trên trạm',keso:'Muốn bán tệp trên Kệ Số',coi:'Muốn mở quầy bán mô hình 3D',doi:'Muốn cho thuê agent',chenh:'Cảnh báo biên ≥ 25%',littleus:'Design updates'};
 function gieo(){var s=7,r=function(){s=(s*16807)%2147483647;return s/2147483647;},now=Date.now(),ds=[],kh=[],vm={},i,p=function(n){return ('0'+n).slice(-2);};
  var coSp=W.filter(function(w){return SP[w.id].length;});
  for(i=0;i<34;i++){var w=coSp[Math.floor(r()*coSp.length)],sp=SP[w.id][Math.floor(r()*SP[w.id].length)],tt=r()<.22?'cho':(r()<.55?'da-giao':'da-tt');
@@ -113,6 +113,9 @@ function gieo(){var s=7,r=function(){s=(s*16807)%2147483647;return s/2147483647;
  W.forEach(function(w3){vm[w3.id]={};for(var d=0;d<14;d++)vm[w3.id][KOLAI.ngay(new Date(now-d*NGAY))]=20+Math.floor(r()*150);});
  K.ghi('orders',don().concat(ds).sort(function(a,b){return b.ts-a.ts;}));K.ghi('leads',khach().concat(kh).sort(function(a,b){return b.ts-a.ts;}));K.ghi('visitsMau',vm);K.ghi('seeded','co');}
 function xoaMau(){K.ghi('orders',don().filter(function(d){return !d.mau;}));K.ghi('leads',khach().filter(function(d){return !d.mau;}));K.ghi('visitsMau',{});K.ghi('seeded','da-xoa');}
+/* web POD đổi tên minhoi → littleus: chuyển dữ liệu cũ sang mã mới */
+(function(){if(K.doc('doiTen1',0))return;['orders','leads','events'].forEach(function(k){var a=K.doc(k,[]);a.forEach(function(x){if(x.site==='minhoi')x.site='littleus';});K.ghi(k,a);});
+ ['visits','visitsMau'].forEach(function(k){var v=K.doc(k,{});if(v.minhoi){v.littleus=v.minhoi;delete v.minhoi;K.ghi(k,v);}});var c=K.doc('cfg',{});if(c.webs&&c.webs.minhoi){c.webs.littleus=c.webs.minhoi;delete c.webs.minhoi;K.ghi('cfg',c);}K.ghi('doiTen1',1);})();
 if(!K.doc('seeded',''))gieo();
 /* ---------- TỔNG QUAN ---------- */
 function nhatKy(){var a=[];don().forEach(function(d){a.push({ts:d.ts,site:d.site,t:'Đơn '+d.id+' · '+d.items.map(function(i){return i.ten;}).join(', '),v:d.tong,mau:d.mau});});
@@ -162,8 +165,8 @@ function donHang(){var d=don().filter(function(x){return (!locWeb||x.site===locW
  man.innerHTML='<div class="loc"><h1 style="font-size:22px;margin-right:auto">Đơn hàng</h1><select id="lw" aria-label="Lọc theo web"><option value="">Tất cả web</option>'+W.map(function(w){return '<option value="'+w.id+'"'+(locWeb===w.id?' selected':'')+'>'+w.ten+'</option>';}).join('')+'</select>'+
   '<select id="lt" aria-label="Lọc theo trạng thái"><option value="">Mọi trạng thái</option>'+Object.keys(TT).map(function(k){return '<option value="'+k+'"'+(locTt===k?' selected':'')+'>'+TT[k]+'</option>';}).join('')+'</select><button class="nut phu" data-vc="csv-don">Sao chép ra Excel</button></div>'+
   '<section class="o">'+(d.length?'<div class="bangw"><table><thead><tr><th>Mã đơn</th><th>Web</th><th>Khách</th><th>Món</th><th class="sor">Tổng</th><th>Lúc</th><th>Trạng thái</th></tr></thead><tbody>'+d.map(function(x){
-   return '<tr><td><b>'+x.id+'</b>'+(x.mau?' <span class="vien tb">mẫu</span>':'')+(x.khachBaoCk?'<small>Khách báo đã chuyển khoản</small>':'')+'</td><td>'+web(x.site).ten+'</td><td>'+E(x.khach.ten)+'<small>'+E(x.khach.sdt)+' · '+E(x.khach.email)+'</small></td><td>'+x.items.map(function(i){return E(i.ten)+(i.sl>1?' × '+i.sl:'')+(i.ghiChu?'<small>'+E(i.ghiChu)+'</small>':'');}).join('<br>')+'</td>'+
-   '<td class="sor"><b>'+vnd(x.tong)+'</b>'+(x.giam?'<small>đã giảm '+vnd(x.giam)+'</small>':'')+'</td><td style="white-space:nowrap">'+gio(x.ts)+'</td><td><select data-tt="'+x.id+'" aria-label="Trạng thái đơn '+x.id+'">'+Object.keys(TT).map(function(k){return '<option value="'+k+'"'+(x.trangThai===k?' selected':'')+'>'+TT[k]+'</option>';}).join('')+'</select></td></tr>';}).join('')+'</tbody></table></div>'
+   return '<tr><td><b>'+x.id+'</b>'+(x.mau?' <span class="vien tb">mẫu</span>':'')+(x.khachBaoCk?'<small>Khách báo đã chuyển khoản</small>':'')+'</td><td>'+web(x.site).ten+'</td><td>'+E(x.khach.ten)+'<small>'+E(x.khach.sdt||x.khach.diaChi||'')+' · '+E(x.khach.email)+'</small></td><td>'+x.items.map(function(i){return E(i.ten)+(i.sl>1?' × '+i.sl:'')+(i.ghiChu?'<small>'+E(i.ghiChu)+'</small>':'');}).join('<br>')+'</td>'+
+   '<td class="sor"><b>'+vnd(x.tong)+'</b>'+(x.tongGoc!=null?'<small>khách trả $'+x.tongGoc.toFixed(2)+'</small>':'')+(x.giam?'<small>đã giảm '+vnd(x.giam)+'</small>':'')+'</td><td style="white-space:nowrap">'+gio(x.ts)+'</td><td><select data-tt="'+x.id+'" aria-label="Trạng thái đơn '+x.id+'">'+Object.keys(TT).map(function(k){return '<option value="'+k+'"'+(x.trangThai===k?' selected':'')+'>'+TT[k]+'</option>';}).join('')+'</select></td></tr>';}).join('')+'</tbody></table></div>'
   :'<p class="trong">Chưa có đơn nào khớp bộ lọc. Mở một web, đặt thử một đơn, rồi quay lại đây.</p>')+'<textarea class="csv" id="csv-don" hidden readonly aria-label="Dữ liệu đơn hàng"></textarea></section>';}
 /* ---------- KHÁCH ĐĂNG KÝ ---------- */
 function khachDk(){var l=khach();
@@ -199,7 +202,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-vc]'
  if(!b)return;var v=b.dataset.vc;
  if(v==='xoa-mau'){xoaMau();KOLAI.toast('Đã xoá dữ liệu mẫu');ve();}
  if(v==='nap-mau'){gieo();KOLAI.toast('Đã nạp dữ liệu mẫu');ve();}
- if(v==='csv-don')chep(csv([['Mã đơn','Web','Khách','Điện thoại','Email','Món','Tổng','Lúc','Trạng thái']].concat(don().map(function(x){return [x.id,web(x.site).ten,x.khach.ten,x.khach.sdt,x.khach.email,x.items.map(function(i){return i.ten+' x'+i.sl;}).join('; '),x.tong,gio(x.ts),TT[x.trangThai]];}))),'csv-don');
+ if(v==='csv-don')chep(csv([['Mã đơn','Web','Khách','Điện thoại / địa chỉ','Email','Món','Tổng (VND)','Lúc','Trạng thái']].concat(don().map(function(x){return [x.id,web(x.site).ten,x.khach.ten,x.khach.sdt||x.khach.diaChi||'',x.khach.email,x.items.map(function(i){return i.ten+' x'+i.sl;}).join('; '),x.tong,gio(x.ts),TT[x.trangThai]];}))),'csv-don');
  if(v==='csv-khach')chep(khach().map(function(x){return x.email;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join('\n'),'csv-khach');
  if(v==='luu-nh'){var cc=cfg(),bin=document.getElementById('nh-bin').value,tk=document.getElementById('nh-tk').value.replace(/\s/g,'');if(bin&&!/^\d{6,19}$/.test(tk)){KOLAI.toast('Số tài khoản chỉ gồm 6–19 chữ số');return;}
   cc.nganHang={bin:bin,soTk:tk,chuTk:document.getElementById('nh-chu').value.trim().toUpperCase(),tenNh:(NH.filter(function(x){return x[0]===bin;})[0]||[])[1]||''};cc.zalo=document.getElementById('zalo').value.trim();K.ghi('cfg',cc);KOLAI.toast('Đã lưu tài khoản nhận tiền');veQr();}

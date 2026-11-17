@@ -12,6 +12,8 @@
 - [ ] Anh nói 20 web nhưng danh sách có 10 mô hình + 1 web quản lý: chốt 9 web còn lại (em đã gợi ý trong báo cáo 16/11)
 - [ ] Nhập tài khoản ngân hàng nhận tiền (Trung tâm → Cài đặt) để hiện mã QR thật
 - [ ] Chọn tên miền + nơi lưu đơn (Supabase hoặc Google Sheet) để đơn của khách thật đổ về Trung tâm
+- [ ] Little Us (POD tiếng Anh, giá USD): chọn cổng thanh toán quốc tế (thẻ/PayPal) và xưởng in giao nước ngoài; tỷ giá 25.400 trong `web/chung/cau-hinh.js` là số mẫu
+- [ ] Bản trên Google Drive còn là bản 16/11: anh muốn em cập nhật thì nhắn
 - [ ] Chọn dịch vụ thật cho 4 web cần dữ liệu ngoài: Chênh (nguồn giá), Cõi (tạo 3D), Trạm AI và Đội (API/agent)
 
 ## Đang làm
@@ -20,6 +22,7 @@
 - [ ] Chạy `/ke-hoach-tuan` để có gói nội dung tuần đầu tiên
 
 ## Đã xong
+- [x] 17/11: web POD đổi thành Little Us (tiếng Anh, USD); web bán skill Tay Nghề làm lại giao diện thân thiện
 - [x] 16/11: dựng 10 web bán hàng + Trung tâm điều hành (bản xem thử, `web/`), đã chạy thử tự động 27 bước
 - [x] Dựng bộ phòng ban AI (AI Tổng + 11 sub agent)
 - [x] Đổi tên 11 nhân sự sang tên nữ KOL (biệt danh nội bộ)

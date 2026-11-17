@@ -6,9 +6,9 @@ Mở `index.html` (Trung tâm điều hành) trước, từ đó bấm "Mở web
 |---|---|---|---|
 | `index.html` | Trung tâm KOLAI | Quản lý tất cả các web | Bàn điều khiển vận hành |
 | `vuot/` | VƯỢT | Khoá học giá trị cao | Hãng vũ trụ (đếm ngược ngày phóng) |
-| `taynghe/` | TAY NGHỀ | Bán skill cho AI | Type Darkroom — phòng nghiên cứu chữ |
+| `taynghe/` | TAY NGHỀ | Bán skill cho AI | Cửa hàng ứng dụng thân thiện (bản 2, thay giao diện đỏ đen) |
 | `soi/` | SOI | Blog chuyên gia + affiliate | Josef & Anni Albers Foundation — quỹ nghệ thuật |
-| `minhoi/` | MÌNH ƠI | POD có trình dựng nhân vật | Gossby, Macorner — web quà cá nhân hoá bán chạy |
+| `littleus/` | LITTLE US | POD có trình dựng nhân vật, tiếng Anh, giá USD | Gossby, Macorner — web quà cá nhân hoá bán chạy |
 | `not/` | NỐT | Tặng sheet nhạc | MOXIE Theatre — nhà hát |
 | `tramai/` | TRẠM AI | Chợ công cụ & API AI | ISTD Awards — giải thưởng chữ |
 | `keso/` | KỆ SỐ | Sàn sản phẩm số | Under10Archive — kho lưu trữ video nhạc |

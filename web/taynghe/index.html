@@ -4,90 +4,115 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>TAY NGHỀ — Chợ skill cho AI</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap">
 <style>
-/* Bố cục: kiểu phòng thí nghiệm chữ — băng đỏ trên cùng với chữ điểm ảnh khổng lồ, thân trang đen chữ đỏ, mỗi skill là một dòng lệnh có mũi tên. */
-:root{--do:#ff2a1a;--den:#140404;--den2:#220707;--kem:#ffe9e4;--mo:#b3564d;
-  --hien:'VT323','Courier New',monospace;--than:'IBM Plex Mono',ui-monospace,Menlo,monospace;
-  --k-bg:#140404;--k-fg:#ffe9e4;--k-accent:#ff2a1a;--k-on:#140404;--k-radius:0px;--k-font:var(--than);--k-line:rgba(255,42,26,.45);color-scheme:dark}
-*{box-sizing:border-box}
-body{margin:0;background:var(--den);color:var(--do);font:400 15px/1.6 var(--than)}
-a{color:inherit}
-.w{max-width:1100px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
-.bang{background:var(--do);color:var(--den);position:relative;overflow:hidden}
-.bang .w{padding-block:16px 26px}
-.tren{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.06em}
-.tren button{all:unset;cursor:pointer;background:var(--den);color:var(--do);padding:8px 14px}
-.tren button:focus-visible,button:focus-visible,a:focus-visible{outline:2px dashed currentColor;outline-offset:3px}
-.bang h1{font:400 clamp(86px,22vw,260px)/.78 var(--hien);margin:26px 0 0;letter-spacing:.02em;text-transform:uppercase;
-  -webkit-mask-image:repeating-linear-gradient(#000 0 5px,transparent 5px 8px);mask-image:repeating-linear-gradient(#000 0 5px,transparent 5px 8px)}
-.moc{position:absolute;width:22px;height:6px;background:var(--den)}
-.gt{padding-block:34px 10px;display:grid;grid-template-columns:28px 1fr;gap:18px;max-width:780px}
-.o{width:22px;height:12px;background:var(--do);margin-top:6px}
-.gt p{margin:0;text-transform:uppercase;font-weight:700;font-size:14px;letter-spacing:.03em}
-.loc{display:flex;flex-wrap:wrap;gap:8px;padding-block:26px 8px}
-.loc button{all:unset;cursor:pointer;padding:7px 12px;border:1px solid var(--do);text-transform:uppercase;font-size:13px;font-weight:500}
-.loc button[aria-pressed=true]{background:var(--do);color:var(--den)}
-.tim{width:100%;background:transparent;border:0;border-bottom:1px solid var(--do);color:var(--kem);font:inherit;padding:12px 0;margin-top:8px}
-.tim::placeholder{color:var(--mo)}.tim:focus{outline:none;border-bottom-width:3px}
-.ds{list-style:none;margin:18px 0 0;padding:0}
-.ds li{border-top:1px solid rgba(255,42,26,.35)}
-.ds button{all:unset;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline;width:100%;padding:14px 0;box-sizing:border-box}
-.ds .ten{font:400 clamp(30px,5.2vw,50px)/1 var(--hien);text-transform:uppercase;letter-spacing:.02em}
-.ds .ten::after{content:" →";opacity:.5}
-.ds .gia{font-weight:700;font-size:16px;white-space:nowrap}
-.ds .phu{grid-column:1/-1;color:var(--mo);font-size:13px;text-transform:uppercase}
-.ds button:hover,.ds button:focus-visible{background:var(--do);color:var(--den);padding-inline:12px;outline:none}
-.ds button:hover .phu,.ds button:focus-visible .phu{color:var(--den)}.ds button:hover .ten::after{opacity:1}
-.trong{padding:28px 0;color:var(--mo)}
-.khoi{padding-block:70px 20px}
-h2{font:400 clamp(44px,8vw,84px)/.9 var(--hien);text-transform:uppercase;margin:0 0 26px}
-.buoc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
-.buoc div{border-top:6px solid var(--do);padding-top:14px}
-.buoc b{display:block;text-transform:uppercase;margin-bottom:6px}.buoc p{margin:0;color:var(--kem);font-size:14px}
-pre{background:var(--den2);border:1px solid rgba(255,42,26,.4);color:var(--kem);padding:16px;overflow-x:auto;font:400 13px/1.6 var(--than);margin:26px 0 0}
-pre i{color:var(--do);font-style:normal}
-.tron{background:var(--do);color:var(--den);padding:26px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:60px}
-.tron b{font:400 clamp(34px,6vw,58px)/.9 var(--hien);text-transform:uppercase;display:block}
-.nut{all:unset;cursor:pointer;background:var(--den);color:var(--do);padding:14px 22px;font-weight:700;text-transform:uppercase;font-size:14px;box-sizing:border-box;text-align:center}
-.nut.d{background:var(--do);color:var(--den)}
-.ban form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
-@media(max-width:720px){.ban form{grid-template-columns:1fr}}
-.ban input{background:transparent;border:0;border-bottom:1px solid var(--do);color:var(--kem);font:inherit;padding:12px 0;width:100%}
-.ban input::placeholder{color:var(--mo)}.ban input:focus{outline:none;border-bottom-width:3px}
-footer{padding-block:40px 80px;color:var(--mo);font-size:12px;text-transform:uppercase}
-.ct h3{font:400 44px/.9 var(--hien);text-transform:uppercase;margin:0;color:var(--do)}
-.ct dl{margin:0;display:grid;gap:12px}.ct dt{font-size:11px;text-transform:uppercase;color:var(--do);font-weight:700}.ct dd{margin:2px 0 0;color:var(--kem)}
-.ct q{display:block;border-left:6px solid var(--do);padding:8px 12px;background:var(--den2);quotes:none}
+/* Bố cục: kiểu cửa hàng ứng dụng thân thiện — nền sáng, thẻ trắng bo tròn, mỗi nhóm skill một màu phấn và một biểu tượng; đầu trang là ô tìm việc thật to cạnh một đoạn trò chuyện mẫu. */
+:root{--nen:#f2f8fb;--mat:#ffffff;--muc:#15324a;--nhat:#5b7386;--ke:#d9e5ee;--chinh:#0a7f63;--chinh2:#086650;--nang:#ffd65c;--nang2:#fff3c9;
+  --hien:'Baloo 2','Trebuchet MS',system-ui,sans-serif;--than:'Be Vietnam Pro',system-ui,sans-serif;
+  --k-bg:#fff;--k-fg:#15324a;--k-accent:#0a7f63;--k-on:#fff;--k-radius:999px;--k-font:var(--than);--k-line:#d9e5ee}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--nen);color:var(--muc);font:400 16px/1.55 var(--than)}
+.w{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--nang);outline-offset:2px}
+h1,h2,h3{font-family:var(--hien);margin:0;line-height:1.12;text-wrap:balance}
+.dau{position:sticky;top:0;z-index:30;background:rgba(242,248,251,.9);backdrop-filter:blur(8px)}
+.dau .w{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 24px/1 var(--hien)}
+.logo i{width:38px;height:38px;border-radius:12px;background:var(--chinh);display:grid;place-items:center}
+.logo svg{width:22px;height:22px}
+.dau nav{display:flex;gap:6px;align-items:center}
+.dau nav a{text-decoration:none;font-weight:500;padding:8px 12px;border-radius:999px}.dau nav a:hover{background:#fff}
+@media(max-width:640px){.dau nav a{display:none}}
+.gio{all:unset;cursor:pointer;background:var(--mat);border:1.5px solid var(--ke);border-radius:999px;padding:9px 16px;font-weight:600;display:flex;gap:8px;align-items:center}
+.gio b{background:var(--nang);border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-size:13px;padding:0 6px}
+.mo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:36px;align-items:center;padding-block:36px 50px}
+@media(max-width:860px){.mo{grid-template-columns:minmax(0,1fr);gap:26px;padding-block:20px 36px}}
+.nhan{display:inline-block;background:var(--nang2);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;margin-bottom:14px}
+.mo h1{font-size:clamp(36px,5.4vw,60px);font-weight:800}
+.mo h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--nang) 62%);padding:0 4px}
+.mo p{color:var(--nhat);font-size:18px;margin:14px 0 22px;max-width:520px}
+.tim{display:flex;background:var(--mat);border:2px solid var(--muc);border-radius:18px;padding:5px;max-width:520px;box-shadow:0 6px 0 rgba(21,50,74,.08)}
+.tim input{flex:1;min-width:0;border:0;background:transparent;font:inherit;color:inherit;padding:12px 14px}.tim input:focus{outline:none}
+.nut{all:unset;cursor:pointer;box-sizing:border-box;background:var(--chinh);color:#fff;font-weight:600;padding:12px 20px;border-radius:14px;text-align:center;transition:background .15s,transform .15s}
+.nut:hover{background:var(--chinh2)}.nut:active{transform:translateY(1px)}
+.nut.nhe{background:var(--mat);color:var(--muc);box-shadow:inset 0 0 0 1.5px var(--ke)}.nut.nhe:hover{box-shadow:inset 0 0 0 1.5px var(--muc)}
+.nut.toi{background:var(--muc)}
+.diem{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:14px;color:var(--nhat);list-style:none;padding:0}
+.diem li::before{content:"✓";color:var(--chinh);font-weight:700;margin-right:6px}
+.tro{background:var(--mat);border-radius:26px;padding:20px;box-shadow:0 18px 40px -22px rgba(21,50,74,.45);display:flex;flex-direction:column;gap:10px;border:1px solid var(--ke)}
+.tro small{color:var(--nhat);text-align:center;font-size:12px}
+.bong{max-width:86%;padding:11px 15px;border-radius:18px;font-size:15px;line-height:1.45}
+.bong.toi{align-self:flex-end;background:var(--chinh);color:#fff;border-bottom-right-radius:6px}
+.bong.ai{align-self:flex-start;background:#eef4f8;border-bottom-left-radius:6px}
+.bong.ai b{display:block;font-size:12px;color:var(--nhat);font-weight:600;margin-bottom:2px}
+.loc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.loc button{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;background:var(--mat);border:1.5px solid var(--ke);border-radius:999px;padding:8px 14px;font-weight:500;font-size:15px}
+.loc button svg{width:18px;height:18px}.loc button span{color:var(--nhat);font-size:13px}
+.loc button[aria-pressed=true]{background:var(--muc);color:#fff;border-color:var(--muc)}.loc button[aria-pressed=true] span{color:#c9d8e3}
+.dautb{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h2{font-size:clamp(28px,3.6vw,38px);font-weight:800}
+.luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.the{background:var(--mat);border:1px solid var(--ke);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s}
+.the:hover{transform:translateY(-3px);box-shadow:0 14px 30px -20px rgba(21,50,74,.5)}
+.the .tren{display:flex;gap:12px;align-items:flex-start}
+.bt{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;flex:none}.bt svg{width:26px;height:26px}
+.the h3{font-size:21px;font-weight:700}.the .nh{font-size:13px;color:var(--nhat)}
+.the p{margin:0;color:var(--nhat);font-size:15px;flex:1}
+.the .duoi{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:6px}
+.gia{font:800 22px/1 var(--hien)}
+.the .nut{padding:10px 16px;font-size:15px}.the .nut[aria-pressed=true]{background:var(--nang2);color:var(--muc)}
+.chu{all:unset;cursor:pointer;font-size:14px;font-weight:500;color:var(--chinh);text-decoration:underline;text-underline-offset:3px}
+.trong{background:var(--mat);border:1.5px dashed var(--ke);border-radius:22px;padding:30px;text-align:center;color:var(--nhat);grid-column:1/-1}
+.bo{background:var(--nang);border-radius:26px;padding:26px;display:flex;gap:16px 30px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:26px}
+.bo h2{font-size:clamp(26px,3.4vw,36px)}.bo p{margin:4px 0 0}
+.khoi{padding-block:56px 10px}
+.buoc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;counter-reset:b}
+.buoc div{background:var(--mat);border:1px solid var(--ke);border-radius:22px;padding:20px;counter-increment:b}
+.buoc div::before{content:counter(b);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--nang2);font:800 20px/1 var(--hien);margin-bottom:10px}
+.buoc b{font:700 20px/1.2 var(--hien);display:block;margin-bottom:4px}.buoc p{margin:0;color:var(--nhat);font-size:15px}
+.ban{background:#e3f4ee;border-radius:26px;padding:30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px;align-items:center;margin-top:56px}
+@media(max-width:760px){.ban{grid-template-columns:minmax(0,1fr)}}
+.ban p{margin:8px 0 0;color:#2f5568}
+.ban form{display:flex;flex-direction:column;gap:10px}
+.ban input{font:inherit;color:inherit;background:#fff;border:1.5px solid var(--ke);border-radius:14px;padding:13px 15px;width:100%}
+footer{padding-block:36px 90px;color:var(--nhat);font-size:13px;text-align:center}
+.ct h3{font-size:28px;font-weight:800}
+.ct dl{margin:0;display:grid;gap:12px}.ct dt{font-size:13px;color:var(--nhat);font-weight:600}.ct dd{margin:2px 0 0}
+.ct q{display:block;background:#eef4f8;border-radius:14px;padding:10px 14px;quotes:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="bang"><span class="moc" style="left:0;top:38px"></span><span class="moc" style="right:0;top:38px"></span><span class="moc" style="left:0;bottom:30px"></span><span class="moc" style="right:0;bottom:30px"></span>
-  <div class="w"><div class="tren"><span>Chợ skill cho AI</span><button data-k-gio>Giỏ [<span data-k-dem>0</span>]</button></div><h1>Tay nghề</h1></div></div>
+<header class="dau"><div class="w"><a class="logo" href="#top"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5.2L20 9l-4.2 3.8L17 19l-5-3-5 3 1.2-6.2L4 9l5.6-.8z"/></svg></i>Tay Nghề</a>
+  <nav><a href="#cho">Khám phá</a><a href="#cach">Cách dùng</a><a href="#ban">Bán skill</a><button class="gio" data-k-gio>Giỏ hàng <b data-k-dem>0</b></button></nav></div></header>
 
-<div class="w">
-  <div class="gt"><span class="o"></span><p>Skill là một bộ hướng dẫn đóng gói sẵn. Cài vào là AI của bạn biết làm trọn một việc cụ thể, làm đúng quy trình của người trong nghề, không cần bạn viết prompt.</p></div>
-  <div class="loc" id="loc" role="group" aria-label="Lọc theo nhóm"></div>
-  <input class="tim" id="tim" type="search" placeholder="GÕ VIỆC BẠN CẦN: cắt video, báo giá, tách nền…" aria-label="Tìm skill">
-  <ul class="ds" id="ds"></ul>
+<main class="w" id="top">
+  <section class="mo">
+    <div><span class="nhan">Chợ skill cho AI</span><h1>Dạy AI của bạn thêm <em>một nghề mới</em></h1>
+      <p>Skill là bộ hướng dẫn đóng gói sẵn. Cài vào là AI biết làm trọn một việc, đúng cách của người trong nghề. Bạn không cần viết prompt.</p>
+      <form class="tim" id="ftim" role="search"><input id="tim" type="search" placeholder="Bạn cần AI làm việc gì? Ví dụ: cắt video" aria-label="Tìm skill"><button class="nut" type="submit">Tìm skill</button></form>
+      <ul class="diem"><li>Cài bằng một câu nói</li><li>Chạy trên Claude, Codex, ChatGPT</li><li>Cập nhật miễn phí 12 tháng</li></ul></div>
+    <div class="tro" aria-label="Ví dụ một cuộc trò chuyện sau khi cài skill">
+      <div class="bong toi">Khách hỏi 200 áo thun in logo, giao Đà Nẵng. Soạn báo giá giúp tôi.</div>
+      <div class="bong ai"><b>AI + skill Soạn báo giá</b>Xong rồi ạ. Báo giá 1 trang gồm đơn giá theo số lượng, phí in, phí giao và hạn hiệu lực. Em soạn luôn tin nhắn gửi khách ở dưới.</div>
+      <div class="bong toi">Gọn quá. Thêm phương án 300 áo nhé.</div>
+      <div class="bong ai"><b>AI + skill Soạn báo giá</b>Đã thêm phương án 300 áo, rẻ hơn mỗi áo 6.000đ.</div>
+      <small>Ví dụ minh hoạ cách dùng sau khi cài skill</small></div>
+  </section>
 
-  <div class="tron"><div><b>Trọn bộ 12 skill</b><span id="tronmo"></span></div><button class="nut" id="tron">Lấy cả bộ</button></div>
+  <section id="cho"><div class="dautb"><h2>Chọn việc bạn muốn AI làm</h2><span style="color:var(--nhat)" id="dem"></span></div>
+    <div class="loc" id="loc" role="group" aria-label="Lọc theo nhóm"></div><div class="luoi" id="ds"></div>
+    <div class="bo"><div><h2>Trọn bộ 12 skill</h2><p id="tronmo"></p></div><button class="nut toi" id="tron">Lấy cả bộ</button></div></section>
 
-  <section class="khoi"><h2>Dùng thế nào</h2>
-    <div class="buoc">
-      <div><b>1. Chọn và thanh toán</b><p>Quét mã QR chuyển khoản. Link cài gửi về email ngay khi shop xác nhận.</p></div>
-      <div><b>2. Cài bằng một câu</b><p>Dán link vào Claude hoặc Codex và nói "cài skill này". AI tự làm phần còn lại.</p></div>
-      <div><b>3. Nhờ việc bằng tiếng Việt</b><p>Mỗi skill có sẵn câu nhờ mẫu. Bạn chỉ việc thay nội dung của mình vào.</p></div>
-    </div>
-<pre><i>bạn ›</i> Cài skill "Soạn báo giá từ tin nhắn khách" giúp tôi
-<i>AI  ›</i> Đã cài vào dự án. Skill này dùng khi khách nhắn hỏi giá.
-<i>bạn ›</i> Khách hỏi 200 áo thun in logo, giao Đà Nẵng. Soạn báo giá.
-<i>AI  ›</i> Đây là báo giá 1 trang kèm tin nhắn gửi khách…</pre></section>
+  <section class="khoi" id="cach"><div class="dautb"><h2>Ba bước là dùng được</h2></div>
+    <div class="buoc"><div><b>Chọn và thanh toán</b><p>Quét mã QR chuyển khoản. Link cài gửi về email ngay khi shop xác nhận.</p></div>
+      <div><b>Cài bằng một câu</b><p>Dán link vào Claude hoặc Codex rồi nói "cài skill này". AI tự làm phần còn lại.</p></div>
+      <div><b>Nhờ việc bằng tiếng Việt</b><p>Mỗi skill có sẵn câu nhờ mẫu. Bạn chỉ việc thay nội dung của mình vào.</p></div></div></section>
 
-  <section class="khoi ban"><h2>Bạn có nghề? Đóng gói mà bán</h2>
-    <div class="gt" style="padding-top:0"><span class="o"></span><p>Biến quy trình làm việc của bạn thành skill. Viết một lần, bán nhiều lần. Chợ giữ 20% mỗi đơn, phần còn lại là của bạn.</p></div>
-    <form id="ban" novalidate><input id="b-ten" placeholder="TÊN CỦA BẠN" aria-label="Tên"><input id="b-email" type="email" placeholder="EMAIL" aria-label="Email"><button class="nut d" type="submit">Đăng ký bán</button></form></section>
-</div>
+  <section class="ban" id="ban"><div><h2>Bạn có nghề? Đóng gói mà bán</h2><p>Biến cách làm việc của bạn thành skill. Viết một lần, bán nhiều lần. Chợ giữ 20% mỗi đơn, phần còn lại là của bạn.</p></div>
+    <form id="fban" novalidate><input id="b-ten" placeholder="Tên của bạn" aria-label="Tên"><input id="b-email" type="email" placeholder="Email" aria-label="Email"><button class="nut" type="submit">Đăng ký bán skill</button></form></section>
+</main>
 <footer><div class="w">© 2026 Tay Nghề — thuộc hệ sinh thái KOLAI · Danh mục và giá là bản mẫu chờ duyệt</div></footer>
 
 <script src="../chung/cau-hinh.js"></script><script src="../chung/kolai.js"></script>
@@ -107,22 +132,40 @@ var S=[
  ['bao-cao','Báo cáo doanh thu tuần từ Excel','Văn phòng',199000,'Khi có file bán hàng và cần báo cáo 1 trang cho sếp.','Đọc file tuần này và chỉ ra 3 điểm cần sửa'],
  ['bien-ban','Tóm tắt biên bản họp','Văn phòng',99000,'Khi có bản ghi cuộc họp và cần danh sách việc ai làm, hạn nào.','Tóm tắt buổi họp này thành việc cần làm']
 ].map(function(a){return {id:a[0],ten:a[1],nhom:a[2],gia:a[3],dung:a[4],cau:a[5]};});
+/* mỗi nhóm một màu phấn và một biểu tượng */
+var NHOM={
+ 'Tất cả':['#e6eef4','<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>'],
+ 'Nội dung':['#ffe2d2','<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>'],
+ 'Video':['#e6e0ff','<rect x="3" y="5" width="18" height="14" rx="4"/><path d="M10 9.2l5 2.8-5 2.8z"/>'],
+ 'Hình ảnh':['#d5f3e4','<rect x="3" y="4" width="18" height="16" rx="4"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M20.5 15.5L16 11l-8 8.5"/>'],
+ 'Bán hàng':['#fff0b8','<path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6.5a3 3 0 016 0V8"/>'],
+ 'Chăm khách':['#d8ebff','<path d="M4 5h16v11H10l-5 4v-4H4V5z"/><path d="M8.5 10.5h7"/>'],
+ 'Văn phòng':['#ffdfe9','<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5h6v2M3 13h18"/>']};
+function bt(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="#15324a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+NHOM[n][1]+'</svg>';}
 var nhom='Tất cả',q='';
-var NH=['Tất cả'].concat(S.map(function(s){return s.nhom;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
-function veLoc(){document.getElementById('loc').innerHTML=NH.map(function(n){return '<button aria-pressed="'+(n===nhom)+'" data-n="'+n+'">'+n+'</button>';}).join('');}
+function veLoc(){document.getElementById('loc').innerHTML=Object.keys(NHOM).map(function(n){var so=n==='Tất cả'?S.length:S.filter(function(s){return s.nhom===n;}).length;
+ return '<button aria-pressed="'+(n===nhom)+'" data-n="'+n+'">'+(n===nhom?bt(n).replace('#15324a','#fff'):bt(n))+n+' <span>'+so+'</span></button>';}).join('');}
 function ve(){var a=S.filter(function(s){return (nhom==='Tất cả'||s.nhom===nhom)&&(!q||(s.ten+' '+s.dung+' '+s.nhom).toLowerCase().indexOf(q)>-1);});
- document.getElementById('ds').innerHTML=a.length?a.map(function(s){return '<li><button data-id="'+s.id+'"><span class="ten">'+s.ten+'</span><span class="gia">'+KOLAI.vnd(s.gia)+'</span><span class="phu">'+s.nhom+' · '+s.dung+'</span></button></li>';}).join(''):'<li class="trong">Chưa có skill khớp với "'+KOLAI.esc(q)+'". Thử từ khác, hoặc đăng ký bán skill đó ở cuối trang.</li>';}
+ document.getElementById('dem').textContent=a.length+' skill';
+ document.getElementById('ds').innerHTML=a.length?a.map(function(s){var co=KOLAI.gio.co(s.id);return '<article class="the"><div class="tren"><span class="bt" style="background:'+NHOM[s.nhom][0]+'">'+bt(s.nhom)+'</span><div><h3>'+s.ten+'</h3><span class="nh">'+s.nhom+'</span></div></div>'+
+  '<p>'+s.dung+'</p><button class="chu" data-ct="'+s.id+'">Xem câu nhờ mẫu</button><div class="duoi"><span class="gia">'+KOLAI.vnd(s.gia)+'</span><button class="nut" data-them="'+s.id+'" aria-pressed="'+co+'">'+(co?'Đã trong giỏ ✓':'Thêm vào giỏ')+'</button></div></article>';}).join('')
+  :'<div class="trong">Chưa có skill nào khớp với "'+KOLAI.esc(q)+'".<br>Thử gõ từ khác, hoặc bấm "Tất cả" để xem hết.</div>';}
 veLoc();ve();
 document.getElementById('loc').onclick=function(e){var b=e.target.closest('button');if(b){nhom=b.dataset.n;veLoc();ve();}};
-document.getElementById('tim').oninput=function(e){q=e.target.value.trim().toLowerCase();ve();};
-document.getElementById('ds').onclick=function(e){var b=e.target.closest('button[data-id]');if(!b)return;var s=S.filter(function(x){return x.id===b.dataset.id;})[0];
- var ov=KOLAI.mo('<div class="k-hd"><span>'+s.nhom.toUpperCase()+'</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd ct"><h3>'+s.ten+'</h3>'+
-  '<dl><div><dt>Dùng khi</dt><dd>'+s.dung+'</dd></div><div><dt>Câu nhờ mẫu</dt><dd><q>'+s.cau+'</q></dd></div><div><dt>Chạy trên</dt><dd>Claude Code · Claude.ai · Codex · ChatGPT</dd></div><div><dt>Gồm</dt><dd>File hướng dẫn SKILL.md, mẫu kết quả, cập nhật miễn phí 12 tháng</dd></div></dl></div>'+
-  '<div class="k-ft"><div class="k-tong"><span>Giá</span><span>'+KOLAI.vnd(s.gia)+'</span></div><button class="k-btn" id="them">'+(KOLAI.gio.co(s.id)?'Đã có trong giỏ — xem giỏ':'Thêm vào giỏ')+'</button></div>');
- ov.querySelector('#them').onclick=function(){if(!KOLAI.gio.co(s.id))KOLAI.gio.them({id:s.id,ten:'Skill: '+s.ten,gia:s.gia});KOLAI.gio.mo();};};
+document.getElementById('tim').oninput=function(e){q=e.target.value.trim().toLowerCase();if(q&&nhom!=='Tất cả'){nhom='Tất cả';veLoc();}ve();};
+document.getElementById('ftim').addEventListener('submit',function(e){e.preventDefault();document.getElementById('cho').scrollIntoView({behavior:'smooth'});});
+function tim(id){return S.filter(function(x){return x.id===id;})[0];}
+function them(s){if(!KOLAI.gio.co(s.id))KOLAI.gio.them({id:s.id,ten:'Skill: '+s.ten,gia:s.gia});else KOLAI.gio.mo();}
+document.getElementById('ds').onclick=function(e){var t=e.target.closest('[data-them]'),c=e.target.closest('[data-ct]');
+ if(t){them(tim(t.dataset.them));return;}if(!c)return;var s=tim(c.dataset.ct);
+ var ov=KOLAI.mo('<div class="k-hd"><span>'+s.nhom+'</span><button class="k-x" data-k-dong aria-label="Đóng">×</button></div><div class="k-bd ct"><h3>'+s.ten+'</h3>'+
+  '<dl><div><dt>Dùng khi</dt><dd>'+s.dung+'</dd></div><div><dt>Câu nhờ mẫu</dt><dd><q>'+s.cau+'</q></dd></div><div><dt>Chạy trên</dt><dd>Claude Code · Claude.ai · Codex · ChatGPT</dd></div><div><dt>Trong gói có</dt><dd>File hướng dẫn cho AI, mẫu kết quả, cập nhật miễn phí 12 tháng</dd></div></dl></div>'+
+  '<div class="k-ft"><div class="k-tong"><span>Giá</span><span>'+KOLAI.vnd(s.gia)+'</span></div><button class="k-btn" id="ct-them">'+(KOLAI.gio.co(s.id)?'Đã trong giỏ — xem giỏ':'Thêm vào giỏ')+'</button></div>',true);
+ ov.querySelector('#ct-them').onclick=function(){if(!KOLAI.gio.co(s.id))KOLAI.gio.them({id:s.id,ten:'Skill: '+s.ten,gia:s.gia},true);KOLAI.gio.mo();};};
+document.addEventListener('kolai:gio',ve);
 var tongLe=S.reduce(function(t,s){return t+s.gia;},0),giaBo=1290000;
-document.getElementById('tronmo').textContent='Mua lẻ '+KOLAI.vnd(tongLe)+' · cả bộ '+KOLAI.vnd(giaBo);
+document.getElementById('tronmo').textContent='Mua lẻ hết '+KOLAI.vnd(tongLe)+'. Lấy cả bộ chỉ '+KOLAI.vnd(giaBo)+', tiết kiệm '+KOLAI.vnd(tongLe-giaBo)+'.';
 document.getElementById('tron').onclick=function(){KOLAI.datHang({tieuDe:'Trọn bộ 12 skill',items:[{id:'tron-bo',ten:'Trọn bộ 12 skill Tay Nghề',gia:giaBo,sl:1,ghiChu:'Tiết kiệm '+KOLAI.vnd(tongLe-giaBo)+' so với mua lẻ'}]});};
-document.getElementById('ban').addEventListener('submit',function(e){e.preventDefault();if(KOLAI.lead({email:document.getElementById('b-email').value,ten:document.getElementById('b-ten').value,nguon:'Đăng ký bán skill'})){e.target.reset();KOLAI.toast('Đã nhận. Chợ sẽ gửi hướng dẫn đóng gói skill qua email.');}});
+document.getElementById('fban').addEventListener('submit',function(e){e.preventDefault();if(KOLAI.lead({email:document.getElementById('b-email').value,ten:document.getElementById('b-ten').value,nguon:'Đăng ký bán skill'})){e.target.reset();KOLAI.toast('Đã nhận. Chợ sẽ gửi hướng dẫn đóng gói skill qua email.');}});
 </script>
 </body></html>

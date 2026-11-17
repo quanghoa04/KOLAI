@@ -5,11 +5,12 @@ window.KOLAI_CFG = {
   hq: '../index.html',          // đường về Trung tâm điều hành
   nganHang: { bin: '', soTk: '', chuTk: '', tenNh: '' },   // tài khoản nhận tiền (chưa cài)
   zalo: '',                     // số Zalo nhận đơn (chưa cài)
+  tyGia: { USD: 25400 },        // tỷ giá mẫu để quy đơn USD về VND trong Trung tâm — cần cập nhật khi lên sóng
   webs: [
     { id: 'vuot',    ten: 'VƯỢT',     moHinh: 'Khoá học giá trị cao',            moTa: 'Bán chương trình đào tạo chuyên sâu, thu cọc giữ chỗ',        mau: '#ff5a1f' },
-    { id: 'taynghe', ten: 'TAY NGHỀ', moHinh: 'Bán skill cho AI',                moTa: 'Chợ skill cài vào Claude, Codex, ChatGPT',                    mau: '#ff2a1a' },
+    { id: 'taynghe', ten: 'TAY NGHỀ', moHinh: 'Bán skill cho AI',                moTa: 'Chợ skill cài vào Claude, Codex, ChatGPT',                    mau: '#0a7f63' },
     { id: 'soi',     ten: 'SOI',      moHinh: 'Blog chuyên gia + affiliate',     moTa: 'Bài đánh giá công nghệ, kiếm hoa hồng liên kết',              mau: '#c9a400' },
-    { id: 'minhoi',  ten: 'MÌNH ƠI',  moHinh: 'Quà in theo yêu cầu (POD)',       moTa: 'Khách tự dựng nhân vật, in lên cốc, áo, tranh',               mau: '#e4572e' },
+    { id: 'littleus', ten: 'LITTLE US', moHinh: 'Quà in theo yêu cầu (POD) · tiếng Anh', moTa: 'Bán cho khách nước ngoài, giá USD: tự dựng nhân vật, in lên cốc, áo, tranh', mau: '#e4572e' },
     { id: 'not',     ten: 'NỐT',      moHinh: 'Tặng sheet nhạc',                 moTa: 'Tặng bản nhạc miễn phí để thu email khách',                   mau: '#e8a0a0' },
     { id: 'tramai',  ten: 'TRẠM AI',  moHinh: 'Chợ công cụ & API AI',            moTa: 'Bán quyền dùng công cụ AI, API, bot mạng xã hội',             mau: '#111111' },
     { id: 'keso',    ten: 'KỆ SỐ',    moHinh: 'Sàn sản phẩm số',                 moTa: 'Bán script, template, preset — làm một lần bán mãi',          mau: '#1a1a1a' },
